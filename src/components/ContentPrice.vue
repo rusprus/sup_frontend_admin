@@ -1,8 +1,8 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="max-w-7xl mx-auto py-24 px-4 bg-white sm:px-6 lg:px-8">
-    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">Pricing plans for teams of all sizes</h2>
-    <p class="mt-6 max-w-2xl text-xl text-gray-500">Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales.</p>
+    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">Стоимость проката</h2>
+    <p class="mt-6 max-w-2xl text-xl text-gray-500">Залог 5000 руб. за каждый боард.</p>
 
     <!-- Tiers -->
     <div class="mt-24 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
@@ -11,7 +11,7 @@
           <h3 class="text-xl font-semibold text-gray-900">{{ tier.title }}</h3>
           <p v-if="tier.mostPopular" class="absolute top-0 py-1.5 px-4 bg-indigo-500 rounded-full text-xs font-semibold uppercase tracking-wide text-white transform -translate-y-1/2">Most popular</p>
           <p class="mt-4 flex items-baseline text-gray-900">
-            <span class="text-5xl font-extrabold tracking-tight">${{ tier.price }}</span>
+            <span class="text-5xl font-extrabold tracking-tight">₽ {{ tier.price }}</span>
             <span class="ml-1 text-xl font-semibold">{{ tier.frequency }}</span>
           </p>
           <p class="mt-6 text-gray-500">{{ tier.description }}</p>
@@ -37,43 +37,43 @@ import { CheckIcon } from '@heroicons/vue/outline'
 const pricing = {
   tiers: [
     {
-      title: 'Freelancer',
-      price: 24,
-      frequency: '/month',
+      title: 'Буднии дни с Пн-Пт',
+      price: 650,
+      frequency: '/час',
       description: 'The essentials to provide your best work for clients.',
-      features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
-      cta: 'Monthly billing',
+      // features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
+      cta: 'Арендовать',
       mostPopular: false,
     },
     {
-      title: 'Startup',
-      price: 32,
-      frequency: '/month',
+      title: 'Выходные и празд. дни Сб-Вс',
+      price: 850,
+      frequency: '/час',
       description: 'A plan that scales with your rapidly growing business.',
       features: [
-        '25 products',
-        'Up to 10,000 subscribers',
-        'Advanced analytics',
-        '24-hour support response time',
-        'Marketing automations',
+        // '25 products',
+        // 'Up to 10,000 subscribers',
+        // 'Advanced analytics',
+        // '24-hour support response time',
+        // 'Marketing automations',
       ],
-      cta: 'Monthly billing',
-      mostPopular: true,
+      cta: 'Арендовать',
+      mostPopular: false,
     },
     {
-      title: 'Enterprise',
-      price: 48,
-      frequency: '/month',
+      title: 'Суточная аренда',
+      price: 3000,
+      frequency: '/сутки',
       description: 'Dedicated support and infrastructure for your company.',
-      features: [
-        'Unlimited products',
-        'Unlimited subscribers',
-        'Advanced analytics',
-        '1-hour, dedicated support response time',
-        'Marketing automations',
-        'Custom integrations',
-      ],
-      cta: 'Monthly billing',
+      // features: [
+      //   'Unlimited products',
+      //   'Unlimited subscribers',
+      //   'Advanced analytics',
+      //   '1-hour, dedicated support response time',
+      //   'Marketing automations',
+      //   'Custom integrations',
+      // ],
+      cta: 'Арендовать',
       mostPopular: false,
     },
   ],
