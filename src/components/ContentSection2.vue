@@ -23,6 +23,7 @@
         <div>
           <!-- <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Case Study</h2> -->
           <!-- <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Комплектация</h3> -->
+          <a name="set" ></a>
           <h3 class="text-3xl font-extrabold text-gray-900 sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">Комплектация</h3>
         </div>
       </div>

@@ -1,6 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="max-w-7xl mx-auto py-24 px-4 bg-white sm:px-6 lg:px-8">
+    <a name="price" ></a>
     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">Стоимость проката</h2>
     <p class="mt-6 max-w-2xl text-xl text-gray-500">Залог 5000 руб. за каждый боард.</p>
 
@@ -25,7 +26,7 @@
           </ul>
         </div>
 
-        <a href="#" :class="[tier.mostPopular ? 'bg-indigo-500 text-white hover:bg-indigo-600' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', 'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium']">{{ tier.cta }}</a>
+        <a href="#contacts" :class="[tier.mostPopular ? 'bg-indigo-500 text-white hover:bg-indigo-600' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100', 'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium']">{{ tier.cta }}</a>
       </div>
     </div>
   </div>
@@ -40,7 +41,7 @@ const pricing = {
       title: 'Буднии дни с Пн-Пт',
       price: 650,
       frequency: '/час',
-      description: 'The essentials to provide your best work for clients.',
+      description: 'Доставка в назначенное место и время по Спб.',
       // features: ['5 products', 'Up to 1,000 subscribers', 'Basic analytics', '48-hour support response time'],
       cta: 'Арендовать',
       mostPopular: false,
@@ -49,7 +50,7 @@ const pricing = {
       title: 'Выходные и празд. дни Сб-Вс',
       price: 850,
       frequency: '/час',
-      description: 'A plan that scales with your rapidly growing business.',
+      description: 'Доставка в назначенное место и время по Спб.',
       features: [
         // '25 products',
         // 'Up to 10,000 subscribers',
@@ -64,7 +65,7 @@ const pricing = {
       title: 'Суточная аренда',
       price: 3000,
       frequency: '/сутки',
-      description: 'Dedicated support and infrastructure for your company.',
+      description: 'Доставка в назначенное место и время по Спб.',
       // features: [
       //   'Unlimited products',
       //   'Unlimited subscribers',

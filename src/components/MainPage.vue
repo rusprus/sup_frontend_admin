@@ -4,6 +4,9 @@
   <!-- <ContentSection1 /> -->
   <ContentSection2/>
   <ContentPrice />
+  <!-- <StepSection /> -->
+  <ContactsSection/>
+
   <FooterSection />
 </template>
 
@@ -14,6 +17,8 @@ import FooterSection from './FooterSection.vue'
 import ContentSection2 from './ContentSection2.vue'
 import ContentSection3 from './ContentSection3.vue'
 import ContentPrice from './ContentPrice.vue'
+import ContactsSection from './ContactsSection.vue'
+// import StepSection from './StepSection.vue'
 export default {
   name: 'MainPage',
   components: {
@@ -22,7 +27,9 @@ export default {
     // ContentSection1,
     ContentSection2,
     ContentSection3,
-    ContentPrice
+    ContentPrice,
+    ContactsSection,
+    // StepSection
   },
   props: {
     msg: String
