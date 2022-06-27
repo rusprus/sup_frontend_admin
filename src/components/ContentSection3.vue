@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="bg-white">
-    <header>
+    <header class="fixed top-0 left-0 right-0 z-50 opacity-90">
       <Popover class="relative bg-white">
         <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
           <div class="flex justify-start lg:w-0 lg:flex-1">
@@ -104,7 +104,7 @@
       </Popover>
     </header>
 
-    <main>
+    <main class="mt-40">
       <div>
         <!-- Hero card -->
         <div class="relative">
@@ -119,10 +119,10 @@
               </div>
               <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span class="block text-white">Аренда SUP-бород </span>
+                  <span class="block text-white">Аренда SUP-бордов </span>
                   <span class="block text-yellow-300">в Петербурге</span>
                 </h1>
-                <p class="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">Доставка в назначенное место и время по Спб.</p>
+                <!-- <p class="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">Доставка в назначенное место и время по Спб.</p> -->
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                   <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
                     <a href="#contacts" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-500 bg-yellow-300 hover:bg-indigo-50 sm:px-8"> Арендовать </a>
@@ -201,6 +201,7 @@ const navigation = [
   { name: 'Стоимость', href: '#price' },
   { name: 'Комплектация', href: '#set' },
   { name: 'Контакты', href: '#contacts' },
+  { name: '+7-921-930-10-78', href: 'tel:+79219301078' },
 ]
 
 export default {

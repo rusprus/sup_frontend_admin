@@ -41,7 +41,7 @@
             <figure>
               <div class="aspect-w-12 aspect-h-7 lg:aspect-none">
                 <!-- <img class="rounded-lg shadow-lg object-cover object-center" src="https://images.unsplash.com/photo-1546913199-55e06682967e?ixlib=rb-1.2.1&auto=format&fit=crop&crop=focalpoint&fp-x=.735&fp-y=.55&w=1184&h=1376&q=80" alt="Whitney leaning against a railing on a downtown street" width="1184" height="1376" /> -->
-                <img class="rounded-lg shadow-lg object-cover object-center" src="@/assets/sup2.jpg" alt="Sup board" width="1184" height="1376" />
+                <img class="rounded-lg shadow-lg object-cover object-center" src="@/assets/supset.png" alt="Sup board" width="1184" height="1376" />
              
               </div>
               <!-- <figcaption class="mt-3 flex text-sm text-gray-500">
@@ -63,7 +63,7 @@
               <li>Насос для SUP.</li>
               <li>Легкое регулируемое весло.</li>
               <li>Страховочный лиш.</li>
-              <li>Спасательный жилет.</li>
+              <!-- <li>Спасательный жилет.</li> -->
               <li>Водонепроницаемый чехол для гаджетов.</li>
             </ul>
             <!-- <p>Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet velit faucibus semper. Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi enim fermentum lacus in. Viverra.</p>

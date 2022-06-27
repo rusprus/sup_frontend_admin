@@ -5,6 +5,7 @@
   <ContentSection2/>
   <ContentPrice />
   <!-- <StepSection /> -->
+  <ContentMap />
   <ContactsSection/>
 
   <FooterSection />
@@ -18,6 +19,7 @@ import ContentSection2 from './ContentSection2.vue'
 import ContentSection3 from './ContentSection3.vue'
 import ContentPrice from './ContentPrice.vue'
 import ContactsSection from './ContactsSection.vue'
+import ContentMap from './ContentMap.vue'
 // import StepSection from './StepSection.vue'
 export default {
   name: 'MainPage',
@@ -29,6 +31,7 @@ export default {
     ContentSection3,
     ContentPrice,
     ContactsSection,
+    ContentMap
     // StepSection
   },
   props: {
