@@ -1,14 +1,20 @@
 <template>
-  <MainPage />
+  
+  <router-view></router-view>
+
+  <!-- <MainPage v-if="false"/> -->
+  <!-- <WalkPage /> -->
 </template>
 
 <script>
-import MainPage from './components/MainPage.vue'
+// import MainPage from '@/pages/rent/MainPage.vue'
+// import WalkPage from '@/pages/walk/WalkPage.vue'
 
 export default {
   name: 'App',
   components: {
-    MainPage
+    // MainPage,
+    // WalkPage
   }
 }
 </script>

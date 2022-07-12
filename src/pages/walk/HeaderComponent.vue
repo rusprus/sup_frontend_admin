@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="bg-white">
-    <header class="fixed top-0 left-0 right-0 z-50 opacity-90">
+    <!-- <header class="fixed top-0 left-0 right-0 z-50 opacity-90">
       <Popover class="relative bg-white">
         <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
           <div class="flex justify-start lg:w-0 lg:flex-1">
@@ -19,8 +19,8 @@
           <PopoverGroup as="nav" class="hidden md:flex space-x-10">
             <Popover class="relative" v-slot="{ open }">
               <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
-                <!-- <span>Solutions</span> -->
-                <!-- <ChevronDownIcon :class="[open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']" aria-hidden="true" /> -->
+                <span>Solutions</span>
+                <ChevronDownIcon :class="[open ? 'text-gray-600' : 'text-gray-400', 'ml-2 h-5 w-5 group-hover:text-gray-500']" aria-hidden="true" />
               </PopoverButton>
 
               <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
@@ -51,8 +51,8 @@
             </a>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
-            <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a> -->
+            <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
+            <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
           </div>
         </div>
 
@@ -73,14 +73,14 @@
                 </div>
                 <div class="mt-6">
                   <nav class="grid grid-cols-1 gap-7">
-                    <!-- <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                     <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                       <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white">
                         <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
                       </div>
                       <div class="ml-4 text-base font-medium text-gray-900">
                         {{ item.name }}
                       </div>
-                    </a> -->
+                    </a> 
                   </nav>
                 </div>
               </div>
@@ -90,19 +90,19 @@
                     {{ item.name }}
                   </a>
                 </div>
-                <!-- <div class="mt-6">
+               <div class="mt-6">
                   <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
                   <p class="mt-6 text-center text-base font-medium text-gray-500">
                     Existing customer?
                     <a href="#" class="text-gray-900"> Sign in </a>
                   </p>
-                </div> -->
+                </div> 
               </div>
             </div>
           </PopoverPanel>
         </transition>
       </Popover>
-    </header>
+    </header> -->
 
     <main class="mt-40">
       <div>
@@ -119,13 +119,18 @@
               </div>
               <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span class="block text-white">Аренда SUP-бордов </span>
-                  <span class="block text-yellow-300">в Петербурге</span>
+                     <p class="text-white">Увлекательные</p>
+                     <p class="text-white">прогулки на <span class="text-white text-yellow-300">SUP</span> бордах</p>
+                     
+                     <!-- <span class="block text-white">Увлекательные</span>
+                  <span class="text-white">прогулки на <span class="block text-yellow-300">  Петербурге</span></span>
+                   -->
+                  
                 </h1>
-                <!-- <p class="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">Доставка в назначенное место и время по Спб.</p> -->
+                <p class="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">По самым живописным местам Петербурга и окрестностей Ленобласти</p>
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                   <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
-                    <a href="#contacts" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-500 bg-yellow-300 hover:bg-indigo-50 sm:px-8"> Арендовать </a>
+                    <a href="#contacts" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-500 bg-yellow-300 hover:bg-indigo-50 sm:px-8">Оставить заявку </a>
                     <!-- <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 sm:px-8"> Live demo </a> -->
                   </div>
                   </div>
@@ -165,16 +170,16 @@
 </template>
 
 <script>
-import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
+// import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
 import {
   AnnotationIcon,
   ChatAlt2Icon,
   InboxIcon,
-  MenuIcon,
+  // MenuIcon,
   QuestionMarkCircleIcon,
-  XIcon,
+  // XIcon,
 } from '@heroicons/vue/outline'
-import { ChevronDownIcon } from '@heroicons/vue/solid'
+// import { ChevronDownIcon } from '@heroicons/vue/solid'
 
 const solutions = [
   {
@@ -199,20 +204,21 @@ const solutions = [
 ]
 const navigation = [
   { name: 'Стоимость', href: '#price' },
-  { name: 'Комплектация', href: '#set' },
+  { name: 'Маршруты', href: '#set' },
   { name: 'Контакты', href: '#contacts' },
+  { name: 'Галерея', href: '#gallery' },
   { name: '+7-921-930-10-78', href: 'tel:+79219301078' },
 ]
 
 export default {
   components: {
-    Popover,
-    PopoverButton,
-    PopoverGroup,
-    PopoverPanel,
-    ChevronDownIcon,
-    MenuIcon,
-    XIcon,
+    // Popover,
+    // PopoverButton,
+    // PopoverGroup,
+    // PopoverPanel,
+    // ChevronDownIcon,
+    // MenuIcon,
+    // XIcon,
   },
   setup() {
     return {

@@ -1,11 +1,14 @@
 <template>
   <!-- <HeaderSection /> -->
+  <NavComponent @click="scrollFix('#price')" />
+  <!-- @click="scrollFix('#price') -->
   <ContentSection3/>
   <!-- <ContentSection1 /> -->
   <ContentSection2/>
+  <a id="price"></a>
   <ContentPrice />
   <!-- <StepSection /> -->
-  <ContentMap />
+  <MapComponent />
   <ContactsSection/>
 
   <FooterSection />
@@ -13,14 +16,14 @@
 
 <script>
 // import HeaderSection from './HeaderSection.vue'
-import FooterSection from './FooterSection.vue'
+import FooterSection from '@/components/FooterSection.vue'
 // import ContentSection1 from './ContentSection1.vue'
 import ContentSection2 from './ContentSection2.vue'
 import ContentSection3 from './ContentSection3.vue'
 import ContentPrice from './ContentPrice.vue'
 import ContactsSection from './ContactsSection.vue'
-import ContentMap from './ContentMap.vue'
-// import StepSection from './StepSection.vue'
+import MapComponent from '@/components/MapComponent.vue'
+import NavComponent from '@/components/NavComponent.vue'
 export default {
   name: 'MainPage',
   components: {
@@ -31,11 +34,23 @@ export default {
     ContentSection3,
     ContentPrice,
     ContactsSection,
-    ContentMap
-    // StepSection
+    MapComponent,
+    NavComponent
   },
   props: {
     msg: String
+  },
+  //    mounted: function()
+  // {
+  //   // From testing, without a brief timeout, it won't work.
+  //   setTimeout(() => this.scrollFix(this.$route.hash), 1);
+  // },
+  methods: {
+    scrollFix: function(hashbang)
+    {
+      alert('clik')
+      location.hash = hashbang;
+    }
   }
 }
 </script>
