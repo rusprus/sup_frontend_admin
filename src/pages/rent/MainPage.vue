@@ -1,6 +1,7 @@
 <template>
   <!-- <HeaderSection /> -->
-  <NavComponent @click="scrollFix('#price')" />
+  <!-- <NavComponent @click="scrollFix('#price')" /> -->
+  <NavComponent />
   <!-- @click="scrollFix('#price') -->
   <ContentSection3/>
   <!-- <ContentSection1 /> -->
@@ -9,6 +10,8 @@
   <ContentPrice />
   <!-- <StepSection /> -->
   <MapComponent />
+  <a id="contacts"></a>
+
   <ContactsSection/>
 
   <FooterSection />

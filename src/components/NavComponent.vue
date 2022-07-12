@@ -48,7 +48,7 @@
             <!-- <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">
               {{ item.name }}
             </a> -->
-              <router-link v-for="item in navigation" :key="item.name"  :to="item.href" @click="$emit('click2', item.href)" class="text-base font-medium text-gray-500 hover:text-gray-900">{{ item.name }}</router-link>
+              <router-link v-for="item in navigation" :key="item.name"  :to="item.href" @click="$emit('click', item.href)" class="text-base font-medium text-gray-500 hover:text-gray-900">{{ item.name }}</router-link>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
@@ -123,7 +123,7 @@ const navigation = [
   { name: 'Стоимость', href: '/#price' },
   { name: 'Маршруты', href: '/#set' },
   { name: 'Контакты', href: '/#contacts' },
-  { name: 'Аренда', href: 'rent' },
+  { name: 'Аренда', href: '/rent' },
   { name: 'Галерея', href: '/#gallery' },
   { name: '+7-921-930-10-78', href: 'tel:+79219301078' },
 ]

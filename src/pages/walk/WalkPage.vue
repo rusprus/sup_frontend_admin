@@ -1,5 +1,6 @@
 <template>
-  <NavComponent @click2="scrollFix($event)" />
+  <!-- <NavComponent @click2="scrollFix($event)" /> -->
+  <NavComponent />
   <HeaderComponent />
   <a id="set"></a>
   <Route1Component />
@@ -40,10 +41,10 @@ export default {
     msg: String
   },
   methods: {
-    scrollFix: function (hashbang) {
-      console.log(hashbang)
-      location = hashbang;
-    }
+    // scrollFix: function (hashbang) {
+    //   console.log(hashbang)
+    //   // location.hash = hashbang;
+    // }
   }
 }
 </script>
