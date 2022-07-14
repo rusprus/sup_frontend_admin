@@ -1,6 +1,4 @@
 <template>
-  <!-- <NavComponent @click2="scrollFix($event)" /> -->
-  <NavComponent />
   <HeaderComponent />
   <a id="set"></a>
   <Route1Component />
@@ -11,14 +9,10 @@
   <GalleryComponent />
   <a id="contacts"></a>
   <ContactsComponent />
-
-  <FooterSection />
 </template>
 
 <script>
-import NavComponent from '@/components/NavComponent.vue'
 import HeaderComponent from './HeaderComponent.vue'
-import FooterSection from '@/components/FooterSection.vue'
 import Route1Component from './Route1Component.vue'
 import Route2Component from './Route2Component.vue'
 import PriceComponent from './PriceComponent.vue'
@@ -27,24 +21,25 @@ import GalleryComponent from './GalleryComponent.vue'
 export default {
   name: 'MainPage',
   components: {
-    NavComponent,
     HeaderComponent,
     Route1Component,
     Route2Component,
     PriceComponent,
     ContactsComponent,
     GalleryComponent,
-    FooterSection,
 
   },
   props: {
     msg: String
   },
   methods: {
-    // scrollFix: function (hashbang) {
-    //   console.log(hashbang)
-    //   // location.hash = hashbang;
-    // }
+    scrollFix: function (hashbang) {
+      alert(hashbang)
+      // location.hash = hashbang;
+    },
+    consLog(){
+      alert('!!')
+    }
   }
 }
 </script>
