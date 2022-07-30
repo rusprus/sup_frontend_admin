@@ -1,10 +1,8 @@
 <template>
-  <!-- <NavComponent @click="scrollFix('#price')" /> -->
-  <ContentSection3/>
+  <HeaderSection/>
   <ContentSection2/>
   <a id="price"></a>
   <ContentPrice />
-  <!-- <StepSection /> -->
   <MapComponent />
   <a id="contacts"></a>
 
@@ -13,7 +11,7 @@
 
 <script>
 import ContentSection2 from './ContentSection2.vue'
-import ContentSection3 from './ContentSection3.vue'
+import HeaderSection from './HeaderSection.vue'
 import ContentPrice from './ContentPrice.vue'
 import ContactsSection from './ContactsSection.vue'
 import MapComponent from '@/components/MapComponent.vue'
@@ -21,7 +19,7 @@ export default {
   name: 'MainPage',
   components: {
     ContentSection2,
-    ContentSection3,
+    HeaderSection,
     ContentPrice,
     ContactsSection,
     MapComponent
@@ -29,17 +27,8 @@ export default {
   props: {
     msg: String
   },
-  //    mounted: function()
-  // {
-  //   // From testing, without a brief timeout, it won't work.
-  //   setTimeout(() => this.scrollFix(this.$route.hash), 1);
-  // },
   methods: {
-    scrollFix: function(hashbang)
-    {
-      alert('clik')
-      location.hash = hashbang;
-    }
+    
   }
 }
 </script>

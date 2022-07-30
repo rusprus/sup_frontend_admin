@@ -4,26 +4,43 @@ import MainPage from '@/pages/rent/MainPage.vue'
 import WalkPage from '@/pages/walk/WalkPage.vue'
 import NavComponent from '@/components/NavComponent.vue'
 import FooterSection from '@/components/FooterSection.vue'
+import AdminPage from '@/admin/main/AdminPage.vue'
+import LoginForm from '@/components/LoginForm.vue'
+
 
 
 const routes = [
     {
         path: '/rent',
         components: {
-            content: MainPage,
             nav: NavComponent,
+            content: MainPage,
             footer: FooterSection
         }
     },
     {
         path: '/',
         components: {
-            content: WalkPage,
             nav: NavComponent,
+            content: WalkPage,
             footer: FooterSection
         },
         alias: '/b'
-    }
+    },
+    {
+        path: '/login',
+        components: {
+            nav: NavComponent,
+            content: LoginForm,
+            footer: FooterSection
+        }
+    },
+    {
+        path: '/admin',
+        components: {
+            content: AdminPage,
+        }
+    },
 ]
 
 export default createRouter({
