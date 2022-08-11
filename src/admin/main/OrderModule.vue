@@ -52,8 +52,8 @@
                                             Имя заказчика
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="text" v-model="orderName" name="first-name" id="first-name"
-                                                autocomplete="given-name"
+                                            <input type="text" v-model="orders.order.name" name="first-name"
+                                                id="first-name" autocomplete="given-name"
                                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                     </div>
@@ -64,8 +64,8 @@
                                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                             Аренда с </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="date" v-model="orderDateStart" name="last-name" id="last-name"
-                                                autocomplete="family-name"
+                                            <input type="date" v-model="orders.order.dateStart" name="last-name"
+                                                id="last-name" autocomplete="family-name"
                                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                     </div>
@@ -76,8 +76,8 @@
                                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                             Аренда до </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="date" v-model="orderDateEnd" name="last-name" id="last-name"
-                                                autocomplete="family-name"
+                                            <input type="date" v-model="orders.order.dateEnd" name="last-name"
+                                                id="last-name" autocomplete="family-name"
                                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                     </div>
@@ -88,7 +88,7 @@
                                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                             Количество сапов </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input v-model="orderCount" id="number" name="number" type="number"
+                                            <input v-model="orders.order.count" id="number" name="number" type="number"
                                                 autocomplete="number"
                                                 class="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md" />
                                         </div>
@@ -101,14 +101,14 @@
                                             Статус
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <select id="country" v-model="orderStatus" name="country"
+                                            <select id="country" v-model="orders.order.status" name="country"
                                                 autocomplete="country-name"
                                                 class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                                <option>не выбрано</option>
-                                                <option>планируется</option>
-                                                <option>активен</option>
-                                                <option>завершен</option>
-                                                <option>не подошел</option>
+                                                <option :value=1>не выбрано</option>
+                                                <option :value=2>планируется</option>
+                                                <option :value=3>активен</option>
+                                                <option :value=4>завершен</option>
+                                                <option :value=5>не подошел</option>
                                             </select>
                                         </div>
                                     </div>
@@ -119,8 +119,8 @@
                                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                             Заметки </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <textarea v-model="orderNote" rows="5" cols="10" name="notes" id="notes"
-                                                autocomplete="notes"
+                                            <textarea v-model="orders.order.note" rows="5" cols="10" name="notes"
+                                                id="notes" autocomplete="notes"
                                                 class="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                     </div>
@@ -143,10 +143,12 @@
                             </form>
                             <div class="pt-5">
                                 <div class="flex justify-end">
+                                    <button type="button" @click="delOrder"
+                                        class="bg-white py-2 px-4 border border-gray-Save300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Удалить</button>
                                     <button type="button" @click="close"
-                                        class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancel</button>
+                                        class="bg-white py-2 px-4 border border-gray-Save300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Отменить</button>
                                     <button type="button" @click="save"
-                                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+                                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Сохранить</button>
                                 </div>
                             </div>
                         </div>
@@ -160,6 +162,8 @@
 <script>
 // import { ref } from 'vue'
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { mapActions, mapState, mapMutations } from 'vuex'
+
 
 export default {
     components: {
@@ -170,13 +174,20 @@ export default {
     },
     data() {
         return {
-            orderName: '',
-            orderDateStart: null,
-            orderDateEnd: null,
-            orderCount: 1,
-            orderStatus: 'не выбран',
-            orderNote: ''
+            // orderName: 'Unknown',
+            // orderDateStart: '2000-00-00',
+            // orderDateEnd: '2000-00-00',
+            // orderCount: 1,
+            // orderStatus: 1,
+            // orderNote: ''
         }
+    },
+
+    computed: {
+        ...mapState([
+            'orders',
+            'orderModule'
+        ]),
     },
     // props: {
     //     open: {
@@ -185,16 +196,44 @@ export default {
     //     },
     // },
     methods: {
+        ...mapMutations(['showOrderModule']),
+        ...mapActions([
+            'changeOrder',
+            'deleteOrder'
+        ]),
         close() {
-            this.$store.state.orderModule = false
+            // this.$store.state.orderModule = false
+            this.showOrderModule(false)
         },
         save() {
-            this.$store.commit('addOrder', { name: this.orderName, dateStart: this.orderDateStart, dateEnd: this.orderDateEnd, count: this.orderCount, status: this.orderStatus, note: this.orderNote });
-            this.$store.state.orderModule = false
+            // this.$store.dispatch('changeOrder', { name: this.orderName, dateStart: this.orderDateStart, dateEnd: this.orderDateEnd, count: this.orderCount, status: this.orderStatus, note: this.orderNote });
+            
+            this.changeOrder({ id: this.orders.order.id, name: this.orders.order.name, dateStart: this.orders.order.dateStart, dateEnd: this.orders.order.dateEnd, count: this.orders.order.count, status: this.orders.order.status, note: this.orders.order.note })
+            this.showOrderModule(false)
         },
+        delOrder(){
+            this.deleteOrder(this.orders.order.id)
+            this.showOrderModule(false)
+
+        },
+        // update() {
+        //     console.log('in module')
+        //     console.log(this.orders.order)
+
+        // }
     },
+
     mounted() {
         // this.orderStatus = 'не выбран'
+        // this.orders.order = {
+        //     name: 'Unknown',
+        //     dateStart: '2000-00-00',
+        //     dateEnd: '2000-00-00',
+        //     count: 1,
+        //     status: 1,
+        //     note: ''
+        // }
+        // console.log('Creat module')
         this.close()
     },
     setup() {

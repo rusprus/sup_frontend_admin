@@ -38,10 +38,17 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form class="space-y-6">
-          <div>
+          <!-- <div>
             <label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
             <div class="mt-1">
               <input v-model="email" id="email" name="email" type="email" autocomplete="email" required=""
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+          </div> -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700"> Login </label>
+            <div class="mt-1">
+              <input v-model="login" id="email" required=""
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
             </div>
           </div>
@@ -49,8 +56,7 @@
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
             <div class="mt-1">
-              <input v-model="password" id="password" name="password"  autocomplete="current-password"
-                required=""
+              <input v-model="password" id="password" name="password" autocomplete="current-password" required=""
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
             </div>
           </div>
@@ -58,8 +64,7 @@
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700"> Name </label>
             <div class="mt-1">
-              <input v-model="name" 
-                required=""
+              <input v-model="name" required=""
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
             </div>
           </div>
@@ -81,9 +86,13 @@
               class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign
               in</button>
           </div>
-           <div>
+          <div>
             <button @click.prevent="register"
               class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Register</button>
+          </div>
+           <div>
+            <button @click.prevent="logOut"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Log out</button>
           </div>
         </form>
 
@@ -141,42 +150,66 @@
 
 <script>
 
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       email: '',
       password: '',
       name: '',
+      login: ''
     }
   },
   methods: {
-      async logIn(){
-        alert(this.email + this.password)
-        const formData = {
-          email: this.email,
+    ...mapActions(['onLogin', 'onLogout']),
+
+    logIn() {
+      console.log('logIn')
+
+      try {
+        // await this.$store.dispatch('AuthMoule/onLogin', {
+        this.onLogin({
+          login: this.login,
           password: this.password
-        }
-        try {
-          await this.$store.dispatch('login', formData)
-          
-        } catch (e) {
-          this.$router.push('/')         
-        }
-      },
-      async register(){
-        alert(this.email + this.password + this.name)
-        const formData = {
-          email: this.email,
-          password: this.password,
-          name: this.name
-        }
-        try {
-          await this.$store.dispatch('register', formData)
-          
-        } catch (e) {
-          this.$router.push('/')         
-        }
+        }).then(() => {
+          alert('login')
+          this.$router.push({ name: 'Home' })
+        })
+
+      } catch (e) {
+        this.$router.push('/')
       }
+    },
+
+    async logOut() {
+      try {
+        // await this.$store.dispatch('AuthMoule/onLogout')
+        this.onLogout()
+          .then(() => {
+          alert('logout')
+            // console.log(res)
+            location.reload()
+          })
+
+      } catch (e) {
+        this.$router.push('/')
+      }
+    },
+
+    async register() {
+      alert(this.email + this.password + this.name)
+      const formData = {
+        email: this.email,
+        password: this.password,
+        name: this.name
+      }
+      try {
+        await this.$store.dispatch('register', formData)
+
+      } catch (e) {
+        this.$router.push('/')
+      }
+    }
   }
 }
 

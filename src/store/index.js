@@ -1,54 +1,28 @@
 import { createStore } from 'vuex'
-import * as getters from './getters'
-import * as actions from './actions'
-import mutations from './mutations'
-import auth from './modules/auth'
+import { AuthModule } from './modules/AuthModule'
+import orders from './modules/orders'
 
 const state = {
-  currentThreadID: null,
-  threads: {
-    /*
-    id: {
-      id,
-      name,
-      messages: [...ids],
-      lastMessage
-    }
-    */
-  },
-  messages: {
-    /*
-    id: {
-      id,
-      threadId,
-      threadName,
-      authorName,
-      text,
-      timestamp,
-      isRead
-    }
-    */
-  },
-
-  orders: [
-    // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
-    // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
-    // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
-    // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
-
-  ],
   orderModule: false,
 }
+const actions = {
 
+}
+const mutations = {
+  showOrderModule(state, flag) {
+    state.orderModule = flag
+  }
+}
+const getters = {
+
+}
 export default createStore({
   state,
   getters,
   actions,
   mutations,
   modules: {
-    auth
+    AuthModule,
+    orders
   }
-  //   plugins: process.env.NODE_ENV !== 'production'
-  //     ? [createLogger()]
-  //     : []
 })

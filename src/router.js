@@ -6,8 +6,22 @@ import NavComponent from '@/components/NavComponent.vue'
 import FooterSection from '@/components/FooterSection.vue'
 import AdminPage from '@/admin/main/AdminPage.vue'
 import LoginForm from '@/components/LoginForm.vue'
+import { UserRoles } from './types/Auth'
 
 
+// const isAuthorized = localStorage.hasOwnProperty('token');
+const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
+
+const authGuard = function (to, from, next){
+    if(!isAuthorized) next({name:'Login'});
+    else next()
+}
+
+const managerAuthGuard = function (to, from, next){
+    if(!isAuthorized) next({name:'Login'});
+    else if (localStorage.getItem('userRole') !== UserRoles.Moderator) next({name: 'Home'});
+    else next()
+}
 
 const routes = [
     {
@@ -20,12 +34,14 @@ const routes = [
     },
     {
         path: '/',
+        name: 'Home',
         components: {
             nav: NavComponent,
             content: WalkPage,
             footer: FooterSection
         },
-        alias: '/b'
+        alias: '/b',
+        beforeEnter: authGuard
     },
     {
         path: '/login',
@@ -33,13 +49,15 @@ const routes = [
             nav: NavComponent,
             content: LoginForm,
             footer: FooterSection
-        }
+        },
+        name: 'Login'
     },
     {
         path: '/admin',
         components: {
             content: AdminPage,
-        }
+        },
+        beforeEnter: managerAuthGuard
     },
 ]
 

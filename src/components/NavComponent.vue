@@ -60,7 +60,8 @@
             </a> -->
             <router-link v-for="item in navigation" :key="item.name" :to="item.href"
               class="text-base font-medium text-gray-500 hover:text-gray-900">{{ item.name }}</router-link>
-              <a href="#" @click="scrollFix">Выход</a>
+            <a href="#" @click="scrollFix">Выход</a>
+            <a href="#" @click="getData">Данные</a>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
@@ -102,7 +103,7 @@
               </div>
               <div class="py-6 px-5">
                 <div class="grid grid-cols-2 gap-4">
-                  <router-link v-for="item in navigation" :key="item.name" :to="item.href" 
+                  <router-link v-for="item in navigation" :key="item.name" :to="item.href"
                     class="text-base font-medium text-gray-900 hover:text-gray-700">
                     {{ item.name }}
                   </router-link>
@@ -135,6 +136,8 @@ import {
   XIcon,
 } from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
+// import { getAllOrders } from '@src/api/index'
+import { getAllOrders } from '../api/index'
 
 
 const navigation = [
@@ -146,7 +149,7 @@ const navigation = [
   { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
 ]
 
-  // { name: 'Выйти', href: '/logout' },
+// { name: 'Выйти', href: '/logout' },
 
 export default {
   components: {
@@ -171,10 +174,13 @@ export default {
       alert('!!')
     },
     async scrollFix() {
-       await this.$store.dispatch('logout')
+      await this.$store.dispatch('logout')
       // console.log(this.$route.hash)
       // location.hash = hashbang;
     },
+    getData() {
+      getAllOrders()
+    }
   }
 
 }

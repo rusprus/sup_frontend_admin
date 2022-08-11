@@ -19,13 +19,32 @@
             {{ item.note }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <a href="#" class="text-indigo-600 hover:text-indigo-900">Изменить</a>
+            <a @click="updateOrder(item.id)" href="#" class="text-indigo-600 hover:text-indigo-900">Изменить</a>
         </td>
     </tr>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
-    props:['item']
+    props: ['item'],
+    computed: {
+        ...mapState([
+            'orders',
+            'orderModule'
+        ]),
+    },
+    methods: {
+        ...mapMutations(['showOrderModule']),
+
+        updateOrder(id) {
+            this.orders.order = this.orders.orders.find((item)=>item.id == id)
+            // this.$store.state.orderModule = true
+            this.showOrderModule(true)
+            console.log( this.orderModule )
+
+        }
+    }
 }
 </script>

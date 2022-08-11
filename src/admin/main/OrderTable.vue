@@ -36,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <OrderItem v-for="item in orders" :item="item" :key="item.email" />
+                            <OrderItem v-for="item in orders.orders" :item="item" :key="item.id" />
                         </tbody>
                     </table>
                 </div>
@@ -49,7 +49,7 @@
 
 // import OrderItem from './OrderItem.vue'
 import OrderItem from './OrderItem.vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 import { PlusSmIcon as PlusSmIconSolid } from '@heroicons/vue/solid'
 import { PlusSmIcon as PlusSmIconOutline } from '@heroicons/vue/outline'
 
@@ -67,22 +67,20 @@ export default {
 
     computed: {
         ...mapState([
-            // проксирует в this.count доступ к store.state.count
-            'orders'
+            'orders',
+            'orderModule'
         ]),
-
     },
 
-
     methods: {
-        ...mapMutations([
-            'addOrder' // `this.add()` будет вызывать `this.$store.commit('increment')`
-        ]),
+        ...mapMutations(['showOrderModule']),
+        ...mapActions(['setOrderDefault']),
         addOrder() {
-            // alert('addOrder')
-            // this.people.push({ name: 'Jane Cooper', title: 'Regional Paradigm Technician', role: 'Admin', email: 'jane.cooper@example.com' })
-            this.$store.state.orderModule = true
-        }
+            // this.$store.state.orderModule = true
+            this.showOrderModule(true)
+            this.setOrderDefault()
+        },
+        
     },
     setup() {
         return {
