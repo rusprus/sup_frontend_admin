@@ -60,8 +60,13 @@
             </a> -->
             <router-link v-for="item in navigation" :key="item.name" :to="item.href"
               class="text-base font-medium text-gray-500 hover:text-gray-900">{{ item.name }}</router-link>
-            <a href="#" @click="scrollFix">Выход</a>
-            <a href="#" @click="getData">Данные</a>
+            <router-link v-if="isAuthorized" to="#" class="text-base font-medium text-gray-500 hover:text-gray-900"
+              @click="logout">Выход
+            </router-link>
+            <router-link v-if="!isAuthorized" to="#"
+              class="text-base font-medium text-gray-500 hover:text-gray-900"
+              @click="login">Вход
+            </router-link>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
@@ -107,7 +112,12 @@
                     class="text-base font-medium text-gray-900 hover:text-gray-700">
                     {{ item.name }}
                   </router-link>
-                  <a href="/logout" @click="scrollFix">Выход</a>
+                  <a v-if="isAuthorized" 
+                    class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход!
+                  </a>
+                  <a v-if="!isAuthorized"
+                    class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход
+                  </a>
                 </div>
                 <!-- <div class="mt-6">
                   <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
@@ -137,7 +147,7 @@ import {
 } from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 // import { getAllOrders } from '@src/api/index'
-import { getAllOrders } from '../api/index'
+import { mapActions, mapGetters } from 'vuex'
 
 
 const navigation = [
@@ -146,7 +156,7 @@ const navigation = [
   { name: 'Контакты', href: '/#contacts' },
   { name: 'Аренда', href: '/rent' },
   { name: 'Галерея', href: '/#gallery' },
-  { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
+  // { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
 ]
 
 // { name: 'Выйти', href: '/logout' },
@@ -161,6 +171,11 @@ export default {
     MenuIcon,
     XIcon,
   },
+  data(){
+    return{
+      // isAuthorized: this.isAuthorized
+    }
+  },
   setup() {
     return {
       navigation,
@@ -169,19 +184,38 @@ export default {
   emits: {
     click2: null
   },
+  computed: {
+    ...mapGetters([
+      'isAuthorized',
+    ])
+  },
+  // watch:{
+  //   isAuthorized(){
+  //     return this.isAuthorized
+  //   }
+  // },
   methods: {
-    consLog() {
-      alert('!!')
+    ...mapActions(['onLogin', 'onLogout']),
+
+    logout() {
+      console.log('logout')
+      this.onLogout()
+      // .then(() => this.$router.push('/'))
+      this.$router.push('/')
     },
-    async scrollFix() {
-      await this.$store.dispatch('logout')
-      // console.log(this.$route.hash)
-      // location.hash = hashbang;
+
+    login() {
+      console.log('login')
+      this.$router.push('/login')
+      // this.onLogin().then(() => this.$router.push('/'))
     },
-    getData() {
-      getAllOrders()
-    }
-  }
+    // isAuthorized() {
+    //   console.log('ddddd')
+    //   console.log(Object.prototype.hasOwnProperty.call(localStorage, 'token'))
+    //   return Object.prototype.hasOwnProperty.call(localStorage, 'token')
+    // }
+  },
+  
 
 }
 

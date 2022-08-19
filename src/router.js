@@ -26,11 +26,14 @@ const managerAuthGuard = function (to, from, next){
 const routes = [
     {
         path: '/rent',
+        name: 'Rent',
         components: {
             nav: NavComponent,
             content: MainPage,
             footer: FooterSection
-        }
+        },
+        beforeEnter: authGuard
+
     },
     {
         path: '/',
@@ -41,23 +44,24 @@ const routes = [
             footer: FooterSection
         },
         alias: '/b',
-        beforeEnter: authGuard
+        // beforeEnter: authGuard
     },
     {
         path: '/login',
+        name: 'Login',
         components: {
             nav: NavComponent,
             content: LoginForm,
             footer: FooterSection
         },
-        name: 'Login'
     },
     {
         path: '/admin',
+        name: 'Admin',
         components: {
             content: AdminPage,
         },
-        beforeEnter: managerAuthGuard
+        // beforeEnter: managerAuthGuard
     },
 ]
 

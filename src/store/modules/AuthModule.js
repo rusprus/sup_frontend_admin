@@ -16,6 +16,8 @@ export const AuthModule = {
 
     getters: {
         getUserRole: (state) => state.credentials.userRole,
+        isAuthorized: (state) => state.credentials.token !== null
+        // Object.prototype.hasOwnProperty.call(localStorage, 'token'),
     },
 
     mutations: {

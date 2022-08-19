@@ -1,3 +1,4 @@
 export  const UserRoles =  {
-    Guest: 'guest'
+    Guest: 'guest',
+    Moderator: 'Moderator'
 }
