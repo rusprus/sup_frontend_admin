@@ -1,4 +1,4 @@
-import { DefaultAPIInstance } from "@/api"
+import { DefaultAPIInstance } from "../../api"
 import { AuthAPI } from "@/api/AuthAPI"
 import { UserRoles } from "@/types/Auth"
 
@@ -9,7 +9,8 @@ export const AuthModule = {
         return {
             credentials: {
                 token: localStorage.getItem('token') || null,
-                userRole: localStorage.getItem('userRole') || UserRoles.Guest
+                userRole: localStorage.getItem('userRole') || UserRoles.Guest,
+                authMessage: localStorage.getItem('authMessage') || null,
             }
         }
     },
@@ -40,15 +41,32 @@ export const AuthModule = {
             localStorage.removeItem('userRole')
 
         },
+        setMessage(state, authMessage) {
+            state.credentials.authMessage = authMessage
+            localStorage.setItem('authMessage', authMessage)
+        },
     },
 
     actions: {
         onLogin({ commit }, { login, password }) {
             console.log('action login')
-            AuthAPI.login( {login, password }).then((res) => {
-                commit('setToken', res.data.token);
-                commit('setUserRole', res.data.userRole);
-                DefaultAPIInstance.defaults.headers['authorization'] = `Bearer ${res.data.token}`
+            AuthAPI.login({ login, password }).then((res) => {
+                if(res.data.error === undefined){
+                    commit('setToken', 'Bearer ' + res.data.token);
+                    commit('setUserRole', res.data.userRole);
+
+                    localStorage.setItem('token', 'Bearer ' + res.data.token);
+                    localStorage.setItem('userRole', res.data.userRole);
+
+                    DefaultAPIInstance.defaults.headers.common['authorization'] = `Bearer ${res.data.token}`
+
+                    // console.log(DefaultAPIInstance.defaults.headers.common['authorization'])
+                }else{
+                    commit('setMessage', res.data.error);
+                }
+               
+            }).catch((err)=>{
+                console.log(err)
             })
         },
         onLogout({ commit }) {
@@ -57,6 +75,16 @@ export const AuthModule = {
             commit('deleteUserRole');
             delete DefaultAPIInstance.defaults.headers['authorization']
 
-        }
+        },
+        onRegister( context, { login, password, name, email }) {
+            // alert('action register')
+            // alert(login + ' ' + password)
+            // console.log('action register')
+            AuthAPI.register({ login, password, name, email }).then((response) => {
+                // commit('setToken', res.data.token);
+                // commit('setUserRole', res.data.userRole);
+                DefaultAPIInstance.defaults.headers['authorization'] = `${response.data.token}`
+            })
+        },
     }
 }

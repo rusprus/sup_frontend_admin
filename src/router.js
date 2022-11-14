@@ -6,22 +6,27 @@ import NavComponent from '@/components/NavComponent.vue'
 import FooterSection from '@/components/FooterSection.vue'
 import AdminPage from '@/admin/main/AdminPage.vue'
 import LoginForm from '@/components/LoginForm.vue'
+import CalendarPage from '@/admin/main/CalendarPage.vue'
+import TopNav from '@/admin/components/TopNav.vue'
 import { UserRoles } from './types/Auth'
 
 
 // const isAuthorized = localStorage.hasOwnProperty('token');
+
 const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
 
-const authGuard = function (to, from, next){
-    if(!isAuthorized) next({name:'Login'});
+const authGuard = function (to, from, next) {
+    if (!isAuthorized) next({ name: 'Login' });
     else next()
 }
 
-const managerAuthGuard = function (to, from, next){
-    if(!isAuthorized) next({name:'Login'});
-    else if (localStorage.getItem('userRole') !== UserRoles.Moderator) next({name: 'Home'});
+const managerAuthGuard = function (to, from, next) {
+    if (!isAuthorized) next({ name: 'Login' });
+    else if (localStorage.getItem('userRole') !== JSON.stringify(UserRoles.Moderator)) next({ name: 'Home' });
     else next()
+
 }
+
 
 const routes = [
     {
@@ -59,9 +64,18 @@ const routes = [
         path: '/admin',
         name: 'Admin',
         components: {
-            content: AdminPage,
+                // nav: TopNav,
+                content: AdminPage,
         },
-        // beforeEnter: managerAuthGuard
+        beforeEnter: managerAuthGuard
+    },
+    {
+        path: '/admin/calendar',
+        name: 'Calendar',
+        components: {
+            content: CalendarPage,
+        },
+        beforeEnter: managerAuthGuard
     },
 ]
 
@@ -74,7 +88,7 @@ export default createRouter({
         if (to.hash) {
             return {
                 el: to.hash,
-                  behavior: 'smooth',
+                behavior: 'smooth',
             }
         }
     },

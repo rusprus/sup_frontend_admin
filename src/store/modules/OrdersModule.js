@@ -1,28 +1,29 @@
-import * as api from '../../api'
+import { OrdersAPI } from '@/api/OrdersAPI'
 
-export default {
+export const OrdersModule = {
     state: () => ({
 
         order: {},
-        orders: [
+        origin: [
             // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
         ],
+        filtered: [],
     }),
     actions: {
 
         getAllOrders({ commit }) {
-            api.getAllOrders().then((res) => {
+            OrdersAPI.getAllOrders().then((res) => {
                 commit('setAllOrders', res)
             })
         },
 
         changeOrder({ commit }, order) {
             if (order.id == null) {
-                api.addOrder(order).then((res) => {
+                OrdersAPI.addOrder(order).then((res) => {
                     commit('addOrder', res)
                 })
             } else {
-                api.updateOrder(order).then(() => {
+                OrdersAPI.updateOrder(order).then(() => {
                     commit('updateOrder', order)
                 })
             }
@@ -33,34 +34,45 @@ export default {
         },
 
         deleteOrder({ commit }, id) {
-            api.deleteOrder(id).then(() => {
+            OrdersAPI.deleteOrder(id).then(() => {
                 commit('deleteOrder', id)
             })
-        }
+        },
+
+        filterOrders({state}, str) {
+            state.filtered = state.origin.filter(function (item) {
+                for (var key in  item) {
+                  if (typeof  item[key] !==  String ) item[key] = String(item[key])
+                  if (item[key].indexOf(str) >= 0) return true;
+                }
+                return false;
+            });
+        },
     },
     mutations: {
 
         addOrder(state, order) {
-            state.orders.push(order)
+            state.origin.push(order)
         },
         deleteOrder(state, id) {
             let indexOrder = null
-            state.orders.forEach((elem, index) => {
+            state.origin.forEach((elem, index) => {
                 if (elem.id == id) indexOrder = index
             });
-            state.orders.splice(indexOrder, 1)
+            state.origin.splice(indexOrder, 1)
         },
 
         updateOrder(state, order) {
             let indexOrder = null
-            state.orders.forEach((elem, index) => {
+            state.origin.forEach((elem, index) => {
                 if (elem.id == order.id) indexOrder = index
             });
-            state.orders.splice(indexOrder, 1, order)
+            state.origin.splice(indexOrder, 1, order)
         },
 
         setAllOrders(state, orders) {
-            state.orders = orders
+            state.origin = orders
+            state.filtered = orders
         },
         setOrderDefault(state) {
             state.order = {

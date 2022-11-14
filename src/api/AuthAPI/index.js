@@ -8,14 +8,22 @@ export const AuthAPI = {
      * @returns 
      */
     login({ login, password }) {
-        const url = '/login';
+        const url = '/auth//login';
         const data = { login, password };
-        console.log('in api')
-        console.log(data)
+        // console.log('in api')
+        // console.log(data)
         return LoginAPIInstance.post(url, data);
     },
     logout() {
-        const url = '/logout';
+        const url = '/auth//logout';
         return DefaultAPIInstance.post(url);
+    },
+    register({ login, password, name, email }) {
+        // alert('register send')
+        // alert(login + '' + password)
+        const url = '/auth/signup';
+        const data = { login, password, name, email };
+        return DefaultAPIInstance.post(url, data);
     }
+
 }

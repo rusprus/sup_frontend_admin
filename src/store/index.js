@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { AuthModule } from './modules/AuthModule'
-import orders from './modules/orders'
+import { OrdersModule as orders } from './modules/OrdersModule'
 
 const state = {
   orderModule: false,

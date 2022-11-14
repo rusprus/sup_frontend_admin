@@ -28,6 +28,8 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+    components:{
+    },
     props: ['item'],
     computed: {
         ...mapState([
@@ -39,7 +41,7 @@ export default {
         ...mapMutations(['showOrderModule']),
 
         updateOrder(id) {
-            this.orders.order = this.orders.orders.find((item)=>item.id == id)
+            this.orders.order = this.orders.origin.find((item)=>item.id == id)
             // this.$store.state.orderModule = true
             this.showOrderModule(true)
             console.log( this.orderModule )
