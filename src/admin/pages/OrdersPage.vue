@@ -3,6 +3,8 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <OrderModule :show="show" @close="showOrderModule(false)" /> 
+
                     <div class="flex justify-center m-4">
                         <button
                             @click="addOrder"
@@ -12,9 +14,9 @@
                             <PlusSmIconSolid class="h-6 w-6" aria-hidden="true" />
                         </button>
                     </div>
-                    <!-- Пагинация -->  
-                    <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber"  @change-page="changePage" />
-                        <br />
+                    <!-- Пагинация -->
+                    <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" />
+                    <br />
                     <!--  -->
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -62,7 +64,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <TransitionGroup name="flip-list">
-                                <OrderItem v-for="item in paginatedData" :item="item" :key="item.id" />
+                                <OrderItem @show-order-module="showOrderModule" v-for="item in paginatedData" :item="item" :key="item.id" />
                             </TransitionGroup>
                         </tbody>
                     </table>
@@ -73,9 +75,10 @@
 </template>
 
 <script>
-import OrderItem from "./OrderItem.vue";
-import PaginationComponent from "../components/PaginationComponent";
-import { mapActions, mapState, mapMutations } from "vuex";
+import OrderItem from "@/admin/components/OrderItem.vue";
+import PaginationComponent from "@/admin/components/PaginationComponent";
+import OrderModule from "@/admin/components/OrderModule.vue";
+import { mapActions, mapState } from "vuex";
 import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
 // import styles from "@tailwindcss/typography/src/styles";
 
@@ -84,7 +87,8 @@ export default {
         OrderItem,
         PlusSmIconSolid,
         SwitchVerticalIcon,
-        PaginationComponent
+        PaginationComponent,
+        OrderModule
     },
 
     data() {
@@ -93,11 +97,12 @@ export default {
             sortDirect: true,
             pageNumber: 1, // по умолчанию 0
             size: 4,
+            show: false
         };
     },
 
     computed: {
-        ...mapState(["orders", "orderModule"]),
+        ...mapState(["orders"]),
         paginatedData() {
             const start = (this.pageNumber - 1) * this.size,
                 end = start + this.size;
@@ -110,19 +115,24 @@ export default {
         },
     },
     watch: {
-      // при каждом изменении `question` эта функция будет запускаться
-      pageCount() {
-          this.pageNumber = 1
-      }
+        pageCount() {
+            this.pageNumber = 1;
+        },
     },
 
     methods: {
-        ...mapMutations(["showOrderModule"]),
+        // ...mapMutations(["showOrderModule"]),
         ...mapActions(["setOrderDefault"]),
         addOrder() {
             // this.$store.state.orderModule = true
-            this.showOrderModule(true);
+            // this.showOrderModule(true);
+            
             this.setOrderDefault();
+            this.show = true
+        },
+        showOrderModule(param){
+            console.log('OrderPage')
+            this.show = param
         },
         sort(param) {
             this.sortDirect = !this.sortDirect;
@@ -146,20 +156,18 @@ export default {
         },
         prevPage() {
             if (this.pageNumber > 1) this.pageNumber--;
-
         },
         setPage(num) {
-            console.log('set')
-            if (num > 0 && num <= this.pageCount  ) this.pageNumber = num;
-
+            console.log("set");
+            if (num > 0 && num <= this.pageCount) this.pageNumber = num;
         },
-        changePage(nextPrev){
-            console.log('changePage')
-            if(nextPrev == 'next') this.nextPage()
-            if(nextPrev == 'prev') this.prevPage()
-            console.log('changePage2')
-            if(typeof nextPrev == 'number' ) this.setPage(nextPrev)
-        }
+        changePage(nextPrev) {
+            console.log("changePage");
+            if (nextPrev == "next") this.nextPage();
+            if (nextPrev == "prev") this.prevPage();
+            console.log("changePage2");
+            if (typeof nextPrev == "number") this.setPage(nextPrev);
+        },
     },
     setup() {
         return {

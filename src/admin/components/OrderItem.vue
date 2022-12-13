@@ -19,7 +19,7 @@
             {{ item.note }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <a @click="updateOrder(item.id)" href="#" class="text-indigo-600 hover:text-indigo-900">Изменить</a>
+            <span @click="updateOrder(item.id)"  class="text-indigo-600 hover:text-indigo-900 cursor-pointer">Изменить</span>
         </td>
     </tr>
 </template>
@@ -43,8 +43,10 @@ export default {
         updateOrder(id) {
             this.orders.order = this.orders.origin.find((item)=>item.id == id)
             // this.$store.state.orderModule = true
-            this.showOrderModule(true)
-            console.log( this.orderModule )
+            console.log('orderItem')
+            this.$emit('showOrderModule', true)
+            // this.showOrderModule(true)
+            // console.log( this.orderModule )
 
         }
     }

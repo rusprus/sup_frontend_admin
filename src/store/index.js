@@ -1,6 +1,8 @@
 import { createStore } from 'vuex'
 import { AuthModule } from './modules/AuthModule'
 import { OrdersModule as orders } from './modules/OrdersModule'
+import { CalendarModule } from './modules/CalendarModule'
+
 
 const state = {
   orderModule: false,
@@ -23,6 +25,7 @@ export default createStore({
   mutations,
   modules: {
     AuthModule,
+    CalendarModule,
     orders
   }
 })

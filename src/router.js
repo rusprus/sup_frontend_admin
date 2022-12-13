@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import MainPage from '@/pages/rent/MainPage.vue'
-import WalkPage from '@/pages/walk/WalkPage.vue'
-import NavComponent from '@/components/NavComponent.vue'
-import FooterSection from '@/components/FooterSection.vue'
-import AdminPage from '@/admin/main/AdminPage.vue'
-import LoginForm from '@/components/LoginForm.vue'
-import CalendarPage from '@/admin/main/CalendarPage.vue'
-import TopNav from '@/admin/components/TopNav.vue'
+import LandingLayout from '@/pages/rent/LandingLayout.vue'
+import AdminLayout from '@/admin/pages/AdminLayout.vue'
+
+import LandingPage from "@/pages/rent/LandingPage.vue";
+import OrdersPage from "@/admin/pages/OrdersPage.vue";
+import AdminPage from '@/admin/pages/AdminPage.vue'
+import CalendarPage from '@/admin/pages/CalendarPage.vue'
+import LoginPage from '@/components/LoginPage.vue'
+
+// import WalkPage from '@/pages/walk/WalkPage.vue'
+
 import { UserRoles } from './types/Auth'
 
 
@@ -30,53 +33,57 @@ const managerAuthGuard = function (to, from, next) {
 
 const routes = [
     {
-        path: '/rent',
-        name: 'Rent',
-        components: {
-            nav: NavComponent,
-            content: MainPage,
-            footer: FooterSection
-        },
-        beforeEnter: authGuard
-
-    },
-    {
         path: '/',
-        name: 'Home',
-        components: {
-            nav: NavComponent,
-            content: WalkPage,
-            footer: FooterSection
-        },
-        alias: '/b',
-        // beforeEnter: authGuard
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        components: {
-            nav: NavComponent,
-            content: LoginForm,
-            footer: FooterSection
-        },
+        name: 'LandingLayout',
+        component: LandingLayout,
+        children: [
+            {
+                path: '',
+                components: {
+                    content: LandingPage,
+                },
+            },
+            {
+                path: 'login',
+                name: 'Login',
+                components: {
+                    content: LoginPage,
+                },
+            },
+
+        ],
+        beforeEnter: authGuard
     },
     {
         path: '/admin',
-        name: 'Admin',
-        components: {
-                // nav: TopNav,
-                content: AdminPage,
-        },
+        name: 'AdminLayout',
+        component: AdminLayout,
+        children: [
+            {
+                path: '',
+                name: 'AdminPage',
+                components: {
+                    content: AdminPage,
+                },
+            },
+            {
+                path: 'orders',
+                name: 'OrdersPage',
+                components: {
+                    content: OrdersPage,
+                },
+            },
+            {
+                path: 'calendar',
+                name: 'CalendarPage',
+                components: {
+                    content: CalendarPage,
+                },
+            },
+        ],
         beforeEnter: managerAuthGuard
     },
-    {
-        path: '/admin/calendar',
-        name: 'Calendar',
-        components: {
-            content: CalendarPage,
-        },
-        beforeEnter: managerAuthGuard
-    },
+
 ]
 
 export default createRouter({

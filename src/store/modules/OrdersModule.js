@@ -71,6 +71,8 @@ export const OrdersModule = {
         },
 
         setAllOrders(state, orders) {
+            console.log('setAllOrders')
+
             state.origin = orders
             state.filtered = orders
         },

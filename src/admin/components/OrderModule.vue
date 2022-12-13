@@ -17,8 +17,8 @@
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-    <TransitionRoot as="template" :show="this.$store.state.orderModule">
-        <Dialog as="div" class="fixed z-10 inset-0 overflow-y-auto" @close="close">
+    <TransitionRoot as="template">
+        <Dialog as="div" class="fixed z-10 inset-0 overflow-y-auto"  @close="close">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0"
                     enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -162,7 +162,7 @@
 <script>
 // import { ref } from 'vue'
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 
 export default {
@@ -174,19 +174,13 @@ export default {
     },
     data() {
         return {
-            // orderName: 'Unknown',
-            // orderDateStart: '2000-00-00',
-            // orderDateEnd: '2000-00-00',
-            // orderCount: 1,
-            // orderStatus: 1,
-            // orderNote: ''
+
         }
     },
 
     computed: {
         ...mapState([
             'orders',
-            'orderModule'
         ]),
     },
     // props: {
@@ -196,52 +190,33 @@ export default {
     //     },
     // },
     methods: {
-        ...mapMutations(['showOrderModule']),
         ...mapActions([
             'changeOrder',
             'deleteOrder'
         ]),
         close() {
-            // this.$store.state.orderModule = false
-            this.showOrderModule(false)
+            this.$emit('close')
         },
         save() {
-            // this.$store.dispatch('changeOrder', { name: this.orderName, dateStart: this.orderDateStart, dateEnd: this.orderDateEnd, count: this.orderCount, status: this.orderStatus, note: this.orderNote });
-            
+ 
             this.changeOrder({ id: this.orders.order.id, name: this.orders.order.name, dateStart: this.orders.order.dateStart, dateEnd: this.orders.order.dateEnd, count: this.orders.order.count, status: this.orders.order.status, note: this.orders.order.note })
-            this.showOrderModule(false)
+            this.$emit('close')
         },
         delOrder(){
             this.deleteOrder(this.orders.order.id)
-            this.showOrderModule(false)
+            this.$emit('close')
 
         },
-        // update() {
-        //     console.log('in module')
-        //     console.log(this.orders.order)
 
-        // }
     },
 
     mounted() {
-        // this.orderStatus = 'не выбран'
-        // this.orders.order = {
-        //     name: 'Unknown',
-        //     dateStart: '2000-00-00',
-        //     dateEnd: '2000-00-00',
-        //     count: 1,
-        //     status: 1,
-        //     note: ''
-        // }
-        // console.log('Creat module')
         this.close()
     },
     setup() {
-        // const open = ref(false)
-        // this.$store.state.orderModule = false
-        // store.state.orderModule = false
+
         return {
-            // open,
+
         }
     },
 }
