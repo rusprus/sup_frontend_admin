@@ -187,6 +187,8 @@
 import { SearchIcon } from "@heroicons/vue/solid";
 import { MenuItem, MenuItems, MenuButton, Menu } from "@headlessui/vue";
 // import { BellIcon } from "@heroicons/vue/outline";
+import { ChevronDownIcon } from '@heroicons/vue/solid'
+import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ArchiveIcon, BanIcon, BellIcon, FlagIcon, InboxIcon, MenuIcon, PencilAltIcon, UserCircleIcon, XIcon } from "@heroicons/vue/outline";
 import { mapActions, mapState } from "vuex";
 
@@ -199,11 +201,17 @@ export default {
         MenuButton,
         BellIcon,
         MenuIcon,
-        XIcon
+        XIcon,
+        TransitionChild,
+        TransitionRoot,
+        DialogOverlay,
+        Dialog,
+        ChevronDownIcon
     },
     data() {
         return {
             searchString: "",
+            mobileMenuOpen: false,
             user: {
                 name: "Whitney Francis",
                 email: "whitneyfrancis@example.com",

@@ -3,7 +3,6 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <OrderModule :show="show" @close="showOrderModule(false)" /> 
 
                     <div class="flex justify-center m-4">
                         <button
@@ -64,7 +63,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <TransitionGroup name="flip-list">
-                                <OrderItem @show-order-module="showOrderModule" v-for="item in paginatedData" :item="item" :key="item.id" />
+                                <OrderItem v-for="item in paginatedData" :item="item" :key="item.id" />
                             </TransitionGroup>
                         </tbody>
                     </table>
@@ -77,7 +76,6 @@
 <script>
 import OrderItem from "@/admin/components/OrderItem.vue";
 import PaginationComponent from "@/admin/components/PaginationComponent";
-import OrderModule from "@/admin/components/OrderModule.vue";
 import { mapActions, mapState } from "vuex";
 import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
 // import styles from "@tailwindcss/typography/src/styles";
@@ -88,7 +86,7 @@ export default {
         PlusSmIconSolid,
         SwitchVerticalIcon,
         PaginationComponent,
-        OrderModule
+        // OrderModal,
     },
 
     data() {
@@ -97,7 +95,6 @@ export default {
             sortDirect: true,
             pageNumber: 1, // по умолчанию 0
             size: 4,
-            show: false
         };
     },
 
@@ -121,18 +118,13 @@ export default {
     },
 
     methods: {
-        // ...mapMutations(["showOrderModule"]),
-        ...mapActions(["setOrderDefault"]),
+        ...mapActions(["setOrderDefault", "toggleModule"]),
         addOrder() {
-            // this.$store.state.orderModule = true
-            // this.showOrderModule(true);
-            
             this.setOrderDefault();
-            this.show = true
+            this.toggleModule(true)
         },
-        showOrderModule(param){
-            console.log('OrderPage')
-            this.show = param
+        showOrderModal(param) {
+            this.toggleModule(param)
         },
         sort(param) {
             this.sortDirect = !this.sortDirect;

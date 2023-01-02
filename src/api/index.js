@@ -15,7 +15,8 @@ const defaultConfig = {
   baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token')
+    'Authorization': localStorage.getItem('token'),
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
   }
 }
 

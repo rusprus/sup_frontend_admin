@@ -25,6 +25,7 @@
   -->
     <div class="h-full flex flex-col">
         <!-- <router-view name="nav"></router-view> -->
+        <OrderModal :show="orders.orderModule" />
         <TopNav />
         <!-- Bottom section -->
         <div class="min-h-0 flex-1 flex overflow-hidden">
@@ -58,11 +59,12 @@
 <script>
 import { ref, onMounted } from "vue";
 
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
-import TopNav from '@/admin/components/TopNav.vue' 
+import TopNav from "@/admin/components/TopNav.vue";
 
 import NarrowSidebar from "@/admin/components/NarrowSidebar.vue";
+import OrderModal from "@/admin/components/OrderModal.vue";
 
 // const user = {
 //   name: 'Whitney Francis',
@@ -100,12 +102,16 @@ export default {
     components: {
         TopNav,
         NarrowSidebar,
+        OrderModal,
     },
     methods: {
         showMess(data) {
             console.log(data);
         },
         ...mapActions(["getAllOrders"]),
+    },
+    computed: {
+        ...mapState(["orders"]),
     },
     mounted() {
         this.getAllOrders();

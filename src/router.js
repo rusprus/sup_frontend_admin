@@ -3,11 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LandingLayout from '@/pages/rent/LandingLayout.vue'
 import AdminLayout from '@/admin/pages/AdminLayout.vue'
 
-import LandingPage from "@/pages/rent/LandingPage.vue";
-import OrdersPage from "@/admin/pages/OrdersPage.vue";
+import LandingPage from "@/pages/rent/LandingPage.vue"
+import OrdersPage from "@/admin/pages/OrdersPage.vue"
 import AdminPage from '@/admin/pages/AdminPage.vue'
 import CalendarPage from '@/admin/pages/CalendarPage.vue'
 import LoginPage from '@/components/LoginPage.vue'
+import DayView from '@/admin/components/DayView.vue'
+import WeekView from '@/admin/components/WeekView.vue'
+import MonthView from '@/admin/components/MonthView.vue'
+import YearView from '@/admin/components/YearView.vue'
+
 
 // import WalkPage from '@/pages/walk/WalkPage.vue'
 
@@ -39,6 +44,7 @@ const routes = [
         children: [
             {
                 path: '',
+                name: 'LandingLayoutInit',
                 components: {
                     content: LandingPage,
                 },
@@ -79,6 +85,43 @@ const routes = [
                 components: {
                     content: CalendarPage,
                 },
+                children: [
+                    {
+                        path: '',
+                        name: 'MonthViewInit',
+                        components: {
+                            content: MonthView,
+                        },
+                    },
+                    {
+                        path: 'day',
+                        name: 'DayView',
+                        components: {
+                            content: DayView,
+                        },
+                    },
+                    {
+                        path: 'week',
+                        name: 'WeekView',
+                        components: {
+                            content: WeekView,
+                        },
+                    },
+                    {
+                        path: 'month',
+                        name: 'MonthView',
+                        components: {
+                            content: MonthView,
+                        },
+                    },
+                    {
+                        path: 'year',
+                        name: 'YearView',
+                        components: {
+                            content: YearView,
+                        },
+                    }
+                ]
             },
         ],
         beforeEnter: managerAuthGuard

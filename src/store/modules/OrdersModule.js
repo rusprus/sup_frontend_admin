@@ -8,8 +8,17 @@ export const OrdersModule = {
             // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
         ],
         filtered: [],
+        orderModule: false
     }),
     actions: {
+
+        addOrder( {commit}, order){
+            if (order.id == null) {
+                OrdersAPI.addOrder(order).then((res) => {
+                    commit('addOrder', res)
+                })
+            } 
+        },
 
         getAllOrders({ commit }) {
             OrdersAPI.getAllOrders().then((res) => {
@@ -17,36 +26,43 @@ export const OrdersModule = {
             })
         },
 
-        changeOrder({ commit }, order) {
-            if (order.id == null) {
-                OrdersAPI.addOrder(order).then((res) => {
-                    commit('addOrder', res)
-                })
-            } else {
+        updateOrder({ commit, state }, order) {
+           let result = state.origin.includes((item)=>item.id == order.id)
+            if (result !== undefined) {
+
                 OrdersAPI.updateOrder(order).then(() => {
+                    console.log('orderUpdated!!!')
                     commit('updateOrder', order)
                 })
             }
+        },
+
+        deleteOrder({ commit, state }, id) {
+            if(id !== null){
+                let order = state.order = state.origin.find((item)=>item.id == id)
+                OrdersAPI.deleteOrder(order.id).then(() => {
+                    commit('deleteOrder', order.id)
+                })
+            }
+            
         },
 
         setOrderDefault({ commit }) {
             commit('setOrderDefault')
         },
 
-        deleteOrder({ commit }, id) {
-            OrdersAPI.deleteOrder(id).then(() => {
-                commit('deleteOrder', id)
-            })
-        },
-
-        filterOrders({state}, str) {
+        filterOrders({ state }, str) {
             state.filtered = state.origin.filter(function (item) {
-                for (var key in  item) {
-                  if (typeof  item[key] !==  String ) item[key] = String(item[key])
-                  if (item[key].indexOf(str) >= 0) return true;
+                for (var key in item) {
+                    if (typeof item[key] !== String) item[key] = String(item[key])
+                    if (item[key].indexOf(str) >= 0) return true;
                 }
                 return false;
             });
+        },
+        toggleModule({ state }, param) {
+            if(param == true)state.orderModule = true;
+            if(param == false)state.orderModule = false;
         },
     },
     mutations: {
