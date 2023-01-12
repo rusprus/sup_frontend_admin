@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { AuthModule } from './modules/AuthModule'
-import { OrdersModule as orders } from './modules/OrdersModule'
+import { OrdersModule } from './modules/OrdersModule'
 import { CalendarModule } from './modules/CalendarModule'
 
 
@@ -26,6 +26,6 @@ export default createStore({
   modules: {
     AuthModule,
     CalendarModule,
-    orders
+    OrdersModule
   }
 })

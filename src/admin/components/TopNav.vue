@@ -190,7 +190,7 @@ import { MenuItem, MenuItems, MenuButton, Menu } from "@headlessui/vue";
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ArchiveIcon, BanIcon, BellIcon, FlagIcon, InboxIcon, MenuIcon, PencilAltIcon, UserCircleIcon, XIcon } from "@heroicons/vue/outline";
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
     components: {
@@ -246,7 +246,7 @@ export default {
     },
 
     computed: {
-        ...mapState(["orders"]),
+        // ...mapState(["orders"]),
     },
     methods: {
         ...mapActions(["filterOrders"]),

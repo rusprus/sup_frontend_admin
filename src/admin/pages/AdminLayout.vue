@@ -25,7 +25,8 @@
   -->
     <div class="h-full flex flex-col">
         <!-- <router-view name="nav"></router-view> -->
-        <OrderModal :show="orders.orderModule" />
+        
+            <OrderModal :showProp="OrdersModule.orderModule"  />
         <TopNav />
         <!-- Bottom section -->
         <div class="min-h-0 flex-1 flex overflow-hidden">
@@ -65,6 +66,7 @@ import TopNav from "@/admin/components/TopNav.vue";
 
 import NarrowSidebar from "@/admin/components/NarrowSidebar.vue";
 import OrderModal from "@/admin/components/OrderModal.vue";
+import moment from "moment"
 
 // const user = {
 //   name: 'Whitney Francis',
@@ -111,10 +113,11 @@ export default {
         ...mapActions(["getAllOrders"]),
     },
     computed: {
-        ...mapState(["orders"]),
+        ...mapState(["OrdersModule"]),
     },
     mounted() {
         this.getAllOrders();
+        moment.locale('ru')
     },
     setup() {
         onMounted(() => {});

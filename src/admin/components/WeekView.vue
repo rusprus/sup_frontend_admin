@@ -7,20 +7,20 @@
             <div style="width: 165%" class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
                 <div ref="containerNav" class="sticky top-0 z-10 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
                     <div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-                        <template v-for="day of week" :key="day">
+                        <template v-for="(day, index) of weekNumber" :key="index">
                             <button type="button" class="flex flex-col items-center pt-2 pb-3">
-                                {{ dateWeek(day.date) }}
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">{{ dateDay(day.date) }}</span>
+                                {{ dateWeek(day) }}
+                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">{{ dateDay(day) }}</span>
                             </button>
                         </template>
                     </div>
 
                     <div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid">
                         <div class="col-end-1 w-14" />
-                        <template v-for="day of week" :key="day">
+                        <template v-for="(day, index) of weekNumber" :key="index">
                             <div class="flex items-center justify-center py-3">
                                 <span
-                                    >{{ dateWeek(day.date) }} <span class="items-center justify-center font-semibold text-gray-900">{{ dateDay(day.date) }}</span></span
+                                    >{{ dateWeek(day) }} <span class="items-center justify-center font-semibold text-gray-900">{{ dateDay(day) }}</span></span
                                 >
                             </div>
                         </template>
@@ -62,28 +62,41 @@
                             <div class="col-start-8 row-span-full w-8" />
                         </div>
 
-                        <!-- Rent orders -->
+                        <!-- Rent OrdersModule -->
                         <ol
                             class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:pr-8"
                             style="grid-template-rows: 1.75rem repeat(10, minmax(0, 1fr)) auto; grid-template-columns: repeat(28, minmax(1.7rem, 1fr))"
                         >
                             <!-- <li class="relative mt-px flex sm:col-start-3 sm:col-end-6 " style="grid-row: 4 / span 6"> -->
 
-                            <template v-for="day of week" :key="day">
-                                <li v-for="order of day.orders" :key="order" class="relative mt-px flex" :style="gridArea(order)">
+                            <!-- <template v-for="day of week" :key="day"> -->
+                            <li v-for="order of week" :key="order" class="relative mt-px flex" :style="gridArea(order)">
+                                <a
+                                    @click="update(order.id)"
+                                    class="cursor-pointer group absolute inset-1 flex flex-col overflow-y-auto rounded-lg p-2 text-xs leading-5"
+                                    :class="fieldOrder(order.sup_id)"
+                                >
+                                    <p class="order-1 font-semibold" :class="nameOrder(order.sup_id)">{{ order.name }}</p>
+                                    <p class="" :class="dataOrder(order.sup_id)">
+                                        <time :datetime="order.dateStart"> {{ dateYMDT(order.dateStart) + " --- " + dateYMDT(order.dateEnd) }}</time>
+                                    </p>
+                                </a>
+                            </li>
+                            <!-- </template> -->
+                            <!-- <template v-for="day of week" :key="day">
+                                <li v-for="order of day.OrdersModule" :key="order" class="relative mt-px flex" :style="gridArea(order)">
                                     <a
                                         @click="update(order.id)"
                                         class="cursor-pointer group absolute inset-1 flex flex-col overflow-y-auto rounded-lg p-2 text-xs leading-5"
                                         :class="fieldOrder(order.sup_id)"
                                     >
-                                        <!-- {{day}} -->
                                         <p class="order-1 font-semibold" :class="nameOrder(order.sup_id)">{{ order.name }}</p>
                                         <p class="" :class="dataOrder(order.sup_id)">
                                             <time :datetime="order.dateStart"> {{ dateYMDT(order.dateStart) + " --- " + dateYMDT(order.dateEnd) }}</time>
                                         </p>
                                     </a>
                                 </li>
-                            </template>
+                            </template> -->
                         </ol>
                     </div>
                 </div>
@@ -105,8 +118,18 @@ export default {
     },
     components: {},
     computed: {
-        ...mapState(["orders"]),
+        ...mapState(["OrdersModule", "CalendarModule"]),
         ...mapGetters(["week"]),
+        weekNumber() {
+            let days = [];
+            let clonDate = moment(this.CalendarModule.currentDate);
+            clonDate.startOf("week");
+            for (let i = 0; i < 7; i++) {
+                days[i] = clonDate.format(moment.HTML5_FMT.DATE);
+                clonDate.add(1, "days");
+            }
+            return days;
+        },
     },
     methods: {
         ...mapActions(["setTogglePeriod", "toggleModule"]),
@@ -124,41 +147,56 @@ export default {
             let startY = order.sup_id + 1;
             let endY = order.sup_id + 1;
 
-            let startX = this.week.findIndex((item) => item.date == moment(order.dateStart).format(moment.HTML5_FMT.DATE));
+            let startWeek = moment(this.CalendarModule.currentDate).startOf("week").format(moment.HTML5_FMT.DATE);
+            let endWeek = moment(this.CalendarModule.currentDate).endOf("week").format(moment.HTML5_FMT.DATE);
 
-            if (startX == 0 || startX == -1) {
-                startX = 1;
-            } else {
-                startX = startX * 4 + 1;
+            let startX = 1;
+            if (moment(order.dateStart).isBetween(startWeek, endWeek)) {
+                // console.log(moment(order.dateStart).weekday());
+                startX = moment(order.dateStart).weekday() * 4 + 1;
+
+                let hour = moment(order.dateStart).hour();
+
+                startX = 7 <= hour && hour < 11 ? startX + 0 : startX;
+                startX = 11 <= hour && hour < 15 ? startX + 1 : startX;
+                startX = 15 <= hour && hour < 19 ? startX + 2 : startX;
+                startX = 19 <= hour && hour <= 23 ? startX + 3 : startX;
+
+                hour = 0;
             }
 
-            let hour = moment(order.dateStart).hour();
-
-            startX = 7 <= hour && hour < 11 ? startX + 0 : startX;
-            startX = 11 <= hour && hour < 15 ? startX + 1 : startX;
-            startX = 15 <= hour && hour < 19 ? startX + 2 : startX;
-            startX = 19 <= hour && hour <= 23 ? startX + 3 : startX;
-
-            hour = 0;
             ///
 
-            let endX = this.week.findIndex((item) => item.date == moment(order.dateEnd).format(moment.HTML5_FMT.DATE));
+            // let endX = this.week.findIndex((item) => item.dateEnd == moment(order.dateEnd).format(moment.HTML5_FMT.DATE));
 
-            if (endX == 0 || endX == -1) {
-                endX = 29;
-            } else {
-                endX = endX * 4 + 1;
+            // console.log(startWeek);
+            // console.log(endWeek);
+            // console.log(moment(order.dateEnd).format(moment.HTML5_FMT.DATE));
+
+            let endX = 29;
+            // endX = moment(order.dateEnd).weekday() * 4 + 1;
+
+            if (moment(order.dateEnd).isBetween(startWeek, endWeek)) {
+                // console.log(moment(order.dateEnd).weekday());
+                endX = moment(order.dateEnd).weekday() * 4 + 1;
+
+                let hour = moment(order.dateEnd).hour();
+
+                endX = 7 <= hour && hour < 11 ? endX + 0 : endX;
+                endX = 11 <= hour && hour < 15 ? endX + 1 : endX;
+                endX = 15 <= hour && hour < 19 ? endX + 2 : endX;
+                endX = 19 <= hour && hour <= 23 ? endX + 3 : endX;
+
+                hour = 0;
             }
 
-            hour = moment(order.dateEnd).hour();
+            // if (endX == 0 || endX == -1) {
+            //     endX = 29;
+            // } else {
+            //     endX = endX * 4 + 1;
+            // }
 
-            endX = 7 <= hour && hour < 11 ? endX + 0 : endX;
-            endX = 11 <= hour && hour < 15 ? endX + 1 : endX;
-            endX = 15 <= hour && hour < 19 ? endX + 2 : endX;
-            endX = 19 <= hour && hour <= 23 ? endX + 3 : endX;
-
-            hour = 0;
-
+            // console.log(endX);
             return {
                 gridArea: startY + " /  " + startX + " / " + endY + " / " + endX + "",
             };
@@ -190,10 +228,11 @@ export default {
         },
 
         update(id) {
-            this.orders.order = this.orders.origin.find((item) => item.id == id);
+            this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
             this.toggleModule(true);
         },
     },
+
     mounted() {
         this.setTogglePeriod("week");
     },

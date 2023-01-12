@@ -4,16 +4,16 @@
             {{ item.name }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ item.dateStart }}
+            {{ format(item.dateStart) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ item.dateEnd }}
+            {{ format(item.dateEnd) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ item.count }}
+            {{ item.sup_id }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ item.status }}
+            {{ OrdersModule.status[item.status] }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ item.note }}
@@ -26,13 +26,14 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import moment from "moment";
 
 export default {
     components: {},
     props: ["item"],
     computed: {
         ...mapState([
-            "orders",
+            "OrdersModule",
             // 'orderModule'
         ]),
     },
@@ -40,12 +41,15 @@ export default {
         ...mapActions(["updateOrder", "toggleModule"]),
 
         openModal(id) {
-            this.orders.order = this.orders.origin.find((item) => item.id == id);
-            // if (this.orders.order.id !== null) {
-            //     this.updateOrder(this.orders.order.id);
-            // }
+            this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
             this.toggleModule(true);
         },
+        format(date) {
+            return moment(date).format("YYYY-MM-DD HH:mm");
+        },
+    },
+    mounted() {
+        // console.log(this.OrdersModule.status)
     },
 };
 </script>

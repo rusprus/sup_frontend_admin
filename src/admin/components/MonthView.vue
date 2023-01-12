@@ -108,7 +108,7 @@ export default {
             this.selectedDay = day;
         },
         update(id){
-             this.orders.order = this.orders.origin.find((item) => item.id == id);
+             this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
             // if (this.orders.order !== null) this.toggleModule(true)
 
             this.toggleModule(true)
@@ -116,7 +116,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(["CalendarModule", "orders"]),
+        ...mapState(["CalendarModule", "OrdersModule"]),
         ...mapGetters(["month"]),
     },
     mounted() {

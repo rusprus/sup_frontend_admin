@@ -14,8 +14,10 @@
                         </button>
                     </div>
                     <!-- Пагинация -->
-                    <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" />
+                    <!-- <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" /> -->
                     <br />
+
+                    <OrderFilter />
                     <!--  -->
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -40,7 +42,7 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="flex">
-                                        <div class="flex">Кол-во сапов</div>
+                                        <div class="flex">Номер сапа</div>
                                         <div><SwitchVerticalIcon @click="sort(columns[3])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
                                     </div>
                                 </th>
@@ -63,7 +65,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <TransitionGroup name="flip-list">
-                                <OrderItem v-for="item in paginatedData" :item="item" :key="item.id" />
+                                <OrderItem v-for="item in OrdersModule.filtered" :item="item" :key="item.id" />
                             </TransitionGroup>
                         </tbody>
                     </table>
@@ -75,7 +77,8 @@
 
 <script>
 import OrderItem from "@/admin/components/OrderItem.vue";
-import PaginationComponent from "@/admin/components/PaginationComponent";
+// import PaginationComponent from "@/admin/components/PaginationComponent"; 
+import OrderFilter from "@/admin/components/OrderFilter"; 
 import { mapActions, mapState } from "vuex";
 import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
 // import styles from "@tailwindcss/typography/src/styles";
@@ -85,28 +88,29 @@ export default {
         OrderItem,
         PlusSmIconSolid,
         SwitchVerticalIcon,
-        PaginationComponent,
+        // PaginationComponent,
+        OrderFilter
         // OrderModal,
     },
 
     data() {
         return {
-            columns: ["name", "dateStart", "dateEnd", "count", "status", "notes"],
+            columns: ["name", "dateStart", "dateEnd", "sup_id", "status", "notes"],
             sortDirect: true,
             pageNumber: 1, // по умолчанию 0
-            size: 4,
+            size: 10,
         };
     },
 
     computed: {
-        ...mapState(["orders"]),
+        ...mapState(["OrdersModule"]),
         paginatedData() {
             const start = (this.pageNumber - 1) * this.size,
                 end = start + this.size;
-            return this.orders.filtered.slice(start, end);
+            return this.OrdersModule.filtered.slice(start, end);
         },
         pageCount() {
-            let l = this.orders.filtered.length,
+            let l = this.OrdersModule.filtered.length,
                 s = this.size;
             return Math.ceil(l / s);
         },
@@ -130,16 +134,16 @@ export default {
             this.sortDirect = !this.sortDirect;
             if (param === this.columns[1] || param === this.columns[2] || param === this.columns[3] || param === this.columns[4]) {
                 if (this.sortDirect) {
-                    this.orders.filtered.sort((a, b) => (a[param] > b[param] ? 1 : -1));
+                    this.OrdersModule.filtered.sort((a, b) => (a[param] > b[param] ? 1 : -1));
                 } else {
-                    this.orders.filtered.sort((a, b) => (a[param] < b[param] ? 1 : -1));
+                    this.OrdersModule.filtered.sort((a, b) => (a[param] < b[param] ? 1 : -1));
                 }
             }
             if (param === this.columns[0] || param === this.columns[5]) {
                 if (this.sortDirect) {
-                    this.orders.filtered.sort((a, b) => a[param].localeCompare(b[param]));
+                    this.OrdersModule.filtered.sort((a, b) => a[param].localeCompare(b[param]));
                 } else {
-                    this.orders.filtered.sort((a, b) => b[param].localeCompare(a[param]));
+                    this.OrdersModule.filtered.sort((a, b) => b[param].localeCompare(a[param]));
                 }
             }
         },

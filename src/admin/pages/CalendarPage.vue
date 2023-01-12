@@ -183,8 +183,8 @@ export default {
         // moment.updateLocale("ru", {
 
         // });
-        moment.locale("ru");
-        moment.tz.setDefault("Europe/Moscow");
+        // moment.locale("ru");
+        // moment.tz.setDefault("Europe/Moscow");
         // moment.tz.setDefault("America/Los_Angeles");
         this.CalendarModule.currentDate = moment();
         this.CalendarModule.currentMonth = this.CalendarModule.currentDate.month();

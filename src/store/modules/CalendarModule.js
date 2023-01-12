@@ -56,46 +56,41 @@ export const CalendarModule = {
             }
             return days;
         },
-        week(state, getters) {
-            let days = [];
-            state.currentDate = moment(state.currentDate)
-            state.pointerDate = state.currentDate.clone();
-            state.pointerDate.startOf("week");
 
-            for (let i = 0; i < 7; i++) {
-                days[i] = {
-                    date: state.pointerDate.format(moment.HTML5_FMT.DATE),
-                    isCurrentMonth: false,
-                    orders: getters.ordersOfDate,
-                };
-                state.pointerDate.add(1, "days")
-                // console.log(state.pointerDate.date())
-
-            }
-
-            console.log(days)
-            // console.log( days[1].orders)
-            return days;
-        },
         ordersOfDate(state, getters, rootState) {
-            // console.log('11')
-            // return [ {name: 'Ronin'}]
-            let date1 = state.pointerDate.format(moment.HTML5_FMT.DATE);
-            let result = rootState.orders.origin.filter(function (order) {
-                let date2 = moment(order.dateStart).format(moment.HTML5_FMT.DATE);
 
-                if (date1 == date2) return true;
+            return  rootState.OrdersModule.origin.filter(function (order) {
+                let dateStart = moment(order.dateStart).format(moment.HTML5_FMT.DATE);
+                let dateEnd = moment(order.dateEnd).format(moment.HTML5_FMT.DATE);
+
+                if (state.pointerDate.isBetween(dateStart, dateEnd)) return true;
             });
-            // result.forEach(element => {
-            //     console.log(element.id)
 
-            // });
-            // console.log(result[0])
-
-            return result
-
-
+            
         },
+
+        week(state, getters, rootState) {
+            let orders = [];
+            state.currentDate = moment(state.currentDate)
+            let pointer = state.currentDate.clone();
+
+            let start = pointer.startOf("week").format(moment.HTML5_FMT.DATE);
+            let end = pointer.endOf("week").format(moment.HTML5_FMT.DATE)
+
+            orders = rootState.OrdersModule.origin.filter(function (order) {
+
+                let dateStart = moment(order.dateStart)
+                let dateEnd = moment(order.dateEnd)
+
+                if (dateStart.isBetween(start, end)) return true
+                if (dateEnd.isBetween(start, end)) return true
+
+                if (dateStart.isBefore(start) && dateEnd.isAfter(end)) return true
+                return false
+            });
+            return orders
+        },
+
     },
     actions: {
         setTogglePeriod({ state }, period) {
