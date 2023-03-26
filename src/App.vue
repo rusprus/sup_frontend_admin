@@ -1,9 +1,9 @@
 <template>
   
   <router-view></router-view>
-  <router-view name="nav"></router-view>
+  <!-- <router-view name="nav"></router-view>
   <router-view name="content"></router-view>
-  <router-view name="footer"></router-view>
+  <router-view name="footer"></router-view> -->
 
   <!-- <MainPage v-if="false"/> -->
   <!-- <WalkPage /> -->

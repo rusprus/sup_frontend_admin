@@ -12,14 +12,20 @@
     "@heroicons/vue": "^1.0.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
+    "@vuepic/vue-datepicker": "^3.6.3",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.40",
     "tailwindcss-aspect-ratio": "^3.0.0",
     "vue": "^3.2.13",
-    "vue-router": "^4.1.1"
+    "vue-router": "^4.1.1",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@tailwindcss/forms": "^0.5.2",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
@@ -27,7 +33,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "postcss": "^8.4.14",
-    "tailwindcss": "^3.1.4"
+    "tailwindcss": "^3.1.6"
   },
   "eslintConfig": {
     "root": true,
