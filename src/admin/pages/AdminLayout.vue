@@ -41,7 +41,8 @@
                     <h1 id="primary-heading" class="sr-only">Home</h1>
                     <!-- Your content -->
 
-                    <router-view name="content"></router-view>
+                    <!-- <router-view name="content"></router-view> -->
+                    <router-view></router-view>
                 </section>
 
                 <!-- Secondary column (hidden on smaller screens) -->

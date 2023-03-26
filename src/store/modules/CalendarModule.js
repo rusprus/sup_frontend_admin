@@ -24,49 +24,68 @@ export const CalendarModule = {
         month(state, getters) {
             let days = [];
             state.currentDate = moment(state.currentDate)
-            state.pointerDate = state.currentDate.clone();
-            state.pointerDate.startOf("month");
-            let index = state.pointerDate.weekday();
-            state.pointerDate.subtract(index + 1, "days");
+            let pointerDate = state.currentDate.clone();
+            pointerDate.startOf("month");
+            let index = pointerDate.weekday();
+            pointerDate.subtract(index + 1, "days");
             for (let i = 0; i <= index; i++) {
+                console.log('OrdersOfDate')
+                const date = pointerDate.add(1, "days").format(moment.HTML5_FMT.DATE);
+                const orders = getters.ordersOfDate(pointerDate);
                 days[i] = {
-                    date: state.pointerDate.add(1, "days").format(moment.HTML5_FMT.DATE),
+                    date: date,
                     isCurrentMonth: false,
-                    orders: getters.ordersOfDate,
+                    orders: orders,
                 };
             }
             let j = 1;
             let daysInMonth = state.currentDate.daysInMonth();
             for (j, index; index < 42; index++, j++) {
+                
                 if (j <= daysInMonth) {
-                    state.pointerDate.date(j);
+                    pointerDate.date(j);
 
+                    const date = pointerDate.format(moment.HTML5_FMT.DATE);
+                    const orders = getters.ordersOfDate(pointerDate);
                     days[index] = {
-                        date: state.pointerDate.format(moment.HTML5_FMT.DATE),
+                        date: date,
                         isCurrentMonth: true,
-                        orders: getters.ordersOfDate,
+                        orders: orders,
                     };
                 } else {
+                    const date = pointerDate.add(1, "days").format(moment.HTML5_FMT.DATE);
+                    const orders = getters.ordersOfDate(pointerDate);
                     days[index] = {
-                        date: state.pointerDate.add(1, "days").format(moment.HTML5_FMT.DATE),
+                        date: date,
                         isCurrentMonth: false,
-                        orders: getters.ordersOfDate,
+                        orders: orders,
                     };
                 }
             }
             return days;
         },
 
-        ordersOfDate(state, getters, rootState) {
+        ordersOfDate:(state, getters, rootState) => (pointerDate) =>{
 
-            return  rootState.OrdersModule.origin.filter(function (order) {
+            
+            const pointer = moment(pointerDate).format(moment.HTML5_FMT.DATE);
+
+            return rootState.OrdersModule.origin.filter(function (order) {
                 let dateStart = moment(order.dateStart).format(moment.HTML5_FMT.DATE);
                 let dateEnd = moment(order.dateEnd).format(moment.HTML5_FMT.DATE);
 
-                if (state.pointerDate.isBetween(dateStart, dateEnd)) return true;
+                // console.log(pointer)
+                // console.log(dateStart)
+                // console.log(dateEnd)
+                // console.log(moment(pointer).isBetween(dateStart, dateEnd, 'day'))
+                // console.log('  ')
+
+
+                // if (pointerDate.isBetween(dateStart, dateEnd)) return true;
+                if (moment(pointer).isBetween(dateStart, dateEnd)) return true;
             });
 
-            
+
         },
 
         week(state, getters, rootState) {

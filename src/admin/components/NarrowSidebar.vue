@@ -1,5 +1,5 @@
 <template>
-    <nav aria-label="Sidebar" class="hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto">
+    <nav aria-label="Sidebar" class="h-screen  hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto">
         <div class="relative w-20 flex flex-col p-3 space-y-3">
             <router-link
                 @click="currentPage = item.name"
@@ -29,13 +29,13 @@ export default {
     data() {
         return {
             // current: 1,
-            currentPage: 1,
+            currentPage: 'Dashboard',
             sidebarNavigation: [
-                { name: "Orders", to: "/admin/orders", icon: InboxIcon, current: true },
+                { name: "Dashboard", to: "/admin", icon: UserCircleIcon, current: false },
+                { name: "Orders", to: "/admin/orders", icon: InboxIcon, current: false },
                 { name: "Calendar", to: "/admin/calendar", icon: ArchiveIcon, current: false },
-                { name: "Statistic", to: "/admin", icon: UserCircleIcon, current: false },
-                { name: "Flagged", to: "#", icon: FlagIcon, current: false },
-                { name: "Spam", to: "#", icon: BanIcon, current: false },
+                { name: "Stat", to: "/admin/stat", icon: FlagIcon, current: false },
+                { name: "Setting", to: "/admin/setting", icon: BanIcon, current: false },
                 { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
             ],
         };

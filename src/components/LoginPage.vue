@@ -193,9 +193,15 @@ export default {
                     login: this.login,
                     password: this.password,
                 }).then(() => {
-                    this.$router.push({ name: "Admin" });
+                    // this.$router.push({ name: "LandingLayoutInit" });
+                    this.$router.push("/admin");
+                    console.log('Admin page')
+
+                    // this.$router.push({ name: "AdminLayout" });
+
                 });
             } catch (e) {
+                    console.log('Error page')
                 this.$router.push("/");
             }
         },

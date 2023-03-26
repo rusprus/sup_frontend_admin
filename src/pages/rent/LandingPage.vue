@@ -1,9 +1,11 @@
 <template>
     <div>
         <HeaderSection2 />
+        <a id="complect"></a>
         <ContentSection2 />
         <a id="price"></a>
         <ContentPrice />
+        <a id="map"></a>
         <MapComponent />
         <a id="contacts"></a>
 

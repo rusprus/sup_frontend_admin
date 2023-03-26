@@ -1,6 +1,7 @@
 <template>
     <NavComponent />
-    <router-view name="content"></router-view>
+    <!-- <router-view name="content"></router-view> -->
+    <router-view></router-view>
     <FooterSection />
 </template>
 
