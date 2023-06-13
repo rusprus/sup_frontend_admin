@@ -1,7 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 const path = require("path");
 module.exports = defineConfig({
-  outputDir: path.resolve(__dirname, "../prod/front"),
+  outputDir: path.resolve(__dirname, "dist"),
   // assetsDir: "../../static/SPA",
   transpileDependencies: true,
 
@@ -9,6 +9,7 @@ module.exports = defineConfig({
     // https: true,
     port: 3000,
     allowedHosts: "all",
+    // devtools: true,
     client: {
       logging: 'info',
       overlay: true,

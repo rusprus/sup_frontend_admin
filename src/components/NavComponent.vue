@@ -62,13 +62,15 @@
                         <!-- <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">
               {{ item.name }}
             </a> -->
-                        <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">{{ item.name }}</router-link>
+                        <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">{{
+                            item.name
+                        }}</router-link>
                         <template v-if="isAuthorized">
                             <router-link to="/admin" class="text-base font-medium text-gray-500 hover:text-gray-900">Админка </router-link>
                             <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход </router-link>
                         </template>
                         <template v-else>
-                            <router-link  to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </router-link>
+                            <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </router-link>
                         </template>
                     </PopoverGroup>
                     <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
@@ -76,7 +78,7 @@
             <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a> -->
                     </div>
                 </div>
-
+                <!-- Мобильная версия -->
                 <transition
                     enter-active-class="duration-200 ease-out"
                     enter-from-class="opacity-0 scale-95"
@@ -120,11 +122,11 @@
                                         {{ item.name }}
                                     </router-link>
                                     <template v-if="isAuthorized">
-                                        <a class="text-base font-medium text-gray-500 hover:text-gray-900" href="/admin">Админка</a>
-                                        <a class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход </a>
+                                        <router-link to="/admin" class="text-base font-medium text-gray-500 hover:text-gray-900">Админка</router-link>
+                                        <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход </router-link>
                                     </template>
                                     <template v-else>
-                                        <a class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </a>
+                                        <router-link to="#" key="login" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </router-link>
                                     </template>
                                 </div>
                                 <!-- <div class="mt-6">
@@ -157,16 +159,7 @@ import { ChevronDownIcon } from "@heroicons/vue/solid";
 // import { getAllOrders } from '@src/api/index'
 import { mapActions, mapGetters } from "vuex";
 
-const navigation = [
-    { name: "Стоимость", href: "/#price" },
-    { name: "Комплект", href: "/#complect" },
-    { name: "Контакты", href: "/#contacts" },
-    { name: "Карта", href: "/#map" },
-    // { name: "Галерея", href: "/#gallery" },
-    // { name: "Маршруты", href: "/#set" },
-
-    // { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
-];
+// const
 // if(this.isAuthorized) navigation.push({ name: 'Админка', href: '/admin' })
 
 // { name: 'Выйти', href: '/logout' },
@@ -183,12 +176,24 @@ export default {
     },
     data() {
         return {
-            // isAuthorized: this.isAuthorized
+            // isAuthorized: this.isAuthorized,
+            navigation: [
+                { name: "Стоимость", href: "/#price", show: true },
+                { name: "Комплект", href: "/#complect", show: true },
+                { name: "Контакты", href: "/#contacts", show: true },
+                { name: "Карта", href: "/#map", show: true },
+                // { name: "Админка", href: "/admin", show: this.isAuthorized },
+                // { name: "Вход", href: "#", click: "login" },
+                // { name: "Галерея", href: "/#gallery" },
+                // { name: "Маршруты", href: "/#set" },
+
+                // { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
+            ],
         };
     },
     setup() {
         return {
-            navigation,
+            // navigation,
         };
     },
     emits: {

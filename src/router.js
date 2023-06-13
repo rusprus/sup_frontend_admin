@@ -14,8 +14,9 @@ import MonthView from '@/admin/components/MonthView.vue'
 import YearView from '@/admin/components/YearView.vue'
 
 import ListPage from '@/admin/pages/ListPage.vue'
-import StatPage from '@/admin/pages/StatPage.vue'
+// import StatPage from '@/admin/pages/StatPage.vue'
 import SettingPage from '@/admin/pages/SettingPage.vue'
+import SupPage from '@/admin/pages/SupPage.vue'
 
 
 // import WalkPage from '@/pages/walk/WalkPage.vue'
@@ -25,7 +26,7 @@ import { UserRoles } from './types/Auth'
 
 // const isAuthorized = localStorage.hasOwnProperty('token');
 
-const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
+
 
 // const authGuard = function (to, from, next) {
 //     if (!isAuthorized) next({ name: 'Login' });
@@ -33,15 +34,27 @@ const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
 // }
 
 const managerAuthGuard = function (to, from, next) {
-    if (!isAuthorized) next({ name: 'Login' });
-    else if (localStorage.getItem('userRole') !== JSON.stringify(UserRoles.Moderator)){
-        console.log('Авторизован');  
+    const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
+    
+    console.log('check auth 1')
+    if (!isAuthorized)
+    {
+        console.log('check auth 2')
+        next({ name: 'Login' });
+    } 
+    else if (localStorage.getItem('userRole') !== JSON.stringify(UserRoles.Moderator)) {
+        console.log('Авторизован');
         // next({ name: 'AdminLayout' });
         // next({ name: 'LandingLayout' });
         next();
-    } 
+    }
+
     //  next({ name: 'AdminLayout' });
-    else next()
+    else {
+        console.log('check auth 3')
+        next()
+    }
+
 
 }
 
@@ -57,13 +70,13 @@ const routes = [
                 path: '',
                 name: 'LandingLayoutInit',
                 component: LandingPage,
-                
+
             },
             {
                 path: 'login',
                 name: 'Login',
                 component: LoginPage,
-                
+
                 // beforeEnter: authGuard
             },
 
@@ -78,19 +91,19 @@ const routes = [
                 path: '',
                 name: 'ListPage',
                 component: ListPage,
-                
+
             },
             {
                 path: 'orders',
                 name: 'OrdersPage',
                 component: OrdersPage,
-                
+
             },
             {
                 path: 'calendar',
                 name: 'CalendarPage',
                 component: CalendarPage,
-                
+
                 children: [
                     {
                         path: '',
@@ -130,16 +143,16 @@ const routes = [
                 ]
             },
             {
-                path: 'stat',
-                name: 'StatPage',
-                component: StatPage,
-                
+                path: 'sups',
+                name: 'SupPage',
+                component: SupPage,
+
             },
             {
                 path: 'setting',
                 name: 'SettingPage',
                 component: SettingPage,
-                
+
             },
         ],
         beforeEnter: managerAuthGuard

@@ -185,7 +185,7 @@ export default {
         ...mapActions(["onLogin", "onRegister"]),
 
         logIn() {
-            console.log("logIn");
+            // console.log("logIn");
 
             try {
                 // await this.$store.dispatch('AuthMoule/onLogin', {
@@ -194,8 +194,9 @@ export default {
                     password: this.password,
                 }).then(() => {
                     // this.$router.push({ name: "LandingLayoutInit" });
+                    // console.log('Admin page start')
+                    // window.location.href = 'https://www.google.com';
                     this.$router.push("/admin");
-                    console.log('Admin page')
 
                     // this.$router.push({ name: "AdminLayout" });
 

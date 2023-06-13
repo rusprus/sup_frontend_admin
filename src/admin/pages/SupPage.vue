@@ -1,0 +1,434 @@
+<template>
+    <div>
+        <!-- Сапбоарды -->
+        <div class="mt-10 divide-y divide-gray-200">
+            <div class="flex place-content-between">
+                <div class="space-y-1">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Сапбоарды</h3>
+                    <p class="max-w-2xl text-sm text-gray-500">Название, комплектация.</p>
+                </div>
+                <button
+                    type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    @click="openModalAdd"
+                >
+                    Добавить
+                </button>
+            </div>
+
+            <!-- Карточка сапборда -->
+            <div class="mt-6" v-for="sup in SupsModule.origin" :key="sup.id">
+                <dl class="divide-y divide-gray-200">
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500">Название</dt>
+                        <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span class="flex-grow">{{ sup.name }}</span>
+                            <span class="ml-4 flex-shrink-0">
+                                <button
+                                    @click="openModalUpdate(sup.id)"
+                                    type="button"
+                                    class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Обновить
+                                </button>
+                            </span>
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                        <dt class="text-sm font-medium text-gray-500">Фото</dt>
+                        <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span @click="getImg" class="flex-grow">
+                                <!-- <img class="h-8 w-8 rounded-full" src="https://api.spbsupboard.ru/uploads/supimg-1686341627574.jpg" alt="" /> -->
+                                <img class="h-8 w-8 rounded-full" :src="'https://api.spbsupboard.ru/' + sup.img" alt="" />
+                            </span>
+                            <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
+                                <button
+                                    @click="openModalUpdate(sup.id)"
+                                    type="button"
+                                    class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Обновить
+                                </button>
+                            </span>
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                        <dt class="text-sm font-medium text-gray-500">Модель</dt>
+                        <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span class="flex-grow">
+                                {{ sup.model }}
+                            </span>
+                            <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
+                                <button
+                                    @click="openModalUpdate(sup.id)"
+                                    type="button"
+                                    class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Обновить
+                                </button>
+                            </span>
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500">Статус</dt>
+                        <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span class="flex-grow">{{ SupsModule.status[sup.status] }}</span>
+                            <span class="ml-4 flex-shrink-0">
+                                <button
+                                    @click="openModalUpdate(sup.id)"
+                                    type="button"
+                                    class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                    Обновить
+                                </button>
+                            </span>
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500"></dt>
+                        <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span class="flex-grow"></span>
+                            <span class="ml-4 flex-shrink-0">
+                                <button
+                                    type="button"
+                                    class="bg-white rounded-md font-medium text-red-600 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                    @click="deleteCurrentSup(sup.id)"
+                                >
+                                    Удалить сапбоард
+                                </button>
+                            </span>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <!--  -->
+        </div>
+
+        <!-- Модальное окно добавления сапборда -->
+        <TransitionRoot appear :show="isOpenAdd" as="template">
+            <Dialog as="div" @close="closeModalAdd" class="relative z-10">
+                <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
+                    <div class="fixed inset-0 bg-black bg-opacity-25" />
+                </TransitionChild>
+
+                <div class="fixed inset-0 overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <TransitionChild
+                            as="template"
+                            enter="duration-300 ease-out"
+                            enter-from="opacity-0 scale-95"
+                            enter-to="opacity-100 scale-100"
+                            leave="duration-200 ease-in"
+                            leave-from="opacity-100 scale-100"
+                            leave-to="opacity-0 scale-95"
+                        >
+                            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> Добавление сапборда </DialogTitle>
+                                <form name="supform" novalidate>
+                                    <div class="mt-2">
+                                        <div class="mb-6">
+                                            <label for="supname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
+                                            <input
+                                                v-model="newSup.name"
+                                                required
+                                                pattern="(\w|\d|\s){1,40}"
+                                                type="text"
+                                                name="supname"
+                                                id="supname"
+                                                class="invalid:focus:ring-red-500 invalid:focus:border-red-500 invalid:border-red-600 bg-gray-50 border valid:border-gray-300 text-gray-900 text-sm rounded-lg valid:focus:ring-blue-500 valid:focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 valid:dark:border-gray-600 valid:dark:placeholder-gray-400 dark:text-white valid:dark:focus:ring-blue-500 valid:dark:focus:border-blue-500"
+                                            />
+                                            <p v-show="error.supname" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span>Требуемый формат: [1-9],[aA-zZ],[_, ]</p>
+                                        </div>
+
+                                        <div class="mb-6">
+                                            <label for="supmodel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Модель</label>
+                                            <input
+                                                v-model="newSup.model"
+                                                required
+                                                pattern="(\w|\d|\s){1,40}"
+                                                type="text"
+                                                name="supmodel"
+                                                id="supmodel"
+                                                class="invalid:focus:ring-red-500 invalid:focus:border-red-500 invalid:border-red-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                            <p v-show="error.supmodel" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span>Требуемый формат: [1-9],[aA-zZ],[_, ]</p>
+                                        </div>
+                                        <div class="mb-6">
+                                            <label for="supstatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Статус</label>
+                                            <select
+                                                v-model="newSup.status"
+                                                id="supstatus"
+                                                name="supstatus"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            >
+                                                <option selected disabled>Не выбрано</option>
+                                                <option v-for="(item, index) in SupsModule.status" :key="index" :value="index">{{ SupsModule.status[index] }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-6">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="supimg">Фото</label>
+                                        <input
+                                            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                            id="supimg"
+                                            name="supimg"
+                                            type="file"
+                                        />
+                                    </div>
+                                    <div class="mt-4 flex flex-row-reverse">
+                                        <button
+                                            type="button"
+                                            class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            @click="addNewSup()"
+                                        >
+                                            Сохранить
+                                        </button>
+                                    </div>
+                                </form>
+                            </DialogPanel>
+                        </TransitionChild>
+                    </div>
+                </div>
+            </Dialog>
+        </TransitionRoot>
+        <!--  -->
+
+        <!-- Модальное окно обновления сапа-->
+        <TransitionRoot appear :show="isOpenUpdate" as="template">
+            <Dialog as="div" @close="closeModalUpdate" class="relative z-10">
+                <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
+                    <div class="fixed inset-0 bg-black bg-opacity-25" />
+                </TransitionChild>
+
+                <div class="fixed inset-0 overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <TransitionChild
+                            as="template"
+                            enter="duration-300 ease-out"
+                            enter-from="opacity-0 scale-95"
+                            enter-to="opacity-100 scale-100"
+                            leave="duration-200 ease-in"
+                            leave-from="opacity-100 scale-100"
+                            leave-to="opacity-0 scale-95"
+                        >
+                            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> Добавление сапборда </DialogTitle>
+                                <form name="supform" novalidate>
+                                    <div class="mt-2">
+                                        <div class="mb-6">
+                                            <label for="supname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Название</label>
+                                            <input
+                                                v-model="currentSup.name"
+                                                required
+                                                pattern="(\w|\d|\s){1,40}"
+                                                type="text"
+                                                name="supname"
+                                                id="supname"
+                                                class="invalid:focus:ring-red-500 invalid:focus:border-red-500 invalid:border-red-600 bg-gray-50 border valid:border-gray-300 text-gray-900 text-sm rounded-lg valid:focus:ring-blue-500 valid:focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 valid:dark:border-gray-600 valid:dark:placeholder-gray-400 dark:text-white valid:dark:focus:ring-blue-500 valid:dark:focus:border-blue-500"
+                                            />
+                                            <p v-show="error.supname" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span>Требуемый формат: [1-9],[aA-zZ],[_, ]</p>
+                                        </div>
+
+                                        <div class="mb-6">
+                                            <label for="supmodel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Модель</label>
+                                            <input
+                                                v-model="currentSup.model"
+                                                required
+                                                pattern="(\w|\d|\s){1,40}"
+                                                type="text"
+                                                name="supmodel"
+                                                id="supmodel"
+                                                class="invalid:focus:ring-red-500 invalid:focus:border-red-500 invalid:border-red-600 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                            <p v-show="error.supmodel" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium"></span>Требуемый формат: [1-9],[aA-zZ],[_, ]</p>
+                                        </div>
+                                        <div class="mb-6">
+                                            <label for="supstatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Статус</label>
+                                            <select
+                                                v-model="currentSup.status"
+                                                id="supstatus"
+                                                name="supstatus"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            >
+                                                <option selected disabled>Не выбрано</option>
+                                                <option v-for="(item, index) in SupsModule.status" :key="index" :value="index">{{ SupsModule.status[index] }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-6">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="supimg">Фото</label>
+                                        <img :src="currentSup.img" alt="" />
+                                        <input
+                                            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                            id="supimg"
+                                            name="supimg"
+                                            type="file"
+                                            accept="image/jpg"
+                                        />
+                                    </div>
+                                    <div class="mt-4 flex flex-row-reverse">
+                                        <button
+                                            type="button"
+                                            class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            @click="updateCurrentSup(currentSup)"
+                                        >
+                                            Сохранить
+                                        </button>
+                                    </div>
+                                </form>
+                            </DialogPanel>
+                        </TransitionChild>
+                    </div>
+                </div>
+            </Dialog>
+        </TransitionRoot>
+        <!--  -->
+    </div>
+</template>
+<script>
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from "@headlessui/vue";
+
+import { mapState, mapActions } from "vuex";
+
+import axios from "axios";
+import { DefaultAPIInstance } from "@/api";
+
+export default {
+    data() {
+        return {
+            newSup: {},
+            currentSup: {},
+            isOpenAdd: false,
+            isOpenUpdate: false,
+            error: { supname: false },
+            valueimg: "",
+            supimg: "",
+        };
+    },
+    components: {
+        Dialog,
+        DialogPanel,
+        DialogTitle,
+        TransitionChild,
+        TransitionRoot,
+    },
+
+    computed: {
+        ...mapState(["SupsModule"]),
+    },
+
+    methods: {
+        ...mapActions(["addSup", "getAllSups", "updateSup", "deleteSup"]),
+        addNewSup() {
+            this.addSup(this.newSup);
+            this.newSup = {};
+            this.closeModalAdd();
+        },
+        openModalAdd() {
+            this.isOpenAdd = true;
+            // let buffer = new ArrayBuffer(16); // создаётся буфер длиной 16 байт
+
+            // let view = new Uint32Array(buffer); // интерпретируем содержимое как последовательность 32-битных целых чисел без знака
+
+            // alert(Uint32Array.BYTES_PER_ELEMENT); // 4 байта на каждое целое число
+
+            // alert(view.length); // 4, именно столько чисел сейчас хранится в буфере
+            // alert(view.byteLength); // 16, размер содержимого в байтах
+
+            // // давайте запишем какое-нибудь значение
+            // view[0] = 123456;
+
+            // // теперь пройдёмся по всем значениям
+            // for (let num of view) {
+            //     alert(num); // 123456, потом 0, 0, 0 (всего 4 значения)
+            // }
+        },
+        closeModalAdd() {
+            this.isOpenAdd = false;
+        },
+
+        updateCurrentSup() {
+            // console.log(this.currentSup.status)
+            let form1 = new FormData(document.forms[0]);
+            form1.append("id", this.currentSup.id);
+
+            // console.log(document.forms[0].elements.supimg.value)
+            axios
+                .post("https://api.spbsupboard.ru/sups/update", form1, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        xauthorization: localStorage.getItem("token"),
+                        // 'Access-Control-Allow-Origin': process.env.VUE_APP_BASE_URL,
+                        "Access-Control-Allow-Origin": "https://api.spbsupboard.ru",
+                    },
+                })
+                .then(({ data }) => console.log(data));
+            // this.updateSup(this.currentSup);
+            this.closeModalUpdate();
+        },
+
+        getImg() {
+            console.log("start");
+            DefaultAPIInstance.get("/uploads/supimg-1686341627574.jpg")
+                .then(function (res) {
+                    // let img = JSON.parse(res.data)
+                    // let image = new Blob(res.data, { type: "image/jpeg" });
+                    // let reader = new FileReader();
+                    // let img = reader.readAsDataURL(image);
+                    // console.log(res)
+                    // let img = URL.createObjectURL(res.data);
+                    console.log(res);
+                    return;
+                    // return res.data.blob();
+                })
+                // .then(function (blob) {
+                // })
+                .catch((err) => console.log(err));
+            console.log("end");
+        },
+
+        deleteCurrentSup(id) {
+            let isTrue = confirm("Уверенны что хотите удалить доску?");
+            if (isTrue) {
+                this.deleteSup(id);
+            }
+            this.closeModalAdd();
+        },
+
+        closeModalUpdate() {
+            this.isOpenUpdate = false;
+        },
+        openModalUpdate(id) {
+            this.currentSup = this.SupsModule.origin.find((item) => item.id == id);
+            this.isOpenUpdate = true;
+        },
+        previewFiles() {
+            // let form1 = new FormData(document.forms[0]);
+            // console.log(form1);
+            // console.log(event.target.value);
+        },
+    },
+
+    watch: {
+        isOpenAdd() {
+            this.$nextTick(() => {
+                Array.prototype.forEach.call(document.forms.supform.elements, (elem) => {
+                    if (elem.type !== "button") {
+                        elem.addEventListener("input", () => {
+                            if (elem.checkValidity()) {
+                                this.error[elem.name] = false;
+                            } else {
+                                this.error[elem.name] = true;
+                            }
+                        });
+                    }
+                });
+            });
+        },
+    },
+
+    mounted() {
+        this.getAllSups();
+    },
+};
+</script>

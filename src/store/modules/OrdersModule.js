@@ -6,7 +6,7 @@ export const OrdersModule = {
 
         order: {},
         origin: [
-            // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', count: 1, note: 'Девяткино',status: 'Завершено' },
+            // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', sup_id: 1, note: 'Девяткино',status: 'Завершено' },
         ],
         filtered: [],
         orderModule: false,
@@ -117,7 +117,9 @@ export const OrdersModule = {
         },
 
         getAllOrders({ commit }) {
+            console.log('getAllOrders 2')
             OrdersAPI.getAllOrders().then((res) => {
+                
                 commit('setAllOrders', res)
             })
         },

@@ -108,15 +108,16 @@ export default {
         OrderModal,
     },
     methods: {
-        showMess(data) {
-            console.log(data);
-        },
+        // showMess(data) {
+        //     console.log(data);
+        // },
         ...mapActions(["getAllOrders"]),
     },
     computed: {
         ...mapState(["OrdersModule"]),
     },
     mounted() {
+        // console.log('getAllOrders 1')
         this.getAllOrders();
         moment.locale('ru')
     },

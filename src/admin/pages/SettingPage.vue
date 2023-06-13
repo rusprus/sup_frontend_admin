@@ -28,7 +28,7 @@
         <div class="">
             <div class="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
                 <!-- <div class="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
-          <button type="button" class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden" @click="sidebarOpen = true">
+          <button type="button" class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden" @click="sidebarOpen = true">
             <span class="sr-only">Open sidebar</span>
             <MenuAlt2Icon class="h-6 w-6" aria-hidden="true" />
           </button>
@@ -47,7 +47,7 @@
               </form>
             </div>
             <div class="ml-4 flex items-center md:ml-6">
-              <button type="button" class="bg-white rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+              <button type="button" class="bg-white rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
                 <span class="sr-only">View notifications</span>
               </button>
@@ -63,20 +63,20 @@
                             </div>
                             <div class="px-4 sm:px-6 md:px-0">
                                 <div class="py-6">
-                                    <!-- Tabs -->
+                                    <!-- Вкладки -->
                                     <div class="lg:hidden">
                                         <label for="selected-tab" class="sr-only">Select a tab</label>
                                         <select
                                             id="selected-tab"
                                             name="selected-tab"
-                                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
+                                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                                             v-model="currentTab"
                                         >
                                             <option v-for="tab in tabs" :key="tab.name" :selected="tab.current" :value="tab.id">{{ tab.name }}</option>
                                         </select>
                                     </div>
 
-                                    <!--  -->
+                                    <!--Мобильные вкладки  -->
                                     <div class="hidden lg:block">
                                         <div class="border-b border-gray-200">
                                             <nav class="-mb-px flex space-x-8">
@@ -86,7 +86,7 @@
                                                     :key="tab.id"
                                                     :href="tab.href"
                                                     :class="[
-                                                        tab.id == currentTab ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                                                        tab.id == currentTab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                                                         'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
                                                     ]"
                                                 >
@@ -95,271 +95,30 @@
                                             </nav>
                                         </div>
                                     </div>
-                                   
 
                                     <!-- Сапбоарды -->
-                                    <div class="mt-10 divide-y divide-gray-200" v-if="currentTab == 1">
-                                        <div class="space-y-1">
-                                            <h3 class="text-lg leading-6 font-medium text-gray-900">Сапбоарды</h3>
-                                            <p class="max-w-2xl text-sm text-gray-500">Название, комплектация.</p>
-                                        </div>
-                                        <div class="mt-6">
-                                            <dl class="divide-y divide-gray-200">
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                                    <dt class="text-sm font-medium text-gray-500">Name</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">Сап №1</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <dt class="text-sm font-medium text-gray-500">Photo</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">
-                                                            <img
-                                                                class="h-8 w-8 rounded-full"
-                                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                alt=""
-                                                            />
-                                                        </span>
-                                                        <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                            <span class="text-gray-300" aria-hidden="true">|</span>
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Удалить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                            </dl>
-                                        </div>
+                                    <!-- <div v-if="currentTab == 1">
+                                        <SupPage />
+                                    </div> -->
+
+                                    <!-- Профиль -->
+                                    <div v-if="currentTab == 4">
+                                        <ProfileSetting />
                                     </div>
 
                                     <!-- Статусы -->
-                                    <div class="mt-10 divide-y divide-gray-200" v-if="currentTab == 1">
-                                        <div class="space-y-1">
-                                            <h3 class="text-lg leading-6 font-medium text-gray-900">Статусы</h3>
-                                            <p class="max-w-2xl text-sm text-gray-500">Списки используемых статусов.</p>
-                                        </div>
-                                        <div class="mt-6">
-                                            <dl class="divide-y divide-gray-200">
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                                    <dt class="text-sm font-medium text-gray-500">Name</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">Не выбрано</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <dt class="text-sm font-medium text-gray-500">Photo</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">
-                                                            <img
-                                                                class="h-8 w-8 rounded-full"
-                                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                alt=""
-                                                            />
-                                                        </span>
-                                                        <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                            <span class="text-gray-300" aria-hidden="true">|</span>
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Удалить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                            </dl>
-                                        </div>
+                                    <div v-if="currentTab == 5">
+                                        <StatusSetting />
                                     </div>
 
                                     <!-- Пароль -->
-                                    <div class="mt-10 divide-y divide-gray-200" v-if="currentTab == 2">
-                                        <div class="space-y-1">
-                                            <h3 class="text-lg leading-6 font-medium text-gray-900">Пароль</h3>
-                                            <p class="max-w-2xl text-sm text-gray-500">Здесь можно обновить пароль.</p>
-                                        </div>
-                                        <div class="mt-6">
-                                            <dl class="divide-y divide-gray-200">
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                                    <dt class="text-sm font-medium text-gray-500">Пароль</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">*********</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                            </dl>
-                                        </div>
+                                    <div v-if="currentTab == 2">
+                                        <PasswordSetting />
                                     </div>
 
                                     <!-- Опровещения -->
-                                    <div class="mt-10 divide-y divide-gray-200" v-if="currentTab == 3">
-                                        <div class="space-y-1">
-                                            <h3 class="text-lg leading-6 font-medium text-gray-900">Оповещения</h3>
-                                            <p class="max-w-2xl text-sm text-gray-500">Здесь можно насроить оповещения.</p>
-                                        </div>
-                                        <div class="mt-6">
-                                            <dl class="divide-y divide-gray-200">
-                                                <SwitchGroup as="div" class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <SwitchLabel as="dt" class="text-sm font-medium text-gray-500" passive> Присылать оповещения на почту </SwitchLabel>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <Switch
-                                                            v-model="sendMessageEmailEnabled"
-                                                            :class="[
-                                                                sendMessageEmailEnabled ? 'bg-purple-600' : 'bg-gray-200',
-                                                                'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto',
-                                                            ]"
-                                                        >
-                                                            <span
-                                                                aria-hidden="true"
-                                                                :class="[
-                                                                    sendMessageEmailEnabled ? 'translate-x-5' : 'translate-x-0',
-                                                                    'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
-                                                                ]"
-                                                            />
-                                                        </Switch>
-                                                    </dd>
-                                                </SwitchGroup>
-                                                <SwitchGroup as="div" class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <SwitchLabel as="dt" class="text-sm font-medium text-gray-500" passive> Присылать оповещения в Telegramm </SwitchLabel>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <Switch
-                                                            v-model="sendMessageTelegrammEnabled"
-                                                            :class="[
-                                                                sendMessageTelegrammEnabled ? 'bg-purple-600' : 'bg-gray-200',
-                                                                'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto',
-                                                            ]"
-                                                        >
-                                                            <span
-                                                                aria-hidden="true"
-                                                                :class="[
-                                                                    sendMessageTelegrammEnabled ? 'translate-x-5' : 'translate-x-0',
-                                                                    'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
-                                                                ]"
-                                                            />
-                                                        </Switch>
-                                                    </dd>
-                                                </SwitchGroup>
-                                            </dl>
-                                        </div>
-                                    </div>
-
-                                    <!-- Профиль -->
-                                    <div class="mt-10 divide-y divide-gray-200" v-if="currentTab == 4">
-                                        <div class="space-y-1">
-                                            <h3 class="text-lg leading-6 font-medium text-gray-900">Профиль</h3>
-                                            <p class="max-w-2xl text-sm text-gray-500">Информация для публичного доступа.</p>
-                                        </div>
-                                        <div class="mt-6">
-                                            <dl class="divide-y divide-gray-200">
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                                    <dt class="text-sm font-medium text-gray-500">Name</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">Chelsea Hagon</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <dt class="text-sm font-medium text-gray-500">Photo</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">
-                                                            <img
-                                                                class="h-8 w-8 rounded-full"
-                                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                alt=""
-                                                            />
-                                                        </span>
-                                                        <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                            <span class="text-gray-300" aria-hidden="true">|</span>
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Удалить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                                                    <dt class="text-sm font-medium text-gray-500">Email</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">chelsea.hagon@example.com</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200">
-                                                    <dt class="text-sm font-medium text-gray-500">Job title</dt>
-                                                    <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                        <span class="flex-grow">Human Resources Manager</span>
-                                                        <span class="ml-4 flex-shrink-0">
-                                                            <button
-                                                                type="button"
-                                                                class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                                            >
-                                                                Обновить
-                                                            </button>
-                                                        </span>
-                                                    </dd>
-                                                </div>
-                                            </dl>
-                                        </div>
+                                    <div v-if="currentTab == 3">
+                                        <NoticeSetting />
                                     </div>
 
                                     <!-- <div class="mt-10 divide-y divide-gray-200">
@@ -374,7 +133,7 @@
                           <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             <span class="flex-grow">English</span>
                             <span class="ml-4 flex-shrink-0">
-                              <button type="button" class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Обновить</button>
+                              <button type="button" class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Обновить</button>
                             </span>
                           </dd>
                         </div>
@@ -383,16 +142,16 @@
                           <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             <span class="flex-grow">DD-MM-YYYY</span>
                             <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
-                              <button type="button" class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Обновить</button>
+                              <button type="button" class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Обновить</button>
                               <span class="text-gray-300" aria-hidden="true">|</span>
-                              <button type="button" class="bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Удалить</button>
+                              <button type="button" class="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Удалить</button>
                             </span>
                           </dd>
                         </div>
                         <SwitchGroup as="div" class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
                           <SwitchLabel as="dt" class="text-sm font-medium text-gray-500" passive> Automatic timezone </SwitchLabel>
                           <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <Switch v-model="automaticTimezoneEnabled" :class="[automaticTimezoneEnabled ? 'bg-purple-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto']">
+                            <Switch v-model="automaticTimezoneEnabled" :class="[automaticTimezoneEnabled ? 'bg-blue-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-auto']">
                               <span aria-hidden="true" :class="[automaticTimezoneEnabled ? 'translate-x-5' : 'translate-x-0', 'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']" />
                             </Switch>
                           </dd>
@@ -400,7 +159,7 @@
                         <SwitchGroup as="div" class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200">
                           <SwitchLabel as="dt" class="text-sm font-medium text-gray-500" passive> Auto-update applicant data </SwitchLabel>
                           <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <Switch v-model="autoUpdateApplicantDataEnabled" :class="[autoUpdateApplicantDataEnabled ? 'bg-purple-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-auto']">
+                            <Switch v-model="autoUpdateApplicantDataEnabled" :class="[autoUpdateApplicantDataEnabled ? 'bg-blue-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-auto']">
                               <span aria-hidden="true" :class="[autoUpdateApplicantDataEnabled ? 'translate-x-5' : 'translate-x-0', 'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']" />
                             </Switch>
                           </dd>
@@ -420,82 +179,98 @@
 
 <script>
 import { ref } from "vue";
-import {
-    //   Dialog,
-    //   DialogOverlay,
-    Switch,
-    SwitchGroup,
-    SwitchLabel,
-    //   TransitionChild,
-    //   TransitionRoot,
-} from "@headlessui/vue";
-import {
-    //   BellIcon,
-    BriefcaseIcon,
-    ChatIcon,
-    CogIcon,
-    DocumentSearchIcon,
-    HomeIcon,
-    //   MenuAlt2Icon,
-    QuestionMarkCircleIcon,
-    UsersIcon,
-    //   XIcon,
-} from "@heroicons/vue/outline";
+// import // Dialog,
+// DialogPanel,
+// DialogTitle,
+//   DialogOverlay,
+// Switch,
+// SwitchGroup,
+// SwitchLabel,
+// TransitionChild,
+// TransitionRoot,
+// "@headlessui/vue";
+// import SupPage from "@/admin/pages/SupPage";
+import NoticeSetting from "@/admin/components/NoticeSetting";
+import ProfileSetting from "@/admin/components/ProfileSetting";
+import StatusSetting from "@/admin/components/StatusSetting";
+import PasswordSetting from "@/admin/components/PasswordSetting";
+
+import { mapActions, mapState } from "vuex";
+
+//import //   BellIcon,
+// BriefcaseIcon,
+// ChatIcon,
+// CogIcon,
+// DocumentSearchIcon,
+// HomeIcon,
+//   MenuAlt2Icon,
+// QuestionMarkCircleIcon,
+// UsersIcon,
+//   XIcon,
+//"@heroicons/vue/outline";
+
 // import { SearchIcon } from '@heroicons/vue/solid'
 
-const navigation = [
-    { name: "Home", href: "#", icon: HomeIcon, current: false },
-    { name: "Jobs", href: "#", icon: BriefcaseIcon, current: false },
-    { name: "Applications", href: "#", icon: DocumentSearchIcon, current: false },
-    { name: "Messages", href: "#", icon: ChatIcon, current: false },
-    { name: "Team", href: "#", icon: UsersIcon, current: false },
-    { name: "Settings", href: "#", icon: CogIcon, current: true },
-];
-const secondaryNavigation = [
-    { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
-    { name: "Logout", href: "#", icon: CogIcon },
-];
 const tabs = [
-    { name: "Основное", href: "#", id: 1, current: true },
+    { name: "Профиль", href: "#", id: 4, current: false },
     { name: "Пароль", href: "#", id: 2, current: false },
     { name: "Оповещения", href: "#", id: 3, current: false },
-    { name: "Профиль", href: "#", id: 4, current: false },
-    //   { name: 'Billing', href: '#', current: false },
-    //   { name: 'Team Members', href: '#', current: false },
+    // { name: "Статусы", href: "#", id: 5, current: false },
 ];
 
 export default {
+    methods: {
+        // showMess(data) {
+        //     console.log(data);
+        // },
+        ...mapActions(["getProfile", "onPasswordUpdate"]),
+    },
+
+    computed: {
+        ...mapState(["ProfilesModule", "AuthModule"]),
+    },
+    mounted() {
+        // console.log('getAllOrders 1')
+        this.getProfile();
+    },
     components: {
         // Dialog,
+        // DialogPanel,
+        // DialogTitle,
         // DialogOverlay,
-        Switch,
-        SwitchGroup,
-        SwitchLabel,
+        // Switch,
+        // SwitchGroup,
+        // SwitchLabel,
         // TransitionChild,
         // TransitionRoot,
         // BellIcon,
         // MenuAlt2Icon,
         // SearchIcon,
         // XIcon,
+        // SupPage,
+        NoticeSetting,
+        ProfileSetting,
+        StatusSetting,
+        PasswordSetting,
     },
     setup() {
-        const sidebarOpen = ref(false);
-        const automaticTimezoneEnabled = ref(true);
-        const autoUpdateApplicantDataEnabled = ref(false);
-        const sendMessageEmailEnabled = ref(false);
-        const sendMessageTelegrammEnabled = ref(false);
-        const currentTab = ref(1);
+        // const sidebarOpen = ref(false);
+        const currentTab = ref(4);
+        // const automaticTimezoneEnabled = ref(true);
+        // const autoUpdateApplicantDataEnabled = ref(false);
 
         return {
-            navigation,
-            secondaryNavigation,
+            // navigation,
+            // secondaryNavigation,
             tabs,
-            sidebarOpen,
-            automaticTimezoneEnabled,
-            autoUpdateApplicantDataEnabled,
-            sendMessageEmailEnabled,
-            sendMessageTelegrammEnabled,
+            // sidebarOpen,
+            // automaticTimezoneEnabled,
+            // autoUpdateApplicantDataEnabled,
             currentTab,
+            // SupPage,
+            NoticeSetting,
+            ProfileSetting,
+            StatusSetting,
         };
     },
 };

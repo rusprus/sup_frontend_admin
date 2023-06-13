@@ -1,39 +1,38 @@
 import { DefaultAPIInstance } from "@/api"
 
-export const OrdersAPI = {
+export const SupsAPI = {
 
-    async getAllOrders() {
-        console.log('getAllOrders 3')
+    async getAllSups() {
         return DefaultAPIInstance
-            .get('/orders/all')
+            .get('/sups/all')
             .then(res => {
-                console.log(res)
-                return res.data.orders
+                return res.data.sups
             });
     },
 
-    async addOrder(order) {
+    async addSup(sup) {
         return DefaultAPIInstance({
             method: 'post',
-            url: '/orders/add',
-            data: order
+            url: '/sups/add',
+            data: sup
         }).then(res => {
+            console.log(res)
             return res.data
         });
     },
 
-    updateOrder(order) {
+    updateSup(sup) {
         return DefaultAPIInstance({
             method: 'post',
-            url: '/orders/update',
-            data: order
+            url: '/sups/update',
+            data: sup
         });
     },
 
-    deleteOrder(id) {
+    deleteSup(id) {
         return DefaultAPIInstance({
             method: 'post',
-            url: '/orders/delete',
+            url: '/sups/delete',
             data: { id: id }
         });
     }

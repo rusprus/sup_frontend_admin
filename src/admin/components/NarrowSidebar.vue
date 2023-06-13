@@ -21,7 +21,7 @@ import {
   BanIcon,
   FlagIcon,
   InboxIcon,
-  PencilAltIcon,
+//   PencilAltIcon,
   UserCircleIcon,
 } from '@heroicons/vue/outline'
 
@@ -34,9 +34,9 @@ export default {
                 { name: "Dashboard", to: "/admin", icon: UserCircleIcon, current: false },
                 { name: "Orders", to: "/admin/orders", icon: InboxIcon, current: false },
                 { name: "Calendar", to: "/admin/calendar", icon: ArchiveIcon, current: false },
-                { name: "Stat", to: "/admin/stat", icon: FlagIcon, current: false },
+                { name: "Sups", to: "/admin/sups", icon: FlagIcon, current: false },
                 { name: "Setting", to: "/admin/setting", icon: BanIcon, current: false },
-                { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
+                // { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
             ],
         };
     },

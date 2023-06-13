@@ -35,7 +35,7 @@
                 <div class="hidden md:ml-4 md:flex md:items-center">
                     <Menu as="div" class="relative">
                         <MenuButton type="button" class="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                            {{ period[CalendarModule.togglePeriod] }}
+                            {{ periods[CalendarModule.togglePeriod] }}
                             <ChevronDownIcon class="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                         </MenuButton>
 
@@ -49,18 +49,20 @@
                         >
                             <MenuItems class="focus:outline-none absolute right-0 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                                 <div class="py-1">
-                                    <MenuItem v-slot="{ active }">
+                                    <!-- <MenuItem v-slot="{ active }">
                                         <router-link to="/admin/calendar/day" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">День</router-link>
-                                    </MenuItem>
-                                    <MenuItem v-slot="{ active }">
-                                        <router-link to="/admin/calendar/week" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Неделя</router-link>
-                                    </MenuItem>
-                                    <MenuItem v-slot="{ active }">
+                                    </MenuItem> -->
+                                    <router-link :to="'/admin/calendar/' + index" v-for="(period, index) in periods" :key="index">
+                                        <MenuItem v-slot="{ active }">
+                                            <a :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">{{ periods[index] }}</a>
+                                        </MenuItem>
+                                    </router-link>
+                                    <!-- <MenuItem v-slot="{ active }">
                                         <router-link to="/admin/calendar/month" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Месяц</router-link>
-                                    </MenuItem>
-                                    <MenuItem v-slot="{ active }">
+                                    </MenuItem> -->
+                                    <!-- <MenuItem v-slot="{ active }">
                                         <router-link to="/admin/calendar/year" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Год</router-link>
-                                    </MenuItem>
+                                    </MenuItem> -->
                                 </div>
                             </MenuItems>
                         </transition>
@@ -102,18 +104,18 @@
                                 </MenuItem>
                             </div>
                             <div class="py-1">
-                                <MenuItem v-slot="{ active }">
+                                <!-- <MenuItem v-slot="{ active }">
                                     <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Day view</a>
-                                </MenuItem>
+                                </MenuItem> -->
                                 <MenuItem v-slot="{ active }">
                                     <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Week view</a>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
                                     <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Month view</a>
                                 </MenuItem>
-                                <MenuItem v-slot="{ active }">
+                                <!-- <MenuItem v-slot="{ active }">
                                     <a href="#" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Year view</a>
-                                </MenuItem>
+                                </MenuItem> -->
                             </div>
                         </MenuItems>
                     </transition>
@@ -148,11 +150,11 @@ export default {
     },
     data() {
         return {
-            period: {
-                day: "День",
+            periods: {
+                // day: "День",
                 week: "Неделя",
                 month: "Месяц",
-                year: "Год",
+                // year: "Год",
             },
         };
     },
