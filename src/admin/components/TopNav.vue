@@ -1,9 +1,9 @@
 <template>
     <!-- Top nav-->
-    <header class="flex-shrink-0 relative h-16 bg-white flex items-center">
+    <header class="flex-shrink-0  h-16 bg-white flex items-center ">
         <!-- Logo area -->
         <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
-            <router-link to="/" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
+            <router-link to="/admin" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
                 <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="Workflow" />
             </router-link>
         </div>
@@ -82,12 +82,16 @@
                         >
                             <MenuItems class="origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div class="py-1">
-                                    <MenuItem v-slot="{ active }">
-                                        <router-link to="/admin/setting" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']"> Профиль </router-link>
-                                    </MenuItem>
-                                    <MenuItem v-slot="{ active }">
-                                        <router-link to="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" @click="logout"> Выйти </router-link>
-                                    </MenuItem>
+                                    <router-link to="/admin/setting">
+                                        <MenuItem v-slot="{ active }">
+                                            <a :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']"> Профиль </a>
+                                        </MenuItem>
+                                    </router-link>
+                                    <router-link to="#" @click="logout()">
+                                        <MenuItem v-slot="{ active }">
+                                            <a @click="logout()" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']"> Выйти </a>
+                                        </MenuItem>
+                                    </router-link>
                                 </div>
                             </MenuItems>
                         </transition>
@@ -150,7 +154,9 @@
                         </div> -->
                         <div class="max-w-8xl mx-auto py-3 px-2 sm:px-4">
                             <template v-for="item in navigation" :key="item.name">
-                                <router-link :to="item.to" @click="mobileMenuOpen=false" class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">{{ item.name }}</router-link>
+                                <router-link :to="item.to" @click="mobileMenuOpen = false" class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100">{{
+                                    item.name
+                                }}</router-link>
                                 <!-- <a v-for="child in item.children" :key="child.name" :href="child.href" class="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100">{{
                                     child.name
                                 }}</a> -->
@@ -171,11 +177,15 @@
                                 </a>
                             </div>
                             <div class="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                                <router-link v-for="item in userNavigation" :key="item.name" :to="item.href" @click="mobileMenuOpen=false" class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50">{{
-                                    item.name
-                                }}</router-link>
+                                <router-link
+                                    v-for="item in userNavigation"
+                                    :key="item.name"
+                                    :to="item.href"
+                                    @click="mobileMenuOpen = false"
+                                    class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+                                    >{{ item.name }}</router-link
+                                >
                                 <router-link to="#" @click="logout" class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50">Выйти</router-link>
-
                             </div>
                         </div>
                     </nav>
@@ -190,7 +200,7 @@
 import { MenuItem, MenuItems, MenuButton, Menu } from "@headlessui/vue";
 // import { BellIcon } from "@heroicons/vue/outline";
 // import { ChevronDownIcon } from '@heroicons/vue/solid'
-import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { ArchiveIcon, BanIcon, BellIcon, FlagIcon, InboxIcon, MenuIcon, UserCircleIcon, XIcon } from "@heroicons/vue/outline";
 import { mapActions } from "vuex";
 
@@ -235,9 +245,7 @@ export default {
                 { name: "Статистика", to: "/admin/stat", icon: FlagIcon, current: false, children: [] },
                 { name: "Настройки", to: "/admin/setting", icon: BanIcon, current: false, children: [] },
             ],
-            sidebarNavigation: [
-                
-            ],
+            sidebarNavigation: [],
             userNavigation: [
                 { name: "Профиль", href: "/admin/setting" },
                 // { name: "Выход", href: "#" },

@@ -3,9 +3,11 @@ import { DefaultAPIInstance } from "@/api"
 export const OrdersAPI = {
 
     async getAllOrders() {
+        console.log('getAllOrders 3')
         return DefaultAPIInstance
             .get('/orders/all')
             .then(res => {
+                console.log(res)
                 return res.data.orders
             });
     },

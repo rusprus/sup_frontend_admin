@@ -2,6 +2,9 @@ import { createStore } from 'vuex'
 import { AuthModule } from './modules/AuthModule'
 import { OrdersModule } from './modules/OrdersModule'
 import { CalendarModule } from './modules/CalendarModule'
+import { SupsModule } from './modules/SupsModule'
+import { ProfilesModule } from './modules/ProfilesModule'
+import { Globals } from './modules/Globals'
 
 
 const state = {
@@ -26,6 +29,9 @@ export default createStore({
   modules: {
     AuthModule,
     CalendarModule,
-    OrdersModule
+    OrdersModule,
+    SupsModule,
+    ProfilesModule,
+    Globals,
   }
 })

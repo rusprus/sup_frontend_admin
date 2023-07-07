@@ -118,10 +118,10 @@ export const CalendarModule = {
         },
 
         async next({ state }) {
-            if (state.togglePeriod == 'day') state.currentDate.add(1, "day");
+            // if (state.togglePeriod == 'day') state.currentDate.add(1, "day");
             if (state.togglePeriod == 'week') state.currentDate.add(1, "week");
             if (state.togglePeriod == 'month') state.currentDate.add(1, "month");
-            if (state.togglePeriod == 'year') state.currentDate.add(1, "year");
+            // if (state.togglePeriod == 'year') state.currentDate.add(1, "year");
 
             state.currentMonth = state.currentDate.month();
             state.currentYear = state.currentDate.year();
@@ -129,10 +129,10 @@ export const CalendarModule = {
         },
 
         async prev({ state }) {
-            if (state.togglePeriod == 'day') state.currentDate.subtract(1, "day");
+            // if (state.togglePeriod == 'day') state.currentDate.subtract(1, "day");
             if (state.togglePeriod == 'week') state.currentDate.subtract(1, "week");
             if (state.togglePeriod == 'month') state.currentDate.subtract(1, "month");
-            if (state.togglePeriod == 'year') state.currentDate.subtract(1, "year");
+            // if (state.togglePeriod == 'year') state.currentDate.subtract(1, "year");
 
             state.currentMonth = state.currentDate.month();
             state.currentYear = state.currentDate.year();

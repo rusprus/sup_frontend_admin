@@ -1,5 +1,5 @@
 <template>
-    <nav aria-label="Sidebar" class="h-screen  hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto">
+    <nav aria-label="Sidebar" class="fixed top-50 h-screen left-0 hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto ">
         <div class="relative w-20 flex flex-col p-3 space-y-3">
             <router-link
                 @click="currentPage = item.name"
@@ -21,7 +21,7 @@ import {
   BanIcon,
   FlagIcon,
   InboxIcon,
-  PencilAltIcon,
+//   PencilAltIcon,
   UserCircleIcon,
 } from '@heroicons/vue/outline'
 
@@ -34,9 +34,9 @@ export default {
                 { name: "Dashboard", to: "/admin", icon: UserCircleIcon, current: false },
                 { name: "Orders", to: "/admin/orders", icon: InboxIcon, current: false },
                 { name: "Calendar", to: "/admin/calendar", icon: ArchiveIcon, current: false },
-                { name: "Stat", to: "/admin/stat", icon: FlagIcon, current: false },
+                { name: "Sups", to: "/admin/sups", icon: FlagIcon, current: false },
                 { name: "Setting", to: "/admin/setting", icon: BanIcon, current: false },
-                { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
+                // { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
             ],
         };
     },

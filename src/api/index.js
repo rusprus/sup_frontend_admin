@@ -16,7 +16,7 @@ const defaultConfig = {
   baseURL: 'https://api.spbsupboard.ru',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token'),
+    'XAuthorization': localStorage.getItem('token'),
     // 'Access-Control-Allow-Origin': process.env.VUE_APP_BASE_URL,
     'Access-Control-Allow-Origin':'https://api.spbsupboard.ru'
   }

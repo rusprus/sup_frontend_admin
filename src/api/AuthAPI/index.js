@@ -8,14 +8,12 @@ export const AuthAPI = {
      * @returns 
      */
     login({ login, password }) {
-        const url = '/auth//login';
+        const url = '/auth/login';
         const data = { login, password };
-        // console.log('in api')
-        // console.log(data)
         return LoginAPIInstance.post(url, data);
     },
     logout() {
-        const url = '/auth//logout';
+        const url = '/auth/logout';
         return DefaultAPIInstance.post(url);
     },
     register({ login, password, name, email }) {
@@ -23,7 +21,12 @@ export const AuthAPI = {
         // alert(login + '' + password)
         const url = '/auth/signup';
         const data = { login, password, name, email };
+        return LoginAPIInstance.post(url, data);
+    },
+    updatePass({ oldPass, newPass }) {
+        const url = '/auth/update';
+        const data = { oldPass, newPass };
         return DefaultAPIInstance.post(url, data);
-    }
+    },
 
 }
