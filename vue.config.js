@@ -4,6 +4,9 @@ module.exports = defineConfig({
   outputDir: path.resolve(__dirname, "dist"),
   // assetsDir: "../../static/SPA",
   transpileDependencies: true,
+  configureWebpack: {
+    devtool: 'source-map'
+  },
 
   devServer: {
     // https: true,

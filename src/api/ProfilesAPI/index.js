@@ -29,12 +29,13 @@ export const ProfilesAPI = {
         });
     },
 
-    // deleteProfile(id) {
-    //     return DefaultAPIInstance({
-    //         method: 'post',
-    //         url: '/profiles/delete',
-    //         data: { id: id }
-    //     });
-    // }
+    updateProfileImg(profile) {
+        DefaultAPIInstance.responseType = "multipart/form-data"
+        return DefaultAPIInstance({
+            method: 'post',
+            url: '/profiles/img',
+            data: profile
+        });
+    },
 
 }

@@ -13,40 +13,40 @@ export const SupsModule = {
     }),
     actions: {
 
-        addSup({ commit }, sup) {
-            if (sup.id == null) {
+        async addSup({ commit }, sup) {
+            if (sup.id == undefined) {
 
-                SupsAPI.addSup(sup).then((res) => {
-
-                    commit('addSup', res)
-                })
+                const res = await SupsAPI.addSup(sup)
+                commit('addSup', res.data.sup)
             }
         },
 
-        getAllSups({ commit }) {
-            SupsAPI.getAllSups().then((res) => {
-                commit('setAllSups', res)
-            })
+        async getAllSups({ commit }) {
+            const res = await SupsAPI.getAllSups()
+            commit('setAllSups', res)
         },
 
-        updateSup({ commit, state }, sup) {
-            console.log(sup)
-            let result = state.origin.includes((item) => item.id == sup.id)
+        async updateSup({ commit, state }, sup) {
+            let result = state.origin.find((item) => item.id == sup.id)
             if (result !== undefined) {
-
-                SupsAPI.updateSup(sup).then(() => {
-                    console.log('supUpdated!!!')
-                    commit('updateSup', sup)
-                })
+                const res = await SupsAPI.updateSup(sup)
+                res.data.status ? commit('updateSup', res.data.sup) : console.log("fail")
             }
         },
 
-        deleteSup({ commit, state }, id) {
+        async updateSupImg({ commit, state }, sup) {
+            let result = state.origin.find((item) => item.id == sup.get('id'))
+            if (result !== undefined) {
+                const res = await SupsAPI.updateSupImg(sup)
+                res.data.status ? commit('updateSupImg', res.data.sup) : console.log("fail")
+            }
+        },
+
+        async deleteSup({ commit, state }, id) {
             if (id !== null) {
                 let sup = state.sup = state.origin.find((item) => item.id == id)
-                SupsAPI.deleteSup(sup.id).then(() => {
-                    commit('deleteSup', sup.id)
-                })
+                await SupsAPI.deleteSup(sup.id)
+                commit('deleteSup', sup.id)
             }
 
         },
@@ -76,6 +76,15 @@ export const SupsModule = {
                 if (elem.id == sup.id) indexSup = index
             });
             state.origin.splice(indexSup, 1, sup)
+        },
+
+        updateSupImg(state, sup) {
+            let indexSup = null
+            state.origin.forEach((elem, index) => {
+                if (elem.id == sup.id) indexSup = index
+            });
+            state.origin[indexSup].img = sup.img
+            // state.origin.splice(indexSup, 1, sup)
         },
 
         setAllSups(state, sups) {

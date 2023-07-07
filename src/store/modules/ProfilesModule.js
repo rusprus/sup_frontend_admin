@@ -7,10 +7,15 @@ export const ProfilesModule = {
     actions: {
 
         updateProfile({ commit }, profile) {
-            // console.log(profile)
 
             ProfilesAPI.updateProfile(profile).then(() => {
                 commit('updateProfile', profile)
+            })
+        },
+
+        async updateProfileImg({ commit }, profile) {
+            ProfilesAPI.updateProfileImg(profile).then((res) => {
+                commit('setProfileImg', res.data.photo)
             })
         },
 
@@ -26,14 +31,14 @@ export const ProfilesModule = {
             })
         },
 
-        updateBasic({ state, commit }, { name, age, photo, role, email }) {
+        updateBasic({ state, commit }, { name, age, role, email }) {
 
             let profile = state.profile
 
             profile.name = name
             profile.email = email
             profile.age = age
-            profile.photo = photo
+            // profile.photo = photo
             profile.role = role
 
             ProfilesAPI.updateProfile(profile).then(() => {
@@ -59,6 +64,11 @@ export const ProfilesModule = {
         setProfile(state, profile) {
 
             state.profile = profile
+        },
+
+        setProfileImg(state, photo) {
+
+            state.profile.photo = photo
         },
         // setProfileDefault(state) {
         //     state.profile = {

@@ -4,6 +4,7 @@ import { OrdersModule } from './modules/OrdersModule'
 import { CalendarModule } from './modules/CalendarModule'
 import { SupsModule } from './modules/SupsModule'
 import { ProfilesModule } from './modules/ProfilesModule'
+import { Globals } from './modules/Globals'
 
 
 const state = {
@@ -30,6 +31,7 @@ export default createStore({
     CalendarModule,
     OrdersModule,
     SupsModule,
-    ProfilesModule
+    ProfilesModule,
+    Globals,
   }
 })

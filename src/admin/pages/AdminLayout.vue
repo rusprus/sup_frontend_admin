@@ -25,19 +25,23 @@
   -->
     <div class="h-full flex flex-col">
         <!-- <router-view name="nav"></router-view> -->
-        
-            <OrderModal :showProp="OrdersModule.orderModule"  />
+
+        <OrderModal :showProp="OrdersModule.orderModule" />
         <TopNav />
         <!-- Bottom section -->
         <div class="min-h-0 flex-1 flex overflow-hidden">
             <!-- Narrow sidebar-->
             <!-- <router-view name="sidebar"></router-view> -->
-            <NarrowSidebar />
-
+            
+                <NarrowSidebar />
+            
             <!-- Main area -->
-            <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex">
+            <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex md:ml-20">
                 <!-- Primary column -->
-                <section aria-labelledby="primary-heading" class="min-w-0 flex-1 h-full flex flex-col overflow-y-auto lg:order-last">
+                <section
+                    aria-labelledby="primary-heading"
+                    class="min-w-0 flex-1 h-full flex flex-col overflow-y-auto lg:order-last"
+                >
                     <h1 id="primary-heading" class="sr-only">Home</h1>
                     <!-- Your content -->
 
@@ -67,7 +71,7 @@ import TopNav from "@/admin/components/TopNav.vue";
 
 import NarrowSidebar from "@/admin/components/NarrowSidebar.vue";
 import OrderModal from "@/admin/components/OrderModal.vue";
-import moment from "moment"
+import moment from "moment";
 
 // const user = {
 //   name: 'Whitney Francis',
@@ -119,7 +123,7 @@ export default {
     mounted() {
         // console.log('getAllOrders 1')
         this.getAllOrders();
-        moment.locale('ru')
+        moment.locale("ru");
     },
     setup() {
         onMounted(() => {});

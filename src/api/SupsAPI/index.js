@@ -1,4 +1,5 @@
 import { DefaultAPIInstance } from "@/api"
+// import axios from "axios";
 
 export const SupsAPI = {
 
@@ -15,16 +16,22 @@ export const SupsAPI = {
             method: 'post',
             url: '/sups/add',
             data: sup
-        }).then(res => {
-            console.log(res)
-            return res.data
-        });
+        })
     },
 
-    updateSup(sup) {
+    async updateSup(sup) {
         return DefaultAPIInstance({
             method: 'post',
             url: '/sups/update',
+            data: sup
+        });
+    },
+
+    async updateSupImg(sup) {
+        DefaultAPIInstance.responseType = "multipart/form-data"
+        return DefaultAPIInstance({
+            method: 'post',
+            url: '/sups/img',
             data: sup
         });
     },

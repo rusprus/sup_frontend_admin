@@ -1,6 +1,6 @@
 <template>
     <!-- Top nav-->
-    <header class="flex-shrink-0 relative h-16 bg-white flex items-center">
+    <header class="flex-shrink-0  h-16 bg-white flex items-center ">
         <!-- Logo area -->
         <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
             <router-link to="/admin" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
