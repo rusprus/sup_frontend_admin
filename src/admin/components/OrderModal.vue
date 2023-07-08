@@ -62,14 +62,6 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                         <label for="last-name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Аренда с </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <!-- <input
-                                                type="datetime"
-                                                v-model="OrdersModule.order.dateStart"
-                                                name="last-name"
-                                                id="last-name"
-                                                autocomplete="family-name"
-                                                class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
-                                            /> -->
                                             <Datepicker v-model="date" @update:modelValue="selectedDate" range teleport-center></Datepicker>
                                         </div>
                                     </div>
@@ -77,20 +69,12 @@
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                         <label for="number" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Номер сапборда </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <!-- <input
-                                                v-model="OrdersModule.order.sup_id"
-                                                id="number"
-                                                name="number"
-                                                type="number"
-                                                autocomplete="number"
-                                                class="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-                                            /> -->
                                             <select
                                                 v-model="OrdersModule.order.sup_id"
                                                 class="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                                             >
-                                                <option v-for="option in filteredOptions" :value="option.value" :key="option">
-                                                    {{ option.text }}
+                                                <option v-for="sup in filteredOptions" :value="sup.id" :key="sup.id">
+                                                    {{ sup.name }}
                                                 </option>
                                             </select>
                                         </div>
@@ -100,18 +84,12 @@
                                         <label for="country" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Статус </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                                             <select
-                                                id="country"
                                                 v-model="OrdersModule.order.status"
-                                                name="country"
-                                                autocomplete="country-name"
                                                 class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                             >
-                                                <!-- <option v-for="option in filteredOptions" :value="option.value" :key="option.value" ></option> -->
-                                                <option :value="1">не выбрано</option>
-                                                <option :value="2">планируется</option>
-                                                <option :value="3">активен</option>
-                                                <option :value="4">завершен</option>
-                                                <option :value="5">не подошел</option>
+                                                <option v-for="(value, key) in OrdersModule.status" :value="key" :key="key">
+                                                    {{ value }}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -188,19 +166,13 @@ export default {
     },
     data() {
         return {
-            options: [
-                { text: "1 сап", value: 1 },
-                { text: "2 сап", value: 2 },
-                { text: "3 сап", value: 3 },
-                { text: "4 сап", value: 4 },
-            ],
             filteredOptions: [],
             date: [],
         };
     },
 
     computed: {
-        ...mapState(["OrdersModule"]),
+        ...mapState(["OrdersModule", "SupsModule"]),
     },
 
     watch: {
@@ -245,17 +217,17 @@ export default {
         },
 
         listFreeSup(range) {
-            let arr = this.OrdersModule.origin;
 
-            return this.options.filter(function (option) {
+            return this.SupsModule.origin.filter( (sup)=> {
                 let result = true;
 
-                let filtered = arr.filter(function (order) {
-                    return order.sup_id == option.value;
+                let filtered = this.OrdersModule.origin.filter( (order) =>{
+                    return order.sup_id == sup.id;
                 });
 
                 for (let index = 0; index < filtered.length; index++) {
                     const order = filtered[index];
+                    if(this.OrdersModule.order.id == order.id) continue;
                     if (moment(order.dateStart) < moment(range[0]) && moment(order.dateEnd) < moment(range[1])) continue;
                     if (moment(order.dateStart) > moment(range[0]) && moment(order.dateEnd) > moment(range[1])) continue;
                     result = false;

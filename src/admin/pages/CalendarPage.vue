@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-    <div class="lg:flex lg:h-full lg:flex-col">
+    <div class="lg:flex lg:h-full lg:flex-col  mx-10">
         <header class="relative z-20 flex items-center justify-between border-b border-gray-200 py-4 px-6 lg:flex-none">
             <h1 class="text-lg font-semibold text-gray-900">
                 <time datetime="2022-01">{{ CalendarModule.allMonth[CalendarModule.currentMonth] }} {{ CalendarModule.currentYear }}</time>

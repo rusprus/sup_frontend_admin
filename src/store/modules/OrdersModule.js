@@ -19,7 +19,6 @@ export const OrdersModule = {
         },
         activeFilters: [],
         allFilter: [
-            // html: '<p class="text-xl">Имя клиента</p>',
             {
                 name: 'Имя клиента',
                 id: 1,
