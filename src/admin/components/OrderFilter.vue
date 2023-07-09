@@ -121,9 +121,10 @@ export default {
     },
     computed: {
         ...mapState(["OrdersModule"]),
+       
     },
     methods: {
-        ...mapActions(["deleteFilter", "applyFilters"]),
+        ...mapActions(["deleteFilter", "applyFilters", "getAllSups"]),
         del(id) {
             this.deleteFilter(id);
             this.applyFilters()
@@ -131,6 +132,7 @@ export default {
     },
     mounted() {
         this.showProp = false;
+        this.getAllSups();
     },
 };
 </script>

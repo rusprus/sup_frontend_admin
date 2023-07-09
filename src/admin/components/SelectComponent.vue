@@ -25,6 +25,9 @@ export default {
             this.applyFilters();
         },
     },
+    // computed: {
+    //      ...mapGetters(["allFilter"]),
+    // }
     methods: {
         ...mapActions(["applyFilters", "setFilter"]),
     },

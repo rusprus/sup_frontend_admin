@@ -1,5 +1,6 @@
 import { OrdersAPI } from '@/api/OrdersAPI'
 import moment from "moment";
+// import {SupsModule}  from './SupsModule'
 
 export const OrdersModule = {
     state: () => ({
@@ -18,7 +19,13 @@ export const OrdersModule = {
             5: 'Не подошел',
         },
         activeFilters: [],
-        allFilter: [
+        
+    }),
+
+    getters:{
+        allFilter(state, getters){
+
+         return [
             {
                 name: 'Имя клиента',
                 id: 1,
@@ -38,28 +45,14 @@ export const OrdersModule = {
                 type: "select",
                 field: 'sup_id',
                 value: null,
-                options: [
-                    {
-                        name: '1 сап ',
-                        value: 1
-                    },
-                    {
-                        name: '2 сап ',
-                        value: 2
-                    },
-                    {
-                        name: '3 сап ',
-                        value: 3
-                    },
-                    {
-                        name: '4 сап ',
-                        value: 4
-                    },
-                    {
-                        name: '5 сап ',
-                        value: 5
-                    }
-                ],
+                options: getters.optionsForFilter,
+                // [
+                //     {
+                //         name: '2 сап ',
+                //         value: 2
+                //     },
+       
+                // ],
             }, {
                 name: 'Статус',
                 id: 4,
@@ -104,7 +97,9 @@ export const OrdersModule = {
                 value: '',
             },
         ]
-    }),
+
+    }
+    },
     actions: {
 
         addOrder({ commit }, order) {
@@ -154,8 +149,8 @@ export const OrdersModule = {
             if (param == false) state.orderModule = false;
         },
 
-        addFilter({ state }, id) {
-            let filter = state.allFilter.find((filter) => filter.id == id);
+        addFilter({ state , getters}, id) {
+            let filter = getters.allFilter.find((filter) => filter.id == id);
             if (!state.activeFilters.includes(filter)) state.activeFilters.push(filter);
         },
         deleteFilter({ state }, id) {
@@ -176,10 +171,6 @@ export const OrdersModule = {
 
             }
 
-            // console.log(field)
-            // console.log(value)
-            // console.log(filter)
-            // console.log(state.activeFilters)
         },
 
         applyFilters({ state, dispatch }) {
@@ -248,26 +239,6 @@ export const OrdersModule = {
                 return false;
             });
         },
-
-        // createFilter({ state }) {
-        //     state
-        //     var myParent = document.body;
-
-        //     //Create array of options to be added
-        //     var array = ["Volvo", "Saab", "Mercades", "Audi"];
-
-        //     //Create and append select list
-        //     var selectList = document.createElement("select");
-        //     selectList.id = "mySelect";
-        //     myParent.appendChild(selectList);
-
-        //     //Create and append the options
-        //     for (var i = 0; i < array.length; i++) {
-        //         var option = document.createElement("option");
-        //         option.value = array[i];
-        //         option.text = array[i];
-        //         selectList.appendChild(option);
-        //     }
     },
     mutations: {
 

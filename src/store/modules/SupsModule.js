@@ -11,6 +11,21 @@ export const SupsModule = {
         }
 
     }),
+    getters: {
+        optionsForFilter(state){
+
+            const options = []
+            
+            state.origin.forEach((item)=>{
+                options.push( {
+                    name: item.name,
+                    value: item.id
+                }) 
+            })
+            
+            return options;
+        }
+    },
     actions: {
 
         async addSup({ commit }, sup) {

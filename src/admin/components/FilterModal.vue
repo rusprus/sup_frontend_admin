@@ -40,7 +40,7 @@
                                 <div class="mt-2">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                         <div
-                                            v-for="filter in OrdersModule.allFilter"
+                                            v-for="filter in allFilter"
                                             :key="filter.id"
                                             @click="add(filter.id)"
                                             class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -94,7 +94,7 @@
 <script>
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { XIcon } from "@heroicons/vue/outline";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 // import { DialogTitle, ExclamationIcon, XIcon } from "@heroicons/vue/outline";
 
 export default {
@@ -118,6 +118,7 @@ export default {
     },
     computed: {
         ...mapState(["OrdersModule"]),
+        ...mapGetters(["allFilter"]),
     },
     watch: {
         showProp(show) {
