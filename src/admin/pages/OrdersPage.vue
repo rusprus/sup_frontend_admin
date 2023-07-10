@@ -122,7 +122,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(["setOrderDefault", "toggleModule"]),
+        ...mapActions(["setOrderDefault", "toggleModule", "getAllSups"]),
         addOrder() {
             this.setOrderDefault();
             this.toggleModule(true)
@@ -165,6 +165,10 @@ export default {
             if (typeof nextPrev == "number") this.setPage(nextPrev);
         },
     },
+    mounted(){
+        this.getAllSups()
+    }, 
+
     setup() {
         return {
             // people,

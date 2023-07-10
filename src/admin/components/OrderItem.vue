@@ -10,7 +10,7 @@
             {{ format(item.dateEnd) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ item.sup_id }}
+            {{ supNameById(item.sup_id) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ OrdersModule.status[item.status] }}
@@ -34,7 +34,7 @@ export default {
     computed: {
         ...mapState([
             "OrdersModule",
-            // 'orderModule'
+            "SupsModule"
         ]),
     },
     methods: {
@@ -43,6 +43,9 @@ export default {
         openModal(id) {
             this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
             this.toggleModule(true);
+        },
+        supNameById(id){
+            return this.SupsModule.origin.find((item)=>item.id == id).name
         },
         format(date) {
             return moment(date).format("YYYY-MM-DD HH:mm");

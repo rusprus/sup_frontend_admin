@@ -4,7 +4,9 @@
         <!-- Logo area -->
         <div class="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
             <router-link to="/admin" class="flex items-center justify-center h-16 w-16 bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20">
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="Workflow" />
+                <img class="h-8 w-auto" src="
+                                        https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg
+                                    " alt="Workflow" />
             </router-link>
         </div>
 
@@ -35,7 +37,9 @@
         </div>
 
         <!-- Desktop nav area -->
+        <!-- <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between"> -->
         <div class="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
+
             <div class="min-w-0 flex-1">
                 <!-- <div class="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
                     <label for="desktop-search" class="sr-only">Search</label>
@@ -69,7 +73,11 @@
                     <Menu as="div" class="relative inline-block text-left">
                         <MenuButton class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
                             <span class="sr-only">Open user menu</span>
-                            <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                            <img class="h-8 w-8 rounded-full" :src="Globals.apiUrl +
+                                    'uploads/' +
+                                    ProfilesModule.profile.login +
+                                    '/' +
+                                    ProfilesModule.profile.photo" alt="" />
                         </MenuButton>
 
                         <transition
@@ -165,11 +173,15 @@
                         <div class="border-t border-gray-200 pt-4 pb-3">
                             <div class="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
                                 <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+                                    <img class="h-10 w-10 rounded-full" :src="Globals.apiUrl +
+                                    'uploads/' +
+                                    ProfilesModule.profile.login +
+                                    '/' +
+                                    ProfilesModule.profile.photo" alt="" />
                                 </div>
                                 <div class="ml-3 min-w-0 flex-1">
-                                    <div class="text-base font-medium text-gray-800 truncate">{{ user.name }}</div>
-                                    <div class="text-sm font-medium text-gray-500 truncate">{{ user.email }}</div>
+                                    <div class="text-base font-medium text-gray-800 truncate">{{ ProfilesModule.profile.name }}</div>
+                                    <div class="text-sm font-medium text-gray-500 truncate">{{ ProfilesModule.profile.email }}</div>
                                 </div>
                                 <a href="#" class="ml-auto flex-shrink-0 bg-white p-2 text-gray-400 hover:text-gray-500">
                                     <span class="sr-only">View notifications</span>
@@ -202,7 +214,7 @@ import { MenuItem, MenuItems, MenuButton, Menu } from "@headlessui/vue";
 // import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { ArchiveIcon, BanIcon, BellIcon, FlagIcon, InboxIcon, MenuIcon, UserCircleIcon, XIcon } from "@heroicons/vue/outline";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
     components: {
@@ -224,11 +236,6 @@ export default {
         return {
             searchString: "",
             mobileMenuOpen: false,
-            user: {
-                name: "Whitney Francis",
-                email: "whitneyfrancis@example.com",
-                imageUrl: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-            },
             navigation: [
                 // {
                 //     name: "Inboxes",
@@ -254,7 +261,7 @@ export default {
     },
 
     computed: {
-        // ...mapState(["orders"]),
+        ...mapState(["Globals", "ProfilesModule"]),
     },
     methods: {
         ...mapActions(["filterOrders", "onLogout"]),

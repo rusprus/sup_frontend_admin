@@ -24,16 +24,14 @@
     ```
   -->
     <div class="h-full flex flex-col">
-        <!-- <router-view name="nav"></router-view> -->
 
         <OrderModal :showProp="OrdersModule.orderModule" />
-        <TopNav />
-        <!-- Bottom section -->
-        <div class="min-h-0 flex-1 flex overflow-hidden">
-            <!-- Narrow sidebar-->
-            <!-- <router-view name="sidebar"></router-view> -->
-            
-                <NarrowSidebar />
+
+        <TopNav  class="fixed z-50 right-0 left-0" />
+
+        <div class="min-h-0 flex-1 mt-16 flex overflow-hidden">
+         
+            <NarrowSidebar class="fixed  h-full left-0" /> 
             
             <!-- Main area -->
             <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex md:ml-20">
@@ -115,7 +113,7 @@ export default {
         // showMess(data) {
         //     console.log(data);
         // },
-        ...mapActions(["getAllOrders"]),
+        ...mapActions(["getAllOrders", "getAllSups", "getProfile"]),
     },
     computed: {
         ...mapState(["OrdersModule"]),
@@ -123,6 +121,8 @@ export default {
     mounted() {
         // console.log('getAllOrders 1')
         this.getAllOrders();
+        this.getAllSups();
+        this.getProfile();
         moment.locale("ru");
     },
     setup() {

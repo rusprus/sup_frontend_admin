@@ -1,5 +1,5 @@
 <template>
-    <nav aria-label="Sidebar" class="fixed top-50 h-screen left-0 hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto ">
+    <nav aria-label="Sidebar" class="h-full hidden md:block md:flex-shrink-0 md:bg-gray-800 md:overflow-y-auto ">
         <div class="relative w-20 flex flex-col p-3 space-y-3">
             <router-link
                 @click="currentPage = item.name"
