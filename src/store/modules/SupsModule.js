@@ -22,9 +22,10 @@ export const SupsModule = {
                     value: item.id
                 }) 
             })
-            
+
             return options;
-        }
+        },
+        
     },
     actions: {
 

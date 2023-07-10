@@ -473,6 +473,7 @@ export default {
             "updateSupImg",
             "deleteSup",
             "getProfile",
+            "setSidebarNavigation"
         ]),
         addNewSup() {
             this.addSup(this.newSup).then(async () => {
@@ -565,6 +566,7 @@ export default {
     mounted() {
         this.getAllSups();
         this.getProfile();
+        this.setSidebarNavigation(this.Globals.sidebarNavigation[3].name)
     },
 };
 </script>

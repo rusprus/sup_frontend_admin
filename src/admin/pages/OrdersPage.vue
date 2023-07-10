@@ -103,7 +103,7 @@ export default {
     },
 
     computed: {
-        ...mapState(["OrdersModule"]),
+        ...mapState(["OrdersModule", "Globals"]),
         paginatedData() {
             const start = (this.pageNumber - 1) * this.size,
                 end = start + this.size;
@@ -122,7 +122,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(["setOrderDefault", "toggleModule", "getAllSups"]),
+        ...mapActions(["setOrderDefault", "toggleModule", "getAllSups", "setSidebarNavigation"]),
         addOrder() {
             this.setOrderDefault();
             this.toggleModule(true)
@@ -167,6 +167,7 @@ export default {
     },
     mounted(){
         this.getAllSups()
+        this.setSidebarNavigation(this.Globals.sidebarNavigation[1].name)
     }, 
 
     setup() {

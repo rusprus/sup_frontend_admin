@@ -37,6 +37,8 @@
 
 <script>
 import { ScaleIcon } from "@heroicons/vue/outline";
+import { mapActions, mapState } from "vuex";
+
 
 const cards = [
     { name: "Список заказов", href: "/admin/orders", icon: ScaleIcon, amount: "" },
@@ -47,10 +49,19 @@ const cards = [
 ];
 export default {
     methods: {
+        ...mapActions(["setSidebarNavigation"]),
         goto(adr){
             this.$router.push(adr)
         }
     },
+    computed:{
+        ...mapState(["Globals"])
+    },
+
+    mounted(){
+        this.setSidebarNavigation(this.Globals.sidebarNavigation[0].name)
+    },
+
     setup() {
         return {
             cards,

@@ -223,15 +223,16 @@ export default {
         // showMess(data) {
         //     console.log(data);
         // },
-        ...mapActions(["getProfile", "onPasswordUpdate"]),
+        ...mapActions(["getProfile", "onPasswordUpdate", "setSidebarNavigation"]),
     },
 
     computed: {
-        ...mapState(["ProfilesModule", "AuthModule"]),
+        ...mapState(["ProfilesModule", "AuthModule", "Globals"]),
     },
     mounted() {
         // console.log('getAllOrders 1')
         this.getProfile();
+        this.setSidebarNavigation(this.Globals.sidebarNavigation[4].name)
     },
     components: {
         // Dialog,

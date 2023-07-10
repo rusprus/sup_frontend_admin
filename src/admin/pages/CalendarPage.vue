@@ -159,7 +159,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["next", "prev", "today", "getDateEvents", "setOrderDefault", "toggleModule"]),
+        ...mapActions(["next", "prev", "today", "getDateEvents", "setOrderDefault", "toggleModule", "setSidebarNavigation"]),
         addOrder() {
             this.setOrderDefault();
             this.toggleModule(true);
@@ -171,7 +171,7 @@ export default {
         // },
     },
     computed: {
-        ...mapState(["CalendarModule"]),
+        ...mapState(["CalendarModule", "Globals"]),
         selectedDay() {
             return this.CalendarModule.days.find((day) => day.isSelected);
         },
@@ -191,6 +191,7 @@ export default {
         this.CalendarModule.currentDate = moment();
         this.CalendarModule.currentMonth = this.CalendarModule.currentDate.month();
         this.CalendarModule.fullYear = this.CalendarModule.currentDate.year();
+        this.setSidebarNavigation(this.Globals.sidebarNavigation[2].name)
     },
 };
 </script>
