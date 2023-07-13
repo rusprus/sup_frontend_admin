@@ -24,8 +24,6 @@ import { mapState, mapActions } from "vuex";
 export default {
     data() {
         return {
-            // current: 1,
-            // currentPage: 'Dashboard',
             
         };
     },

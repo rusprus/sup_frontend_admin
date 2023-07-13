@@ -17,14 +17,13 @@ export const AuthModule = {
 
     getters: {
         getUserRole: (state) => state.credentials.userRole,
-        isAuthorized: (state) => state.credentials.token !== null
-        // Object.prototype.hasOwnProperty.call(localStorage, 'token'),
+        isAuthorized: (state) => state.credentials.userRole == UserRoles.Moderator
     },
 
     actions: {
         async onLogin({ commit }, { login, password }) {
             await AuthAPI.login({ login, password }).then((res) => {
-                if (res.data.error === undefined) {
+                if (res.data.status !== false) {
 
                     commit('setToken', 'Bearer ' + res.data.token);
                     commit('setUserRole', res.data.userRole);

@@ -18,44 +18,25 @@ import ListPage from '@/admin/pages/ListPage.vue'
 import SettingPage from '@/admin/pages/SettingPage.vue'
 import SupPage from '@/admin/pages/SupPage.vue'
 
-
-// import WalkPage from '@/pages/walk/WalkPage.vue'
-
-import { UserRoles } from './types/Auth'
+// import { UserRoles } from './types/Auth'
+import store from '@/store/index'
 
 
-// const isAuthorized = localStorage.hasOwnProperty('token');
-
-
-
-// const authGuard = function (to, from, next) {
-//     if (!isAuthorized) next({ name: 'Login' });
-//     else next()
-// }
-
-const managerAuthGuard = function (to, from, next) {
-    const isAuthorized = Object.prototype.hasOwnProperty.call(localStorage, 'token')
-    
-    console.log('check auth 1')
-    if (!isAuthorized)
-    {
-        console.log('check auth 2')
-        next({ name: 'Login' });
-    } 
-    else if (localStorage.getItem('userRole') !== JSON.stringify(UserRoles.Moderator)) {
-        console.log('Авторизован');
-        // next({ name: 'AdminLayout' });
-        // next({ name: 'LandingLayout' });
-        next();
-    }
-
-    //  next({ name: 'AdminLayout' });
-    else {
-        console.log('check auth 3')
+const loginGuard = function (to, from, next) {
+    if (store.getters.isAuthorized) {
+        next({ name: 'AdminLayout' });
+    } else {
         next()
     }
+}
 
-
+const managerAuthGuard = function (to, from, next) {
+    const isAuth = store.getters.isAuthorized
+    if (isAuth) {
+        next();
+    } else {
+        next({ name: 'Login' });
+    }
 }
 
 
@@ -77,7 +58,7 @@ const routes = [
                 name: 'Login',
                 component: LoginPage,
 
-                // beforeEnter: authGuard
+                beforeEnter: loginGuard
             },
 
         ],

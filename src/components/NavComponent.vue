@@ -2,11 +2,17 @@
     <div class="bg-white">
         <header class="fixed top-0 left-0 right-0 z-50 opacity-90">
             <Popover class="relative bg-white">
-                <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+                <div
+                    class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
+                >
                     <div class="flex justify-start lg:w-0 lg:flex-1">
                         <a href="#">
                             <span class="sr-only">Workflow</span>
-                            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+                            <img
+                                class="h-8 w-auto sm:h-10"
+                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                alt=""
+                            />
                         </a>
                     </div>
                     <div class="-mr-2 -my-2 md:hidden">
@@ -37,18 +43,39 @@
                                 leave-from-class="opacity-100 translate-y-0"
                                 leave-to-class="opacity-0 translate-y-1"
                             >
-                                <PopoverPanel class="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                                    <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                                        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2">
-                                            <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                                                <div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white sm:h-12 sm:w-12">
-                                                    <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
+                                <PopoverPanel
+                                    class="absolute z-10 -ml-4 mt-3 transform w-screen max-w-md lg:max-w-2xl lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
+                                >
+                                    <div
+                                        class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"
+                                    >
+                                        <div
+                                            class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 lg:grid-cols-2"
+                                        >
+                                            <router-link
+                                                v-for="item in navigation"
+                                                :key="item.name"
+                                                :to="item.href"
+                                                class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                                            >
+                                                <div
+                                                    class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white sm:h-12 sm:w-12"
+                                                >
+                                                    <component
+                                                        :is="item.icon"
+                                                        class="h-6 w-6"
+                                                        aria-hidden="true"
+                                                    />
                                                 </div>
                                                 <div class="ml-4">
-                                                    <p class="text-base font-medium text-gray-900">
+                                                    <p
+                                                        class="text-base font-medium text-gray-900"
+                                                    >
                                                         {{ item.name }}
                                                     </p>
-                                                    <p class="mt-1 text-sm text-gray-500">
+                                                    <p
+                                                        class="mt-1 text-sm text-gray-500"
+                                                    >
                                                         {{ item.description }}
                                                     </p>
                                                 </div>
@@ -62,18 +89,38 @@
                         <!-- <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">
               {{ item.name }}
             </a> -->
-                        <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="text-base font-medium text-gray-500 hover:text-gray-900">{{
-                            item.name
-                        }}</router-link>
+                        <router-link
+                            v-for="item in navigation"
+                            :key="item.name"
+                            :to="item.href"
+                            class="text-base font-medium text-gray-500 hover:text-gray-900"
+                            >{{ item.name }}</router-link
+                        >
                         <template v-if="isAuthorized">
-                            <router-link to="/admin" class="text-base font-medium text-gray-500 hover:text-gray-900">Админка </router-link>
-                            <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход </router-link>
+                            <router-link
+                                to="/admin"
+                                class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                >Админка
+                            </router-link>
+                            <router-link
+                                to="#"
+                                class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                @click="logout"
+                                >Выход
+                            </router-link>
                         </template>
                         <template v-else>
-                            <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </router-link>
+                            <router-link
+                                to="#"
+                                class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                @click="login"
+                                >Вход
+                            </router-link>
                         </template>
                     </PopoverGroup>
-                    <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <div
+                        class="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
+                    >
                         <!-- <a href="#" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
             <a href="#" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a> -->
                     </div>
@@ -87,19 +134,33 @@
                     leave-from-class="opacity-100 scale-100"
                     leave-to-class="opacity-0 scale-95"
                 >
-                    <PopoverPanel focus class="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+                    <PopoverPanel
+                        focus
+                        class="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+                    >
+                        <div
+                            class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50"
+                        >
                             <div class="pt-5 pb-6 px-5">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+                                        <img
+                                            class="h-8 w-auto"
+                                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                            alt="Workflow"
+                                        />
                                     </div>
                                     <div class="-mr-2">
                                         <PopoverButton
                                             class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                                         >
-                                            <span class="sr-only">Close menu</span>
-                                            <XIcon class="h-6 w-6" aria-hidden="true" />
+                                            <span class="sr-only"
+                                                >Close menu</span
+                                            >
+                                            <XIcon
+                                                class="h-6 w-6"
+                                                aria-hidden="true"
+                                            />
                                         </PopoverButton>
                                     </div>
                                 </div>
@@ -118,15 +179,35 @@
                             </div>
                             <div class="py-6 px-5">
                                 <div class="grid grid-cols-2 gap-4">
-                                    <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <router-link
+                                        v-for="item in navigation"
+                                        :key="item.name"
+                                        :to="item.href"
+                                        class="text-base font-medium text-gray-900 hover:text-gray-700"
+                                    >
                                         {{ item.name }}
                                     </router-link>
                                     <template v-if="isAuthorized">
-                                        <router-link to="/admin" class="text-base font-medium text-gray-500 hover:text-gray-900">Админка</router-link>
-                                        <router-link to="#" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="logout">Выход </router-link>
+                                        <router-link
+                                            to="/admin"
+                                            class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                            >Админка</router-link
+                                        >
+                                        <router-link
+                                            to="#"
+                                            class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                            @click="logout"
+                                            >Выход
+                                        </router-link>
                                     </template>
                                     <template v-else>
-                                        <router-link to="#" key="login" class="text-base font-medium text-gray-500 hover:text-gray-900" @click="login">Вход </router-link>
+                                        <router-link
+                                            to="#"
+                                            key="login"
+                                            class="text-base font-medium text-gray-500 hover:text-gray-900"
+                                            @click="login"
+                                            >Вход
+                                        </router-link>
                                     </template>
                                 </div>
                                 <!-- <div class="mt-6">
@@ -146,7 +227,12 @@
 </template>
 
 <script>
-import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from "@headlessui/vue";
+import {
+    Popover,
+    PopoverButton,
+    PopoverGroup,
+    PopoverPanel,
+} from "@headlessui/vue";
 import {
     // AnnotationIcon,
     // ChatAlt2Icon,
@@ -156,13 +242,7 @@ import {
     XIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
-// import { getAllOrders } from '@src/api/index'
 import { mapActions, mapGetters } from "vuex";
-
-// const
-// if(this.isAuthorized) navigation.push({ name: 'Админка', href: '/admin' })
-
-// { name: 'Выйти', href: '/logout' },
 
 export default {
     components: {
@@ -176,7 +256,6 @@ export default {
     },
     data() {
         return {
-            // isAuthorized: this.isAuthorized,
             navigation: [
                 { name: "Стоимость", href: "/#price", show: true },
                 { name: "Комплект", href: "/#complect", show: true },
@@ -202,31 +281,17 @@ export default {
     computed: {
         ...mapGetters(["isAuthorized"]),
     },
-    // watch:{
-    //   isAuthorized(){
-    //     return this.isAuthorized
-    //   }
-    // },
     methods: {
         ...mapActions(["onLogin", "onLogout"]),
 
         logout() {
-            console.log("logout");
             this.onLogout();
-            // .then(() => this.$router.push('/'))
             this.$router.push("/");
         },
 
         login() {
-            console.log("login");
             this.$router.push("/login");
-            // this.onLogin().then(() => this.$router.push('/'))
         },
-        // isAuthorized() {
-        //   console.log('ddddd')
-        //   console.log(Object.prototype.hasOwnProperty.call(localStorage, 'token'))
-        //   return Object.prototype.hasOwnProperty.call(localStorage, 'token')
-        // }
     },
 };
 </script>
