@@ -10,6 +10,7 @@ import {
 export const Globals = {
     state: () => ({
         apiUrl: 'https://api.spbsupboard.ru/',
+        apiUrlWs: 'wss://api.spbsupboard.ru/',
 
         sidebarNavigation: [
             { name: "Dashboard", to: "/admin", icon: UserCircleIcon, current: false },
@@ -17,6 +18,7 @@ export const Globals = {
             { name: "Calendar", to: "/admin/calendar", icon: ArchiveIcon, current: false },
             { name: "Sups", to: "/admin/sups", icon: FlagIcon, current: false },
             { name: "Setting", to: "/admin/setting", icon: BanIcon, current: false },
+            { name: "Chat", to: "/admin/chat", icon: BanIcon, current: false, children: [] },
             // { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
         ],
 

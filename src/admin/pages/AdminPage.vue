@@ -1,14 +1,14 @@
 <template>
     <div>
         <!-- <OrdersPage />
-        <OrderModule /> -->
+        <OrderModal /> -->
         AdminPage
     </div>
 </template>
 
 <script>
 // import OrdersPage from "@/admin/pages/OrdersPage.vue";
-// import OrderModule from "@/admin/components/OrderModule.vue";
+// import OrderModal from "@/admin/components/OrderModal.vue";
 
 export default {
     name: "AdminPage",

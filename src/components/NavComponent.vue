@@ -261,12 +261,6 @@ export default {
                 { name: "Комплект", href: "/#complect", show: true },
                 { name: "Контакты", href: "/#contacts", show: true },
                 { name: "Карта", href: "/#map", show: true },
-                // { name: "Админка", href: "/admin", show: this.isAuthorized },
-                // { name: "Вход", href: "#", click: "login" },
-                // { name: "Галерея", href: "/#gallery" },
-                // { name: "Маршруты", href: "/#set" },
-
-                // { name: '+7-921-930-10-78', href: 'tel:+79219301078' }
             ],
         };
     },
@@ -282,7 +276,7 @@ export default {
         ...mapGetters(["isAuthorized"]),
     },
     methods: {
-        ...mapActions(["onLogin", "onLogout"]),
+        ...mapActions(["onLogout"]),
 
         logout() {
             this.onLogout();

@@ -25,7 +25,7 @@
   -->
     <div class="h-full flex flex-col">
 
-        <OrderModal :showProp="OrdersModule.orderModule" />
+        <OrderModal :showProp="OrdersModule.orderModal" />
 
         <TopNav  class="fixed z-50 right-0 left-0" />
 

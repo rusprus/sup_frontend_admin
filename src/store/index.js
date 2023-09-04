@@ -4,18 +4,19 @@ import { OrdersModule } from './modules/OrdersModule'
 import { CalendarModule } from './modules/CalendarModule'
 import { SupsModule } from './modules/SupsModule'
 import { ProfilesModule } from './modules/ProfilesModule'
+import { MsgsModule } from './modules/MsgsModule'
 import { Globals } from './modules/Globals'
 
 
 const state = {
-  orderModule: false,
+  // orderModal: false,
 }
 const actions = {
 
 }
 const mutations = {
-  showOrderModule(state, flag) {
-    state.orderModule = flag
+  showOrderModal(state, flag) {
+    state.orderModal = flag
   }
 }
 const getters = {
@@ -32,6 +33,7 @@ export default createStore({
     OrdersModule,
     SupsModule,
     ProfilesModule,
+    MsgsModule,
     Globals,
   }
 })

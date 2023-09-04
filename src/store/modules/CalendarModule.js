@@ -17,7 +17,7 @@ export const CalendarModule = {
             // { id: 6, name: "Sam's birthday party", time: "2PM", datetime: "2023-01-25T14:00", href: "#" },
             // { id: 7, name: "Cinema with friends", time: "9PM", datetime: "2023-02-04T21:00", href: "#" },
         ],
-        showOrderModule: false,
+        showOrderModal: false,
         togglePeriod: 'month'
     }),
     getters: {

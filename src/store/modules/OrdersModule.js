@@ -10,7 +10,7 @@ export const OrdersModule = {
             // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', sup_id: 1, note: 'Девяткино',status: 'Завершено' },
         ],
         filtered: [],
-        orderModule: false,
+        orderModal: false,
         status: {
             1: 'Не выбрано',
             2: 'Планируется',
@@ -145,8 +145,8 @@ export const OrdersModule = {
 
 
         toggleModule({ state }, param) {
-            if (param == true) state.orderModule = true;
-            if (param == false) state.orderModule = false;
+            if (param == true) state.orderModal = true;
+            if (param == false) state.orderModal = false;
         },
 
         addFilter({ state , getters}, id) {

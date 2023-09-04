@@ -251,6 +251,7 @@ export default {
                 { name: "Календаль", to: "/admin/calendar", icon: ArchiveIcon, current: false, children: [] },
                 { name: "Статистика", to: "/admin/stat", icon: FlagIcon, current: false, children: [] },
                 { name: "Настройки", to: "/admin/setting", icon: BanIcon, current: false, children: [] },
+                { name: "Чат", to: "/admin/chat", icon: BanIcon, current: false, children: [] },
             ],
             sidebarNavigation: [],
             userNavigation: [
