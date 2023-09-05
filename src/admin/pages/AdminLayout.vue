@@ -25,7 +25,7 @@
   -->
     <div class="h-full flex flex-col">
 
-        <OrderModal :showProp="OrdersModule.orderModal" />
+        <!-- <OrderModal :showProp="OrdersModule.orderModal" /> -->
 
         <TopNav  class="fixed z-50 right-0 left-0" />
 
@@ -68,7 +68,7 @@ import { mapActions, mapState } from "vuex";
 import TopNav from "@/admin/components/TopNav.vue";
 
 import NarrowSidebar from "@/admin/components/NarrowSidebar.vue";
-import OrderModal from "@/admin/components/OrderModal.vue";
+// import OrderModal from "@/admin/components/OrderModal.vue";
 import moment from "moment";
 
 // const user = {
@@ -107,7 +107,7 @@ export default {
     components: {
         TopNav,
         NarrowSidebar,
-        OrderModal,
+        // OrderModal,
     },
     methods: {
         // showMess(data) {

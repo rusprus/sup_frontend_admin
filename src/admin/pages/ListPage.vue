@@ -42,8 +42,8 @@ import { mapActions, mapState } from "vuex";
 
 const cards = [
     { name: "Список заказов", href: "/admin/orders", icon: ScaleIcon, amount: "" },
+    { name: "Список клиентов", href: "/admin/clients", icon: ScaleIcon, amount: "" },
     { name: "Календарь заказов", href: "/admin/calendar", icon: ScaleIcon, amount: "" },
-    // { name: "Статистика", href: "/admin/stat", icon: ScaleIcon, amount: "" },
     { name: "Настройки", href: "/admin/setting", icon: ScaleIcon, amount: "" },
     // More items...
 ];

@@ -19,6 +19,7 @@ export const Globals = {
             { name: "Sups", to: "/admin/sups", icon: FlagIcon, current: false },
             { name: "Setting", to: "/admin/setting", icon: BanIcon, current: false },
             { name: "Chat", to: "/admin/chat", icon: BanIcon, current: false, children: [] },
+            { name: "Clients", to: "/admin/clients", icon: InboxIcon, current: false },
             // { name: "Drafts", to: "#", icon: PencilAltIcon, current: false },
         ],
 

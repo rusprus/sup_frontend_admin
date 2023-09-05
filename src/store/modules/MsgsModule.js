@@ -8,7 +8,7 @@ export const MsgsModule = {
     //     optionsForFilter(state){
 
     //         const options = []
-            
+                
     //         state.origin.forEach((item)=>{
     //             options.push( {
     //                 name: item.name,

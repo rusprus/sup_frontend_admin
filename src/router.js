@@ -18,6 +18,7 @@ import ListPage from '@/admin/pages/ListPage.vue'
 import SettingPage from '@/admin/pages/SettingPage.vue'
 import SupPage from '@/admin/pages/SupPage.vue'
 import ChatPage from '@/admin/pages/ChatPage.vue'
+import ClientsPage from '@/admin/pages/ClientsPage.vue'
 
 // import { UserRoles } from './types/Auth'
 import store from '@/store/index'
@@ -140,6 +141,12 @@ const routes = [
                 path: 'chat',
                 name: 'ChatPage',
                 component: ChatPage,
+
+            },
+            {
+                path: 'clients',
+                name: 'ClientsPage',
+                component: ClientsPage,
 
             },
         ],
