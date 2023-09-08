@@ -20,82 +20,82 @@ export const ClientsModule = {
     }),
 
     getters:{
-        allFilter(state, getters){
+    //     allFilter(state, getters){
 
-         return [
-            {
-                name: 'Имя клиента',
-                id: 1,
-                type: "text",
-                field: 'name',
-                value: '',
-            },
-            {
-                name: 'Срок аренды',
-                id: 2,
-                type: "dateRange",
-                field: 'dateRange',
-                value: [],
-            }, {
-                name: 'Номер сапа',
-                id: 3,
-                type: "select",
-                field: 'sup_id',
-                value: null,
-                options: getters.optionsForFilter,
-                // [
-                //     {
-                //         name: '2 сап ',
-                //         value: 2
-                //     },
+    //      return [
+    //         {
+    //             name: 'Имя клиента',
+    //             id: 1,
+    //             type: "text",
+    //             field: 'name',
+    //             value: '',
+    //         },
+    //         {
+    //             name: 'Срок аренды',
+    //             id: 2,
+    //             type: "dateRange",
+    //             field: 'dateRange',
+    //             value: [],
+    //         }, {
+    //             name: 'Номер сапа',
+    //             id: 3,
+    //             type: "select",
+    //             field: 'sup_id',
+    //             value: null,
+    //             options: getters.optionsForFilter,
+    //             // [
+    //             //     {
+    //             //         name: '2 сап ',
+    //             //         value: 2
+    //             //     },
        
-                // ],
-            }, {
-                name: 'Статус',
-                id: 4,
-                type: "select",
-                field: 'status',
-                value: 1,
-                options: [
-                    {
-                        name: 'Не выбрано',
-                        value: 1
-                    },
-                    {
-                        name: 'Планируется',
-                        value: 2
-                    },
-                    {
-                        name: 'Активен',
-                        value: 3
-                    },
-                    {
-                        name: 'Завершен',
-                        value: 4
-                    },
-                    {
-                        name: 'Не подошел',
-                        value: 5
-                    }
-                ],
-            },
-            {
-                name: 'Заметки',
-                id: 5,
-                type: "text",
-                field: 'note',
-                value: '',
-            },
-            {
-                name: 'Глобальный фильтр',
-                id: 6,
-                type: "globalFilter",
-                field: 'globalFilter',
-                value: '',
-            },
-        ]
+    //             // ],
+    //         }, {
+    //             name: 'Статус',
+    //             id: 4,
+    //             type: "select",
+    //             field: 'status',
+    //             value: 1,
+    //             options: [
+    //                 {
+    //                     name: 'Не выбрано',
+    //                     value: 1
+    //                 },
+    //                 {
+    //                     name: 'Планируется',
+    //                     value: 2
+    //                 },
+    //                 {
+    //                     name: 'Активен',
+    //                     value: 3
+    //                 },
+    //                 {
+    //                     name: 'Завершен',
+    //                     value: 4
+    //                 },
+    //                 {
+    //                     name: 'Не подошел',
+    //                     value: 5
+    //                 }
+    //             ],
+    //         },
+    //         {
+    //             name: 'Заметки',
+    //             id: 5,
+    //             type: "text",
+    //             field: 'note',
+    //             value: '',
+    //         },
+    //         {
+    //             name: 'Глобальный фильтр',
+    //             id: 6,
+    //             type: "globalFilter",
+    //             field: 'globalFilter',
+    //             value: '',
+    //         },
+    //     ]
 
-    }
+    // }
     },
     actions: {
 

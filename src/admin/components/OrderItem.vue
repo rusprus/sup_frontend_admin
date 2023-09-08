@@ -1,7 +1,7 @@
 <template>
     <tr @click="openModal(item.id)" class="cursor-pointer">
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-            {{ item.name }}
+            {{ clientNameById(item.client_id) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ format(item.dateStart) }}
@@ -13,14 +13,14 @@
             {{ supNameById(item.sup_id) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            {{ OrdersModule.status[item.status] }}
+            {{ statusNameById(item.status) }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ item.note }}
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <!-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> -->
             <!-- <span  class="text-indigo-600 hover:text-indigo-900 cursor-pointer">Изменить</span> -->
-        </td>
+        <!-- </td> -->
     </tr>
 </template>
 
@@ -34,7 +34,8 @@ export default {
     computed: {
         ...mapState([
             "OrdersModule",
-            "SupsModule"
+            "SupsModule",
+            "ClientsModule"
         ]),
     },
     methods: {
@@ -46,6 +47,12 @@ export default {
         },
         supNameById(id){
             return this.SupsModule.origin.find((item)=>item.id == id).name
+        },
+        statusNameById(id){
+            return this.OrdersModule.status.find((item)=>item.id == id).name
+        },
+        clientNameById(id){
+            return this.ClientsModule.origin.find((item)=>item.id == id)?.fio
         },
         format(date) {
             return moment(date).format("YYYY-MM-DD HH:mm");

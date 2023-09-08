@@ -11,94 +11,94 @@ export const OrdersModule = {
         ],
         filtered: [],
         orderModal: false,
-        status: {
-            1: 'Не выбрано',
-            2: 'Планируется',
-            3: 'Активен',
-            4: 'Завершен',
-            5: 'Не подошел',
-        },
+        status: [
+            { id: 1, name: 'Не выбрано' },
+            { id: 2, name: 'Планируется' },
+            { id: 3, name: 'Активен' },
+            { id: 4, name: 'Завершен' },
+            { id: 5, name: 'Не подошел' },
+        ],
         activeFilters: [],
-        
+
     }),
 
-    getters:{
-        allFilter(state, getters){
+    getters: {
+        allFilter(state, getters) {
 
-         return [
-            {
-                name: 'Имя клиента',
-                id: 1,
-                type: "text",
-                field: 'name',
-                value: '',
-            },
-            {
-                name: 'Срок аренды',
-                id: 2,
-                type: "dateRange",
-                field: 'dateRange',
-                value: [],
-            }, {
-                name: 'Номер сапа',
-                id: 3,
-                type: "select",
-                field: 'sup_id',
-                value: null,
-                options: getters.optionsForFilter,
-                // [
-                //     {
-                //         name: '2 сап ',
-                //         value: 2
-                //     },
-       
-                // ],
-            }, {
-                name: 'Статус',
-                id: 4,
-                type: "select",
-                field: 'status',
-                value: 1,
-                options: [
-                    {
-                        name: 'Не выбрано',
-                        value: 1
-                    },
-                    {
-                        name: 'Планируется',
-                        value: 2
-                    },
-                    {
-                        name: 'Активен',
-                        value: 3
-                    },
-                    {
-                        name: 'Завершен',
-                        value: 4
-                    },
-                    {
-                        name: 'Не подошел',
-                        value: 5
-                    }
-                ],
-            },
-            {
-                name: 'Заметки',
-                id: 5,
-                type: "text",
-                field: 'note',
-                value: '',
-            },
-            {
-                name: 'Глобальный фильтр',
-                id: 6,
-                type: "globalFilter",
-                field: 'globalFilter',
-                value: '',
-            },
-        ]
+            return [
+                {
+                    name: 'Имя клиента',
+                    id: 1,
+                    type: "text",
+                    field: 'name',
+                    value: '',
+                },
+                {
+                    name: 'Срок аренды',
+                    id: 2,
+                    type: "dateRange",
+                    field: 'dateRange',
+                    value: [],
+                }, {
+                    name: 'Номер сапа',
+                    id: 3,
+                    type: "select",
+                    field: 'sup_id',
+                    value: null,
+                    options: getters.optionsForFilter,
+                    // [
+                    //     {
+                    //         name: '2 сап ',
+                    //         value: 2
+                    //     },
 
-    }
+                    // ],
+                }, {
+                    name: 'Статус',
+                    id: 4,
+                    type: "select",
+                    field: 'status',
+                    value: 1,
+                    options: [
+                        {
+                            name: 'Не выбрано',
+                            value: 1
+                        },
+                        {
+                            name: 'Планируется',
+                            value: 2
+                        },
+                        {
+                            name: 'Активен',
+                            value: 3
+                        },
+                        {
+                            name: 'Завершен',
+                            value: 4
+                        },
+                        {
+                            name: 'Не подошел',
+                            value: 5
+                        }
+                    ],
+                },
+                {
+                    name: 'Заметки',
+                    id: 5,
+                    type: "text",
+                    field: 'note',
+                    value: '',
+                },
+                {
+                    name: 'Глобальный фильтр',
+                    id: 6,
+                    type: "globalFilter",
+                    field: 'globalFilter',
+                    value: '',
+                },
+            ]
+
+        }
     },
     actions: {
 
@@ -113,7 +113,7 @@ export const OrdersModule = {
         getAllOrders({ commit }) {
             console.log('getAllOrders 2')
             OrdersAPI.getAllOrders().then((res) => {
-                
+
                 commit('setAllOrders', res)
             })
         },
@@ -149,7 +149,7 @@ export const OrdersModule = {
             if (param == false) state.orderModal = false;
         },
 
-        addFilter({ state , getters}, id) {
+        addFilter({ state, getters }, id) {
             let filter = getters.allFilter.find((filter) => filter.id == id);
             if (!state.activeFilters.includes(filter)) state.activeFilters.push(filter);
         },
@@ -228,12 +228,12 @@ export const OrdersModule = {
                 return false;
             });
         },
-        globalFilter({ state }, {value}) {
+        globalFilter({ state }, { value }) {
             let buf = ''
             state.filtered = state.filtered.filter(function (item) {
                 for (var key in item) {
                     if (typeof item[key] !== String) buf = String(item[key]).toLowerCase()
-             
+
                     if (buf.includes(value)) return true;
                 }
                 return false;
@@ -270,12 +270,13 @@ export const OrdersModule = {
         setOrderDefault(state) {
             state.order = {
                 id: null,
-                name: 'Клиент',
+                // uid: '',
+                // client_id: '',
+                // sup_id: 'Клиент',
                 dateStart: moment(),
                 dateEnd: moment(),
-                count: 1,
+                note: '',
                 status: 1,
-                note: ''
             }
         },
 
