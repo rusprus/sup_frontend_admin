@@ -13,10 +13,7 @@
               <PlusSmIconSolid class="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <!-- Пагинация -->
-          <!-- <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" /> -->
           <br />
-
           <FilterBar
             :allFilter="allFilter"
             :activeFilters="OrdersModule.activeFilters"
@@ -26,127 +23,12 @@
             @select-date-param="setParamFilter"
             @change-param="setParamFilter"
           />
-          <!--  -->
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Имя заказчика</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('client_id')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Аренда с</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('dateStart')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Аренда по</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('dateEnd')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Номер сапа</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('sup_id')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Статус</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('status')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">Заметки</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort('note')"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th>
-                <!-- <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  <div class="flex">
-                    <div class="flex">id клиента</div>
-                    <div>
-                      <SwitchVerticalIcon
-                        @click="sort(columns[6])"
-                        class="h-7 w-7 pl-2 cursor-pointer"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                </th> -->
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <TransitionGroup name="flip-list">
-                <OrderItem
-                  v-for="item in OrdersModule.filtered"
-                  :item="item"
-                  :key="item.id"
-                />
-              </TransitionGroup>
-            </tbody>
-          </table>
+          <TableComponent
+            :listItem="listItem"
+            :listTitle="listTitle"
+            @open="openModal"
+            @sort="sort"
+          />
         </div>
       </div>
     </div>
@@ -154,19 +36,20 @@
 </template>
 
 <script>
-import OrderItem from "@/admin/components/OrderItem.vue";
-// import PaginationComponent from "@/admin/components/PaginationComponent";
 import FilterBar from "@/admin/components/FilterBar";
 import { mapActions, mapState, mapGetters } from "vuex";
-import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
+import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/vue/solid";
 import OrderModal from "@/admin/components/OrderModal.vue";
+import TableComponent from "@/admin/components/TableComponent.vue";
+import moment from "moment";
+
 // import styles from "@tailwindcss/typography/src/styles";
 
 export default {
   components: {
-    OrderItem,
+    TableComponent,
     PlusSmIconSolid,
-    SwitchVerticalIcon,
+    // SwitchVerticalIcon,
     // PaginationComponent,
     FilterBar,
     OrderModal,
@@ -174,6 +57,15 @@ export default {
 
   data() {
     return {
+      listTitle: [
+        { field: "client_id", title: "ID" },
+        { field: "client_id", title: "ФИО" },
+        { field: "dateStart", title: "Начало" },
+        { field: "dateEnd", title: "Конец" },
+        { field: "sup_id", title: "Сап" },
+        { field: "status", title: "Статус" },
+        { field: "note", title: "Заметки" },
+      ],
       columns: {
         client_id: {
           type: "int",
@@ -198,29 +90,25 @@ export default {
         },
       },
       sortDirect: true,
-      //   pageNumber: 1, // по умолчанию 0
-      //   size: 10,
     };
   },
 
   computed: {
-    ...mapState(["OrdersModule", "Globals"]),
+    ...mapState(["OrdersModule", "Globals", "ClientsModule", "SupsModule"]),
     ...mapGetters(["allFilter"]),
-    // paginatedData() {
-    //   const start = (this.pageNumber - 1) * this.size,
-    //     end = start + this.size;
-    //   return this.OrdersModule.filtered.slice(start, end);
-    // },
-    // pageCount() {
-    //   let l = this.OrdersModule.filtered.length,
-    //     s = this.size;
-    //   return Math.ceil(l / s);
-    // },
-  },
-  watch: {
-    // pageCount() {
-    //   this.pageNumber = 1;
-    // },
+    listItem() {
+      return this.OrdersModule.filtered.map((item) => {
+        return {
+          id: item.id,
+          client: this.clientNameById(item.client_id),
+          dateStart: this.format(item.dateStart),
+          dateEnd: this.format(item.dateEnd),
+          sup: this.supNameById(item.sup_id),
+          status: this.statusNameById(item.status),
+          note: item.note,
+        };
+      });
+    },
   },
 
   methods: {
@@ -235,6 +123,18 @@ export default {
       "applyFilters",
       "setFilter",
     ]),
+    supNameById(id) {
+      return this.SupsModule.origin.find((item) => item.id == id).name;
+    },
+    statusNameById(id) {
+      return this.OrdersModule.status.find((item) => item.id == id).name;
+    },
+    clientNameById(id) {
+      return this.ClientsModule.origin.find((item) => item.id == id)?.fio;
+    },
+    format(date) {
+      return moment(date).format("YYYY-MM-DD HH:mm");
+    },
     localDeleteFilter(id) {
       this.deleteFilter(id);
       this.applyFilters(id);
@@ -271,34 +171,16 @@ export default {
         }
       }
     },
-    // nextPage() {
-    //   if (this.pageNumber < this.pageCount) this.pageNumber++;
-    // },
-    // prevPage() {
-    //   if (this.pageNumber > 1) this.pageNumber--;
-    // },
-    // setPage(num) {
-    //   console.log("set");
-    //   if (num > 0 && num <= this.pageCount) this.pageNumber = num;
-    // },
-    // changePage(nextPrev) {
-    //   console.log("changePage");
-    //   if (nextPrev == "next") this.nextPage();
-    //   if (nextPrev == "prev") this.prevPage();
-    //   console.log("changePage2");
-    //   if (typeof nextPrev == "number") this.setPage(nextPrev);
-    // },
+
+    openModal(id) {
+      this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
+      this.toggleModule(true);
+    },
   },
   mounted() {
     this.getAllSups();
     this.getAllClients();
     this.setSidebarNavigation(this.Globals.sidebarNavigation[1].name);
-  },
-
-  setup() {
-    return {
-      // people,
-    };
   },
 };
 </script>
