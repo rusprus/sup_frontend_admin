@@ -29,9 +29,10 @@ export const OrdersModule = {
                 {
                     name: 'Имя клиента',
                     id: 1,
-                    type: "text",
-                    field: 'name',
-                    value: '',
+                    type: "select",
+                    field: 'client_id',
+                    value: null,
+                    options: getters.clientOptionsForFilter,
                 },
                 {
                     name: 'Срок аренды',
@@ -45,14 +46,7 @@ export const OrdersModule = {
                     type: "select",
                     field: 'sup_id',
                     value: null,
-                    options: getters.optionsForFilter,
-                    // [
-                    //     {
-                    //         name: '2 сап ',
-                    //         value: 2
-                    //     },
-
-                    // ],
+                    options: getters.supOptionsForFilter,
                 }, {
                     name: 'Статус',
                     id: 4,
@@ -89,13 +83,13 @@ export const OrdersModule = {
                     field: 'note',
                     value: '',
                 },
-                {
-                    name: 'Глобальный фильтр',
-                    id: 6,
-                    type: "globalFilter",
-                    field: 'globalFilter',
-                    value: '',
-                },
+                // {
+                //     name: 'Глобальный фильтр',
+                //     id: 6,
+                //     type: "globalFilter",
+                //     field: 'globalFilter',
+                //     value: '',
+                // },
             ]
 
         }

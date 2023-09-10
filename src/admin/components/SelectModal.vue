@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-    <TransitionRoot as="template" :show="open">
+    <TransitionRoot as="template" :show="show">
         <Dialog as="div" class="fixed z-10 inset-0 overflow-y-auto" @close="close()">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -40,7 +40,7 @@
                                 <div class="mt-2">
                                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                         <div
-                                            v-for="filter in allFilter"
+                                            v-for="filter in listFilter"
                                             :key="filter.id"
                                             @click="add(filter.id)"
                                             class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -94,7 +94,6 @@
 <script>
 import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { XIcon } from "@heroicons/vue/outline";
-import { mapActions, mapState, mapGetters } from "vuex";
 // import { DialogTitle, ExclamationIcon, XIcon } from "@heroicons/vue/outline";
 
 export default {
@@ -108,31 +107,17 @@ export default {
         XIcon,
     },
     props: {
-        showProp: Boolean,
+        show: Boolean,
+        listFilter: []
     },
+    emits: ["add", "update:show"],
 
-    data() {
-        return {
-            open: false,
-        };
-    },
-    computed: {
-        ...mapState(["OrdersModule"]),
-        ...mapGetters(["allFilter"]),
-    },
-    watch: {
-        showProp(show) {
-            this.open = show;
-        },
-    },
     methods: {
-        ...mapActions(["addFilter"]),
         close() {
-            this.open = false;
-            this.$emit("updateShow");
+            this.$emit("update:show", false);
         },
         add(id) {
-            this.addFilter(id);
+            this.$emit("add", id);
             this.close();
         },
     },

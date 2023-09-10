@@ -14,6 +14,22 @@
   }
   ```
 -->
+ <!-- Структура входных параметров:
+      listItem =  options: [
+                        {
+                            name: 'Не выбрано',
+                            value: 1
+                        },
+                        ...
+                    ],
+      item = {
+                 name: 'Не выбрано',
+                 value: 1
+             }
+             
+      Структура входных параметров:
+      selectedItem = { name: .., value: ..} 
+ -->
 <template>
   <Combobox as="div" v-model="selectedItem">
     <!-- <ComboboxLabel class="block text-sm font-medium text-gray-700"
@@ -95,7 +111,7 @@ export default {
     listItem: { default: [] },
     item: { default: {} },
   },
-  emits: ["update:item"],
+  emits: ["select"],
   setup(props, { emit }) {
     const query = ref("");
     const selectedItem = ref(props.item);
@@ -107,7 +123,8 @@ export default {
           })
     );
     watch(selectedItem, (selectedItem) => {
-      emit("update:item", selectedItem);
+    //  selectedItem = {value: .., name: ..} 
+      emit("select", selectedItem);
     });
 
     return {

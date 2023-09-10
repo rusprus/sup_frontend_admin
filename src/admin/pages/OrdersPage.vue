@@ -17,7 +17,15 @@
           <!-- <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" /> -->
           <br />
 
-          <OrderFilter />
+          <FilterBar
+            :allFilter="allFilter"
+            :activeFilters="OrdersModule.activeFilters"
+            @add="addFilter"
+            @delete="localDeleteFilter"
+            @select-param="setParamFilter"
+            @select-date-param="setParamFilter"
+            @change-param="setParamFilter"
+          />
           <!--  -->
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -148,8 +156,8 @@
 <script>
 import OrderItem from "@/admin/components/OrderItem.vue";
 // import PaginationComponent from "@/admin/components/PaginationComponent";
-import OrderFilter from "@/admin/components/OrderFilter";
-import { mapActions, mapState } from "vuex";
+import FilterBar from "@/admin/components/FilterBar";
+import { mapActions, mapState, mapGetters } from "vuex";
 import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
 import OrderModal from "@/admin/components/OrderModal.vue";
 // import styles from "@tailwindcss/typography/src/styles";
@@ -160,7 +168,7 @@ export default {
     PlusSmIconSolid,
     SwitchVerticalIcon,
     // PaginationComponent,
-    OrderFilter,
+    FilterBar,
     OrderModal,
   },
 
@@ -197,6 +205,7 @@ export default {
 
   computed: {
     ...mapState(["OrdersModule", "Globals"]),
+    ...mapGetters(["allFilter"]),
     // paginatedData() {
     //   const start = (this.pageNumber - 1) * this.size,
     //     end = start + this.size;
@@ -221,7 +230,22 @@ export default {
       "getAllSups",
       "getAllClients",
       "setSidebarNavigation",
+      "addFilter",
+      "deleteFilter",
+      "applyFilters",
+      "setFilter",
     ]),
+    localDeleteFilter(id) {
+      this.deleteFilter(id);
+      this.applyFilters(id);
+    },
+    setParamFilter(param) {
+      const field = param.field;
+      const value = param.value;
+      // this.setFilter({ field, value });
+      this.setFilter({ field, value });
+      this.applyFilters();
+    },
     addOrder() {
       this.setOrderDefault().then(() => {
         this.toggleModule(true);

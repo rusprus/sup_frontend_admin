@@ -12,7 +12,7 @@ export const SupsModule = {
 
     }),
     getters: {
-        optionsForFilter(state){
+        supOptionsForFilter(state){
 
             const options = []
             
