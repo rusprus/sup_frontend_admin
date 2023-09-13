@@ -27,7 +27,7 @@
             :listItem="listItem"
             :listTitle="listTitle"
             @open="openModal"
-            @sort="sort"
+            @sort="sortList"
           />
         </div>
       </div>
@@ -41,6 +41,7 @@ import { mapActions, mapState, mapGetters } from "vuex";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/vue/solid";
 import OrderModal from "@/admin/components/OrderModal.vue";
 import TableComponent from "@/admin/components/TableComponent.vue";
+import { sort } from "@/helpers.js";
 import moment from "moment";
 
 // import styles from "@tailwindcss/typography/src/styles";
@@ -66,7 +67,7 @@ export default {
         { field: "status", title: "Статус" },
         { field: "note", title: "Заметки" },
       ],
-      columns: {
+      columnsForSort: {
         client_id: {
           type: "int",
         },
@@ -95,9 +96,9 @@ export default {
 
   computed: {
     ...mapState(["OrdersModule", "Globals", "ClientsModule", "SupsModule"]),
-    ...mapGetters(["allFilter"]),
+    ...mapGetters("OrdersModule", ["allFilter", "filtered"]),
     listItem() {
-      return this.OrdersModule.filtered.map((item) => {
+      return this.filtered.map((item) => {
         return {
           id: item.id,
           client: this.clientNameById(item.client_id),
@@ -112,17 +113,16 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...mapActions("SupsModule", ["getAllSups"]),
+    ...mapActions("Globals", ["setSidebarNavigation"]),
+    ...mapActions("OrdersModule", [
       "setOrderDefault",
-      "toggleModule",
-      "getAllSups",
-      "getAllClients",
-      "setSidebarNavigation",
+      "toggleModal",
       "addFilter",
       "deleteFilter",
-      "applyFilters",
       "setFilter",
     ]),
+    ...mapActions("ClientsModule", ["getAllClients"]),
     supNameById(id) {
       return this.SupsModule.origin.find((item) => item.id == id).name;
     },
@@ -137,44 +137,34 @@ export default {
     },
     localDeleteFilter(id) {
       this.deleteFilter(id);
-      this.applyFilters(id);
     },
     setParamFilter(param) {
-      const field = param.field;
-      const value = param.value;
-      // this.setFilter({ field, value });
-      this.setFilter({ field, value });
-      this.applyFilters();
+      const { field, value, type } = param;
+
+      this.setFilter({ field, value, type });
     },
     addOrder() {
       this.setOrderDefault().then(() => {
-        this.toggleModule(true);
+        this.toggleModal(true);
       });
     },
     showOrderModal(param) {
-      this.toggleModule(param);
+      this.toggleModal(param);
     },
-    sort(param) {
-      this.sortDirect = !this.sortDirect;
-      if (this.columns[param].type === "int") {
-        if (this.sortDirect) {
-          this.OrdersModule.filtered.sort((a, b) => (a[param] > b[param] ? 1 : -1));
-        } else {
-          this.OrdersModule.filtered.sort((a, b) => (a[param] < b[param] ? 1 : -1));
-        }
-      }
-      if (this.columns[param].type === "text") {
-        if (this.sortDirect) {
-          this.OrdersModule.filtered.sort((a, b) => a[param].localeCompare(b[param]));
-        } else {
-          this.OrdersModule.filtered.sort((a, b) => b[param].localeCompare(a[param]));
-        }
-      }
+    sortList(param) {
+      const { sortDirect, listItem } = sort(
+        param,
+        this.sortDirect,
+        this.columnsForSort,
+        this.filtered
+      );
+      this.sortDirect = sortDirect;
+      this.filtered = listItem;
     },
 
     openModal(id) {
       this.OrdersModule.order = this.OrdersModule.origin.find((item) => item.id == id);
-      this.toggleModule(true);
+      this.toggleModal(true);
     },
   },
   mounted() {

@@ -86,11 +86,10 @@
       id="messages"
       class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
     >
-    <template v-for="msg in MsgsModule.msgs" :key="msg.id">
-
-      <ChatMsgLeft v-if="ProfilesModule.profile.id == msg.uid"  :msg="msg.msg"/>
-      <ChatMsgRigth v-else  :msg="msg.msg"/>
-    </template>
+      <template v-for="msg in MsgsModule.msgs" :key="msg.id">
+        <ChatMsgLeft v-if="ProfilesModule.profile.id == msg.uid" :msg="msg.msg" />
+        <ChatMsgRigth v-else :msg="msg.msg" />
+      </template>
     </div>
     <!-- <div><ConnectionState /></div> -->
     <!-- <div><ConnectionManager /></div> -->
@@ -146,11 +145,9 @@ export default {
       // el
     };
   },
-  methods: {
-    // ...mapActions(["setSidebarNavigation"]),
-  },
+  methods: {},
   computed: {
-    ...mapState([ "ProfilesModule","MsgsModule"]),
+    ...mapState(["ProfilesModule", "MsgsModule"]),
   },
 
   setup() {

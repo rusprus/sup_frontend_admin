@@ -1,6 +1,7 @@
 // import { SupsAPI } from '@/api/SupsAPI'
 
 export const MsgsModule = {
+    namespaced: true,
     state: () => ({
         msgs: [],
     }),

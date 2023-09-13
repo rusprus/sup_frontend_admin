@@ -1,6 +1,7 @@
 import moment from "moment";
 
 export const CalendarModule = {
+    namespaced: true,
     state: () => ({
 
         currentMonth: 0,

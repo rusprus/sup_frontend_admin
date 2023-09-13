@@ -15,7 +15,7 @@
   ```
 -->
 <template>
-    <!--
+  <!--
     This example requires updating your template:
 
     ```
@@ -23,145 +23,124 @@
     <body class="h-full">
     ```
   -->
-    <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <img
-                class="mx-auto h-12 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
-            />
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Войти в аккаунт
-            </h2>
-        </div>
+  <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img
+        class="mx-auto h-12 w-auto"
+        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+        alt="Workflow"
+      />
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Войти в аккаунт
+      </h2>
+    </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <form class="space-y-6">
-                    <div>
-                        <label
-                            for="login"
-                            class="block text-sm font-medium text-gray-700"
-                        >
-                            Логин
-                        </label>
-                        <div class="mt-1">
-                            <input
-                                v-model="login"
-                                name="login"
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                        </div>
-                        <div v-if="v$.login.$error" class="error-msg">
-                            Требуется логин
-                        </div>
-                    </div>
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <form class="space-y-6">
+          <div>
+            <label for="login" class="block text-sm font-medium text-gray-700">
+              Логин
+            </label>
+            <div class="mt-1">
+              <input
+                v-model="login"
+                name="login"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div v-if="v$.login.$error" class="error-msg">Требуется логин</div>
+          </div>
 
-                    <div>
-                        <label
-                            for="password"
-                            class="block text-sm font-medium text-gray-700"
-                        >
-                            Пароль
-                        </label>
-                        <div class="mt-1">
-                            <input
-                                v-model="password"
-                                autocomplete="current-password"
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                        </div>
-                        <div v-if="v$.password.$error" class="error-msg">
-                            Минимальная длина 5 символов
-                        </div>
-                    </div>
-                    <template v-if="!signUpIn">
-                        <div>
-                            <label
-                                class="block text-sm font-medium text-gray-700"
-                            >
-                                Имя
-                            </label>
-                            <div class="mt-1">
-                                <input
-                                    v-model="v$.name.$model"
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                            <div v-if="v$.name.$error" class="error-msg">
-                                Требуется имя
-                            </div>
-                        </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">
+              Пароль
+            </label>
+            <div class="mt-1">
+              <input
+                v-model="password"
+                autocomplete="current-password"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div v-if="v$.password.$error" class="error-msg">
+              Минимальная длина 5 символов
+            </div>
+          </div>
+          <template v-if="!signUpIn">
+            <div>
+              <label class="block text-sm font-medium text-gray-700"> Имя </label>
+              <div class="mt-1">
+                <input
+                  v-model="v$.name.$model"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div v-if="v$.name.$error" class="error-msg">Требуется имя</div>
+            </div>
 
-                        <div>
-                            <label
-                                class="block text-sm font-medium text-gray-700"
-                            >
-                                Почта
-                            </label>
-                            <div class="mt-1">
-                                <input
-                                    v-model="v$.email.$model"
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                            <div v-if="v$.email.$error" class="error-msg">
-                                Не правильный адрес почты
-                            </div>
-                        </div>
-                    </template>
+            <div>
+              <label class="block text-sm font-medium text-gray-700"> Почта </label>
+              <div class="mt-1">
+                <input
+                  v-model="v$.email.$model"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div v-if="v$.email.$error" class="error-msg">
+                Не правильный адрес почты
+              </div>
+            </div>
+          </template>
 
-                    <div class="flex items-center justify-between">
-                        <div class="text-sm">
-                            <a
-                                href="#"
-                                class="font-medium text-indigo-600 hover:text-indigo-500"
-                            >
-                                Забыли пароль?
-                            </a>
-                        </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm">
+              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                Забыли пароль?
+              </a>
+            </div>
 
-                        <div v-if="signUpIn" class="text-sm">
-                            <a
-                                @click="signUpIn = false"
-                                href="#"
-                                class="font-medium text-indigo-600 hover:text-indigo-500"
-                            >
-                                Регистрация
-                            </a>
-                        </div>
-                        <div v-else class="text-sm">
-                            <a
-                                @click="signUpIn = true"
-                                href="#"
-                                class="font-medium text-indigo-600 hover:text-indigo-500"
-                            >
-                                Войти
-                            </a>
-                        </div>
-                    </div>
+            <div v-if="signUpIn" class="text-sm">
+              <a
+                @click="signUpIn = false"
+                href="#"
+                class="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Регистрация
+              </a>
+            </div>
+            <div v-else class="text-sm">
+              <a
+                @click="signUpIn = true"
+                href="#"
+                class="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Войти
+              </a>
+            </div>
+          </div>
 
-                    <div v-if="signUpIn">
-                        <button
-                            @click.prevent="logIn"
-                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Вход
-                        </button>
-                    </div>
+          <div v-if="signUpIn">
+            <button
+              @click.prevent="logIn"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Вход
+            </button>
+          </div>
 
-                    <div v-else>
-                        <button
-                            @click.prevent="register"
-                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Зарегестрироваться
-                        </button>
-                    </div>
-                    <div v-if="error" class="error-msg">Вход не произведен</div>
-                </form>
+          <div v-else>
+            <button
+              @click.prevent="register"
+              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Зарегестрироваться
+            </button>
+          </div>
+          <div v-if="error" class="error-msg">Вход не произведен</div>
+        </form>
 
-                <!-- <div class="mt-6">
+        <!-- <div class="mt-6">
                     <div class="relative">
                         <div class="absolute inset-0 flex items-center">
                             <div class="w-full border-t border-gray-300" />
@@ -236,9 +215,9 @@
                         </div>
                     </div>
                 </div> -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -247,69 +226,69 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength } from "@vuelidate/validators";
 
 export default {
-    setup() {
-        return { v$: useVuelidate() };
+  setup() {
+    return { v$: useVuelidate() };
+  },
+
+  data() {
+    return {
+      email: "",
+      password: "",
+      name: "",
+      login: "",
+      error: false,
+      signUpIn: true,
+    };
+  },
+  validations() {
+    return {
+      email: { required, email, $autoDirty: true },
+      password: { required, minLength: minLength(5), $autoDirty: true },
+      name: { required, $autoDirty: true },
+      login: { required, $autoDirty: true },
+    };
+  },
+  computed: {
+    ...mapGetters("AuthModule", ["getUserRole"]),
+  },
+  methods: {
+    ...mapActions("AuthModule", ["onLogin", "onRegister"]),
+
+    async logIn() {
+      try {
+        await this.onLogin({
+          login: this.login,
+          password: this.password,
+        });
+
+        if (typeof this.getUserRole !== "undefined") {
+          this.$router.push("/admin");
+        } else {
+          this.error = true;
+        }
+      } catch (e) {
+        console.log("Error page");
+        this.$router.push("/");
+      }
     },
 
-    data() {
-        return {
-            email: "",
-            password: "",
-            name: "",
-            login: "",
-            error: false,
-            signUpIn: true,
-        };
+    async register() {
+      try {
+        await this.onRegister({
+          login: this.login,
+          password: this.password,
+          name: this.name,
+          email: this.email,
+        });
+        if (typeof this.getUserRole !== "undefined") {
+          this.$router.push({ name: "AdminLayout" });
+        } else {
+          this.error = true;
+        }
+      } catch (e) {
+        this.$router.push("/");
+      }
     },
-    validations() {
-        return {
-            email: { required, email, $autoDirty: true },
-            password: { required, minLength: minLength(5), $autoDirty: true },
-            name: { required, $autoDirty: true },
-            login: { required, $autoDirty: true },
-        };
-    },
-    computed: {
-        ...mapGetters(["getUserRole"]),
-    },
-    methods: {
-        ...mapActions(["onLogin", "onRegister"]),
-
-        async logIn() {
-            try {
-                await this.onLogin({
-                    login: this.login,
-                    password: this.password,
-                });
-
-                if (typeof this.getUserRole !== "undefined") {
-                    this.$router.push("/admin");
-                } else {
-                    this.error = true;
-                }
-            } catch (e) {
-                console.log("Error page");
-                this.$router.push("/");
-            }
-        },
-
-        async register() {
-            try {
-                await this.onRegister({
-                    login: this.login,
-                    password: this.password,
-                    name: this.name,
-                    email: this.email,
-                });
-                if (typeof this.getUserRole !== "undefined") {
-                    this.$router.push({ name: "AdminLayout" });
-                } else {
-                    this.error = true;
-                }
-            } catch (e) {
-                this.$router.push("/");
-            }
-        },
-    },
+  },
 };
 </script>

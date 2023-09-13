@@ -1,12 +1,13 @@
 import { ClientsAPI } from '@/api/ClientsAPI'
+import { applyFilters, setParamFilter, addFilter as localAddFilter , deleteFilter as localDeleteFilter  } from "@/helpers";
 
 export const ClientsModule = {
+    namespaced: true,
     state: () => ({
 
         client: {},
         origin: [
         ],
-        filtered: [],
         clientModal: false,
         status: {
             1: 'Не выбрано',
@@ -16,23 +17,70 @@ export const ClientsModule = {
             5: 'Не подошел',
         },
         activeFilters: [],
-        
+
+
     }),
 
-    getters:{
-        clientOptionsForFilter(state){
+    getters: {
+        filtered(state){
+            return applyFilters(state.activeFilters, state.origin)
+        },
+
+        options(state) {
 
             const options = []
-            
-            state.origin.forEach((item)=>{
-                options.push( {
+
+            state.origin.forEach((item) => {
+                options.push({
                     name: item.fio,
                     value: item.id
-                }) 
+                })
             })
 
             return options;
         },
+
+        allFilter() {
+            // state, getters, rootState, rootGetters
+            return [
+                // {
+                //     name: 'Имя клиента',
+                //     id: 1,
+                //     type: "select",
+                //     field: 'manager_id',
+                //     value: null,
+                //     options: rootGetters['ClientsModule/options']
+                // },
+                {
+                    name: 'ФИО',
+                    id: 2,
+                    type: "text",
+                    field: 'fio',
+                    value: '',
+                }, {
+                    name: 'Телеграмм',
+                    id: 3,
+                    type: "text",
+                    field: 'tlg',
+                    value: '',
+                },
+                {
+                    name: 'Заметки',
+                    id: 4,
+                    type: "text",
+                    field: 'notes',
+                    value: '',
+                },
+                // {
+                //     name: 'Глобальный фильтр',
+                //     id: 6,
+                //     type: "globalFilter",
+                //     field: 'globalFilter',
+                //     value: '',
+                // },
+            ]
+
+        }
     },
     actions: {
 
@@ -47,7 +95,7 @@ export const ClientsModule = {
         getAllClients({ commit }) {
             console.log('getAllClients 2')
             ClientsAPI.getAllClients().then((res) => {
-                
+
                 commit('setAllClients', res)
             })
         },
@@ -78,101 +126,21 @@ export const ClientsModule = {
         },
 
 
-        toggleClientModal({ state }, param) {
+        toggleModal({ state }, param) {
             if (param == true) state.clientModal = true;
             if (param == false) state.clientModal = false;
         },
 
-        // addFilter({ state , getters}, id) {
-        //     let filter = getters.allFilter.find((filter) => filter.id == id);
-        //     if (!state.activeFilters.includes(filter)) state.activeFilters.push(filter);
-        // },
-        // deleteFilter({ state }, id) {
-        //     state.activeFilters = state.activeFilters.filter(filter => filter.id !== id)
-        // },
+        addFilter({ state, getters }, id) {
+            state.activeFilters = localAddFilter( getters.allFilter, state.activeFilters, id)
+        },
+        deleteFilter({ state }, id) {
+            state.activeFilters = localDeleteFilter(state.activeFilters, id)
+        },
+        setFilter({ state }, { field, value, type }) {
+            state.activeFilters = setParamFilter(state.activeFilters, field, value, type)
+        },
 
-        // setFilter({ state }, { field, value }) {
-        //     if (value == null) return
-        //     let filter = null
-        //     if (field == 'dateRange') {
-        //         filter = state.activeFilters.find(item => item.field == field)
-        //         filter.value[0] = value[0]
-        //         filter.value[1] = value[1]
-
-        //     } else {
-        //         filter = state.activeFilters.find(item => item.field == field)
-        //         filter.value = value
-
-        //     }
-
-        // },
-
-        // applyFilters({ state, dispatch }) {
-        //     state.filtered = state.origin
-        //     state.activeFilters.forEach(function (filter) {
-        //         switch (filter.type) {
-        //             case 'select': dispatch('selectFilter', { field: filter.field, value: filter.value })
-        //                 break
-        //             case 'text': dispatch('textFilter', { field: filter.field, value: filter.value })
-        //                 break
-        //             case 'dateRange': dispatch('dateRangeFilter', { value: filter.value })
-        //                 break
-        //             case 'globalFilter': dispatch('globalFilter', { value: filter.value })
-        //                 break
-        //         }
-        //     })
-        // },
-
-        // textFilter({ state }, { field, value }) {
-        //     state.filtered = state.filtered.filter(function (item) {
-        //         if (item[field].toLowerCase().includes(value.toLowerCase())) return true
-        //         return false;
-        //     });
-        // },
-
-        // selectFilter({ state }, { field, value }) {
-        //     state.filtered = state.filtered.filter(function (item) {
-        //         if (item[field] == value) return true
-        //         return false;
-        //     });
-        // },
-
-        // dateRangeFilter({ state }, { value }) {
-        //     if (value == null) {
-        //         state.filtered = state.filtered.filter(function () {
-        //             return true
-        //         })
-        //         return
-        //     }
-
-        //     let start = moment(value[0]).format(moment.HTML5_FMT.DATE);
-        //     let end = moment(value[1]).format(moment.HTML5_FMT.DATE);
-
-        //     state.filtered = state.filtered.filter(function (item) {
-
-        //         let dateStart = moment(item['dateEnd'])
-        //         let dateEnd = moment(item['dateStart'])
-
-        //         if (dateStart.isBetween(start, end)) return true
-        //         if (dateEnd.isBetween(start, end)) return true
-
-        //         // if (dateStart.isAfter(start) && dateEnd.isBefore(end)) return true
-        //         if (dateStart.isBefore(start) && dateEnd.isAfter(end)) return true
-
-        //         return false;
-        //     });
-        // },
-        // globalFilter({ state }, {value}) {
-        //     let buf = ''
-        //     state.filtered = state.filtered.filter(function (item) {
-        //         for (var key in item) {
-        //             if (typeof item[key] !== String) buf = String(item[key]).toLowerCase()
-             
-        //             if (buf.includes(value)) return true;
-        //         }
-        //         return false;
-        //     });
-        // },
     },
     mutations: {
 
@@ -199,7 +167,7 @@ export const ClientsModule = {
         setAllClients(state, clients) {
 
             state.origin = clients
-            state.filtered = clients
+            // state.filtered = clients
         },
         setClientDefault(state) {
             state.client = {

@@ -103,7 +103,7 @@ plugins: [
                       Номер сапборда
                     </label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                    <ComboBox :listItem="listFreeSup" v-model:item="localSup" />
+                      <ComboBox :listItem="listFreeSup" v-model:item="localSup" />
                     </div>
                   </div>
 
@@ -117,7 +117,7 @@ plugins: [
                       Статус
                     </label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                    <ComboBox :listItem="listStatus" v-model:item="localStatus" />
+                      <ComboBox :listItem="listStatus" v-model:item="localStatus" />
                     </div>
                   </div>
 
@@ -248,9 +248,9 @@ export default {
           return { id: item.id, name: item.name };
         });
     },
-    listStatus(){
+    listStatus() {
       return this.OrdersModule.status;
-    }
+    },
   },
 
   watch: {
@@ -259,8 +259,7 @@ export default {
 
       this.dateRange = [this.modalOrder.dateStart, this.modalOrder.dateEnd];
 
-
-        const status = this.OrdersModule.status.find(
+      const status = this.OrdersModule.status.find(
         (item) => item.id === this.modalOrder.status
       );
       if (status) {
@@ -268,7 +267,7 @@ export default {
           id: status.id,
           name: status.name,
         };
-      }else{
+      } else {
         this.localStatus = {
           id: null,
           name: null,
@@ -283,7 +282,7 @@ export default {
           id: sup.id,
           name: sup.name,
         };
-      }else{
+      } else {
         this.localSup = {
           id: null,
           name: null,
@@ -298,7 +297,7 @@ export default {
           id: client.id,
           name: client.fio,
         };
-      }else{
+      } else {
         this.localClient = {
           id: null,
           name: null,
@@ -308,9 +307,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(["addOrder", "updateOrder", "deleteOrder", "toggleModule"]),
+    ...mapActions("OrdersModule", [
+      "addOrder",
+      "updateOrder",
+      "deleteOrder",
+      "toggleModal",
+    ]),
     close() {
-      this.toggleModule(false);
+      this.toggleModal(false);
     },
     save() {
       if (this.modalOrder.id !== null) {
@@ -333,13 +337,13 @@ export default {
           note: this.modalOrder.note,
         });
       }
-      this.toggleModule(false);
+      this.toggleModal(false);
     },
     delOrder() {
       if (this.modalOrder.id !== null) {
         this.deleteOrder(this.modalOrder.id);
       }
-      this.toggleModule(false);
+      this.toggleModal(false);
     },
   },
 

@@ -1,6 +1,7 @@
 import { ProfilesAPI } from '@/api/ProfilesAPI'
 
 export const ProfilesModule = {
+    namespaced: true,
     state: () => ({
         profile: {},
     }),

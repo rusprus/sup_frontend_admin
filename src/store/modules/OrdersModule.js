@@ -1,15 +1,16 @@
+/* origin:  { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', sup_id: 1, note: 'Девяткино',status: 'Завершено' }, */
+
 import { OrdersAPI } from '@/api/OrdersAPI'
 import moment from "moment";
+import { applyFilters, setParamFilter, addFilter as localAddFilter , deleteFilter as localDeleteFilter  } from "@/helpers";
 // import {SupsModule}  from './SupsModule'
 
 export const OrdersModule = {
+    namespaced: true,
     state: () => ({
 
         order: {},
-        origin: [
-            // { name: 'Jane Cooper', dateStart: '00-00-00', dateEnd: '00-00-00', sup_id: 1, note: 'Девяткино',status: 'Завершено' },
-        ],
-        filtered: [],
+        origin: [],
         orderModal: false,
         status: [
             { id: 1, name: 'Не выбрано' },
@@ -23,7 +24,11 @@ export const OrdersModule = {
     }),
 
     getters: {
-        allFilter(state, getters) {
+        filtered(state){
+            return applyFilters(state.activeFilters, state.origin)
+        },
+
+        allFilter(state, getters, rootState, rootGetters) {
 
             return [
                 {
@@ -32,13 +37,13 @@ export const OrdersModule = {
                     type: "select",
                     field: 'client_id',
                     value: null,
-                    options: getters.clientOptionsForFilter,
+                    options: rootGetters['ClientsModule/options'],
                 },
                 {
                     name: 'Срок аренды',
                     id: 2,
                     type: "dateRange",
-                    field: 'dateRange',
+                    field: ['dateStart', 'dateEnd'],
                     value: [],
                 }, {
                     name: 'Номер сапа',
@@ -46,7 +51,7 @@ export const OrdersModule = {
                     type: "select",
                     field: 'sup_id',
                     value: null,
-                    options: getters.supOptionsForFilter,
+                    options: rootGetters['SupsModule/options'],
                 }, {
                     name: 'Статус',
                     id: 4,
@@ -105,9 +110,7 @@ export const OrdersModule = {
         },
 
         getAllOrders({ commit }) {
-            console.log('getAllOrders 2')
             OrdersAPI.getAllOrders().then((res) => {
-
                 commit('setAllOrders', res)
             })
         },
@@ -117,7 +120,6 @@ export const OrdersModule = {
             if (result !== undefined) {
 
                 OrdersAPI.updateOrder(order).then(() => {
-                    console.log('orderUpdated!!!')
                     commit('updateOrder', order)
                 })
             }
@@ -136,103 +138,21 @@ export const OrdersModule = {
         setOrderDefault({ commit }) {
             commit('setOrderDefault')
         },
-
-
-        toggleModule({ state }, param) {
+        toggleModal({ state }, param) {
             if (param == true) state.orderModal = true;
             if (param == false) state.orderModal = false;
         },
 
         addFilter({ state, getters }, id) {
-            let filter = getters.allFilter.find((filter) => filter.id == id);
-            if (!state.activeFilters.includes(filter)) state.activeFilters.push(filter);
+            state.activeFilters = localAddFilter( getters.allFilter, state.activeFilters, id)
         },
         deleteFilter({ state }, id) {
-            state.activeFilters = state.activeFilters.filter(filter => filter.id !== id)
+            state.activeFilters = localDeleteFilter(state.activeFilters, id)
+        },
+        setFilter({ state }, { field, value, type }) {
+            state.activeFilters = setParamFilter(state.activeFilters, field, value, type)
         },
 
-        setFilter({ state }, { field, value }) {
-            if (value == null) return
-            let filter = null
-            if (field == 'dateRange') {
-                filter = state.activeFilters.find(item => item.field == field)
-                filter.value[0] = value[0]
-                filter.value[1] = value[1]
-
-            } else {
-                filter = state.activeFilters.find(item => item.field == field)
-                filter.value = value
-
-            }
-
-        },
-
-        applyFilters({ state, dispatch }) {
-            state.filtered = state.origin
-            state.activeFilters.forEach(function (filter) {
-                switch (filter.type) {
-                    case 'select': dispatch('selectFilter', { field: filter.field, value: filter.value })
-                        break
-                    case 'text': dispatch('textFilter', { field: filter.field, value: filter.value })
-                        break
-                    case 'dateRange': dispatch('dateRangeFilter', { value: filter.value })
-                        break
-                    case 'globalFilter': dispatch('globalFilter', { value: filter.value })
-                        break
-                }
-            })
-        },
-
-        textFilter({ state }, { field, value }) {
-            state.filtered = state.filtered.filter(function (item) {
-                if (item[field].toLowerCase().includes(value.toLowerCase())) return true
-                return false;
-            });
-        },
-
-        selectFilter({ state }, { field, value }) {
-            state.filtered = state.filtered.filter(function (item) {
-                if (item[field] == value) return true
-                return false;
-            });
-        },
-
-        dateRangeFilter({ state }, { value }) {
-            if (value == null) {
-                state.filtered = state.filtered.filter(function () {
-                    return true
-                })
-                return
-            }
-
-            let start = moment(value[0]).format(moment.HTML5_FMT.DATE);
-            let end = moment(value[1]).format(moment.HTML5_FMT.DATE);
-
-            state.filtered = state.filtered.filter(function (item) {
-
-                let dateStart = moment(item['dateEnd'])
-                let dateEnd = moment(item['dateStart'])
-
-                if (dateStart.isBetween(start, end)) return true
-                if (dateEnd.isBetween(start, end)) return true
-
-                // if (dateStart.isAfter(start) && dateEnd.isBefore(end)) return true
-                if (dateStart.isBefore(start) && dateEnd.isAfter(end)) return true
-
-                return false;
-            });
-        },
-        globalFilter({ state }, { value }) {
-            let buf = ''
-            state.filtered = state.filtered.filter(function (item) {
-                for (var key in item) {
-                    if (typeof item[key] !== String) buf = String(item[key]).toLowerCase()
-
-                    if (buf.includes(value)) return true;
-                }
-                return false;
-            });
-        },
     },
     mutations: {
 
@@ -259,7 +179,7 @@ export const OrdersModule = {
         setAllOrders(state, orders) {
 
             state.origin = orders
-            state.filtered = orders
+            // state.filtered = orders
         },
         setOrderDefault(state) {
             state.order = {

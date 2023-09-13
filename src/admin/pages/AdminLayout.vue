@@ -15,7 +15,7 @@
   ```
 -->
 <template>
-    <!--
+  <!--
     This example requires updating your template:
 
     ```
@@ -23,41 +23,39 @@
     <body class="h-full overflow-hidden">
     ```
   -->
-    <div class="h-full flex flex-col">
+  <div class="h-full flex flex-col">
+    <!-- <OrderModal :showProp="OrdersModule.orderModal" /> -->
 
-        <!-- <OrderModal :showProp="OrdersModule.orderModal" /> -->
+    <TopNav class="fixed z-50 right-0 left-0" />
 
-        <TopNav  class="fixed z-50 right-0 left-0" />
+    <div class="min-h-0 flex-1 mt-16 flex overflow-hidden">
+      <NarrowSidebar class="fixed h-full left-0" />
 
-        <div class="min-h-0 flex-1 mt-16 flex overflow-hidden">
-         
-            <NarrowSidebar class="fixed  h-full left-0" /> 
-            
-            <!-- Main area -->
-            <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex md:ml-20">
-                <!-- Primary column -->
-                <section
-                    aria-labelledby="primary-heading"
-                    class="min-w-0 flex-1 h-full flex flex-col overflow-y-auto lg:order-last"
-                >
-                    <h1 id="primary-heading" class="sr-only">Home</h1>
-                    <!-- Your content -->
+      <!-- Main area -->
+      <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex md:ml-20">
+        <!-- Primary column -->
+        <section
+          aria-labelledby="primary-heading"
+          class="min-w-0 flex-1 h-full flex flex-col overflow-y-auto lg:order-last"
+        >
+          <h1 id="primary-heading" class="sr-only">Home</h1>
+          <!-- Your content -->
 
-                    <!-- <router-view name="content"></router-view> -->
-                    <router-view></router-view>
-                </section>
+          <!-- <router-view name="content"></router-view> -->
+          <router-view></router-view>
+        </section>
 
-                <!-- Secondary column (hidden on smaller screens) -->
-                <!-- <aside class="hidden lg:block lg:flex-shrink-0 lg:order-first"> -->
-                <!-- <div class="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100 overflow-y-auto"> -->
-                <!-- Your content -->
-                <!-- <h1>Secondary column</h1> -->
+        <!-- Secondary column (hidden on smaller screens) -->
+        <!-- <aside class="hidden lg:block lg:flex-shrink-0 lg:order-first"> -->
+        <!-- <div class="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100 overflow-y-auto"> -->
+        <!-- Your content -->
+        <!-- <h1>Secondary column</h1> -->
 
-                <!-- </div> -->
-                <!-- </aside> -->
-            </main>
-        </div>
+        <!-- </div> -->
+        <!-- </aside> -->
+      </main>
     </div>
+  </div>
 </template>
 
 <script>
@@ -104,39 +102,41 @@ import moment from "moment";
 // ]
 
 export default {
-    components: {
-        TopNav,
-        NarrowSidebar,
-        // OrderModal,
-    },
-    methods: {
-        // showMess(data) {
-        //     console.log(data);
-        // },
-        ...mapActions(["getAllOrders", "getAllSups", "getProfile"]),
-    },
-    computed: {
-        ...mapState(["OrdersModule"]),
-    },
-    mounted() {
-        // console.log('getAllOrders 1')
-        this.getAllOrders();
-        this.getAllSups();
-        this.getProfile();
-        moment.locale("ru");
-    },
-    setup() {
-        onMounted(() => {});
+  components: {
+    TopNav,
+    NarrowSidebar,
+    // OrderModal,
+  },
+  methods: {
+    // showMess(data) {
+    //     console.log(data);
+    // },
+    ...mapActions("ProfilesModule", ["getProfile"]),
+    ...mapActions("SupsModule", ["getAllSups"]),
+    ...mapActions("OrdersModule", ["getAllOrders"]),
+  },
+  computed: {
+    ...mapState(["OrdersModule"]),
+  },
+  mounted() {
+    // console.log('getAllOrders 1')
+    this.getAllOrders();
+    this.getAllSups();
+    this.getProfile();
+    moment.locale("ru");
+  },
+  setup() {
+    onMounted(() => {});
 
-        const mobileMenuOpen = ref(false);
+    const mobileMenuOpen = ref(false);
 
-        return {
-            // user,
-            // navigation,
-            // sidebarNavigation,
-            // userNavigation,
-            mobileMenuOpen,
-        };
-    },
+    return {
+      // user,
+      // navigation,
+      // sidebarNavigation,
+      // userNavigation,
+      mobileMenuOpen,
+    };
+  },
 };
 </script>

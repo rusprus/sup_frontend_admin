@@ -23,10 +23,5 @@ export default {
       openModal,
     };
   },
-  //   methods: {
-  //     openModal(id) {
-  //       this.$emit("open", id);
-  //     },
-  //   },
 };
 </script>

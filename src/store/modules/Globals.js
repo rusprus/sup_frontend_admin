@@ -8,6 +8,7 @@ import {
   } from '@heroicons/vue/outline'
 
 export const Globals = {
+    namespaced: true,
     state: () => ({
         apiUrl: 'https://api.spbsupboard.ru/',
         apiUrlWs: 'wss://api.spbsupboard.ru/',

@@ -2,6 +2,7 @@ import { SupsAPI } from '@/api/SupsAPI'
 import moment from "moment";
 
 export const SupsModule = {
+    namespaced: true,
     state: () => ({
         // order: {},
         origin: [],
@@ -12,7 +13,7 @@ export const SupsModule = {
 
     }),
     getters: {
-        supOptionsForFilter(state){
+        options(state){
 
             const options = []
             

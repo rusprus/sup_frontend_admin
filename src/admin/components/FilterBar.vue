@@ -68,17 +68,17 @@
                   <ComboBox
                     v-if="filter.type == 'select'"
                     :listItem="filter.options"
-                    @select="selectItem($event.value, filter.field)"
+                    @select="selectItem($event.value, filter.field, filter.type)"
                   />
                   <InputComponent
                     v-if="filter.type == 'text' || filter.type == 'globalFilter'"
                     :filter="filter"
-                    @input="changeItem($event, filter.field)"
+                    @input="changeItem($event, filter.field, filter.type)"
                   />
                   <Datepicker
                     v-if="filter.type == 'dateRange'"
                     v-model="filter.value"
-                    @update:modelValue="selectDateItem($event, filter.field)"
+                    @update:modelValue="selectDateItem($event, filter.field, filter.type)"
                     range
                     teleport-center
                   ></Datepicker>
@@ -174,14 +174,14 @@ export default {
     const show = ref(false);
     const del = (id) => emit("delete", id);
     const add = (id) => emit("add", id);
-    const selectItem = (value, field) => {
-      emit("select-param", { value, field });
+    const selectItem = (value, field, type) => {
+      emit("select-param", { value, field, type });
     };
-    const changeItem = (value, field) => {
-      emit("change-param", { value, field });
+    const changeItem = (value, field, type) => {
+      emit("change-param", { value, field, type });
     };
-    const selectDateItem = (value, field) => {
-      emit("select-date-param", { value, field });
+    const selectDateItem = (value, field, type) => {
+      emit("select-date-param", { value, field, type });
     };
 
     return {

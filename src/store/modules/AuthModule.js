@@ -3,7 +3,7 @@ import { AuthAPI } from "@/api/AuthAPI"
 import { UserRoles } from "@/types/Auth"
 
 export const AuthModule = {
-    // namespaced: true,
+    namespaced: true,
 
     state() {
         return {

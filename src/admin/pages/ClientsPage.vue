@@ -1,190 +1,152 @@
 <template>
-<ClientModal :showProp="ClientsModule.clientModal" />
-    <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-
-                    <div class="flex justify-center m-4">
-                        <button
-                            @click="addClient"
-                            type="button"
-                            class="flex-row items-center p-3 border border-transparent rounded-full shadow-sm text-4xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            <PlusSmIconSolid class="h-6 w-6" aria-hidden="true" />
-                        </button>
-                    </div>
-                    <!-- Пагинация -->
-                    <!-- <PaginationComponent :pageCount="pageCount" :pageNumber="pageNumber" @change-page="changePage" /> -->
-                    <br />
-
-                    <!-- <OrderFilter /> -->
-                    <!--  -->
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">ФИО клиента</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[0])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">Телеграмм</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[1])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">Заметки</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[2])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">Номер сапа</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[3])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">Статус</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[4])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex">
-                                        <div class="flex">Заметки</div>
-                                        <div><SwitchVerticalIcon @click="sort(columns[5])" class="h-7 w-7 pl-2 cursor-pointer" aria-hidden="true" /></div>
-                                    </div>
-                                </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Edit</span>
-                                </th> -->
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <TransitionGroup name="flip-list">
-                                <ClientItem v-for="item in ClientsModule.filtered" :item="item" :key="item.id" />
-                            </TransitionGroup>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <ClientModal :showProp="ClientsModule.clientModal" />
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div class="flex justify-center m-4">
+            <button
+              @click="addClient"
+              type="button"
+              class="flex-row items-center p-3 border border-transparent rounded-full shadow-sm text-4xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <PlusSmIconSolid class="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <br />
+          <FilterBar
+            :allFilter="allFilter"
+            :activeFilters="ClientsModule.activeFilters"
+            @add="addFilter"
+            @delete="localDeleteFilter"
+            @select-param="setParamFilter"
+            @select-date-param="setParamFilter"
+            @change-param="setParamFilter"
+          />
+          <TableComponent
+            :listItem="listItem"
+            :listTitle="listTitle"
+            @open="openModal"
+            @sort="sortList"
+          />
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import ClientItem from "@/admin/components/ClientItem.vue";
-// import PaginationComponent from "@/admin/components/PaginationComponent"; 
-// import OrderFilter from "@/admin/components/OrderFilter"; 
-import { mapActions, mapState } from "vuex";
-import { PlusSmIcon as PlusSmIconSolid, SwitchVerticalIcon } from "@heroicons/vue/solid";
+import { mapActions, mapState, mapGetters } from "vuex";
+import FilterBar from "@/admin/components/FilterBar";
+import TableComponent from "@/admin/components/TableComponent.vue";
+// import OrderFilter from "@/admin/components/OrderFilter";
+import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/vue/solid";
 // import styles from "@tailwindcss/typography/src/styles";
 import ClientModal from "@/admin/components/ClientModal.vue";
+import { sort } from "@/helpers.js";
 
 export default {
-    components: {
-        ClientItem,
-        PlusSmIconSolid,
-        SwitchVerticalIcon,
-        // PaginationComponent,
-        // OrderFilter
-        ClientModal
-    },
+  components: {
+    TableComponent,
+    PlusSmIconSolid,
+    ClientModal,
+    FilterBar,
+  },
 
-    data() {
+  data() {
+    return {
+      columnsForSort: {
+        id: {
+          type: "int",
+        },
+
+        fio: {
+          type: "text",
+        },
+        tlg: {
+          type: "text",
+        },
+        notes: {
+          type: "text",
+        },
+      },
+      sortDirect: true,
+      listTitle: [
+        { field: "id", title: "ID" },
+        { field: "fio", title: "ФИО" },
+        { field: "tlg", title: "Тереграмм" },
+        { field: "notes", title: "Заметки" },
+      ],
+    };
+  },
+
+  computed: {
+    ...mapState(["ClientsModule", "Globals"]),
+    ...mapGetters("ClientsModule", ["allFilter", "filtered"]),
+    listItem() {
+      return this.filtered.map((item) => {
         return {
-            columns: ["fio", "tlg", "notes"],
-            sortDirect: true,
-            // pageNumber: 1, // по умолчанию 0
-            // size: 10,
+          id: item.id,
+          fio: item.fio,
+          tlg: item.tlg,
+          notes: item.notes,
         };
+      });
     },
+  },
 
-    computed: {
-        ...mapState(["ClientsModule", "Globals"]),
-        // paginatedData() {
-        //     const start = (this.pageNumber - 1) * this.size,
-        //         end = start + this.size;
-        //     return this.ClientsModule.filtered.slice(start, end);
-        // },
-        // pageCount() {
-        //     let l = this.ClientsModule.filtered.length,
-        //         s = this.size;
-        //     return Math.ceil(l / s);
-        // },
+  methods: {
+    ...mapActions("ClientsModule", [
+      "setClientDefault",
+      "toggleModal",
+      "getAllClients",
+      "addFilter",
+      "deleteFilter",
+      "setFilter",
+    ]),
+    ...mapActions("Globals", ["setSidebarNavigation"]),
+    sortList(param) {
+      const { sortDirect, listItem } = sort(
+        param,
+        this.sortDirect,
+        this.columnsForSort,
+        this.filtered
+      );
+      this.sortDirect = sortDirect;
+      this.filtered = listItem;
     },
-    watch: {
-        // pageCount() {
-        //     this.pageNumber = 1;
-        // },
+    addClient() {
+      this.setClientDefault();
+      this.toggleModal(true);
     },
+    showClientModal(param) {
+      this.toggleModal(param);
+    },
+    openModal(id) {
+      this.ClientsModule.client = this.ClientsModule.origin.find((item) => item.id == id);
+      this.toggleModal(true);
+    },
+    localDeleteFilter(id) {
+      this.deleteFilter(id);
+    },
+    setParamFilter(param) {
+      const { field, value, type } = param;
 
-    methods: {
-        ...mapActions(["setClientDefault", "toggleClientModal", "getAllClients", "setSidebarNavigation"]),
-        addClient() {
-            this.setClientDefault();
-            this.toggleClientModal(true)
-        },
-        showClientModal(param) {
-            this.toggleClientModal(param)
-        },
-        sort(param) {
-            this.sortDirect = !this.sortDirect;
-            if (param === this.columns[1] || param === this.columns[2] || param === this.columns[3] || param === this.columns[4]) {
-                if (this.sortDirect) {
-                    this.ClientsModule.filtered.sort((a, b) => (a[param] > b[param] ? 1 : -1));
-                } else {
-                    this.ClientsModule.filtered.sort((a, b) => (a[param] < b[param] ? 1 : -1));
-                }
-            }
-            if (param === this.columns[0] || param === this.columns[5]) {
-                if (this.sortDirect) {
-                    this.ClientsModule.filtered.sort((a, b) => a[param].localeCompare(b[param]));
-                } else {
-                    this.ClientsModule.filtered.sort((a, b) => b[param].localeCompare(a[param]));
-                }
-            }
-        },
-        // nextPage() {
-        //     if (this.pageNumber < this.pageCount) this.pageNumber++;
-        // },
-        // prevPage() {
-        //     if (this.pageNumber > 1) this.pageNumber--;
-        // },
-        // setPage(num) {
-        //     console.log("set");
-        //     if (num > 0 && num <= this.pageCount) this.pageNumber = num;
-        // },
-        // changePage(nextPrev) {
-        //     console.log("changePage");
-        //     if (nextPrev == "next") this.nextPage();
-        //     if (nextPrev == "prev") this.prevPage();
-        //     console.log("changePage2");
-        //     if (typeof nextPrev == "number") this.setPage(nextPrev);
-        // },
+      this.setFilter({ field, value, type });
     },
-    mounted(){
-        this.getAllClients()
-        this.setSidebarNavigation(this.Globals.sidebarNavigation[6].name)
-    }, 
-
-    setup() {
-        return {
-            // people,
-        };
-    },
+  },
+  mounted() {
+    this.getAllClients();
+    this.setSidebarNavigation(this.Globals.sidebarNavigation[6].name);
+  },
 };
 </script>
 
 <style>
 .flip-list-move {
-    transition: transform 0.8s ease;
+  transition: transform 0.8s ease;
 }
 .active {
-    background: blue;
+  background: blue;
 }
 </style>

@@ -25,7 +25,7 @@ import store from '@/store/index'
 
 
 const loginGuard = function (to, from, next) {
-    if (store.getters.isAuthorized) {
+    if (store.getters["AuthModule/isAuthorized"]) {
         next({ name: 'AdminLayout' });
     } else {
         next()
@@ -33,7 +33,7 @@ const loginGuard = function (to, from, next) {
 }
 
 const managerAuthGuard = function (to, from, next) {
-    const isAuth = store.getters.isAuthorized
+    const isAuth = store.getters["AuthModule/isAuthorized"]
     if (isAuth) {
         next();
     } else {
